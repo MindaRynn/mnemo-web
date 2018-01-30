@@ -1,8 +1,8 @@
 import ReactOnRails from 'react-on-rails';
 
-import HelloWorld from '../bundles/HelloWorld/components/HelloWorld';
+import LandingPage from '../bundles/MnemoFrontend/components/LandingPage';
 
-// This is how react_on_rails can see the HelloWorld in the browser.
+// This is how react_on_rails can see the MnemoFrontend in the browser.
 ReactOnRails.register({
-  HelloWorld,
+  LandingPage,
 });
