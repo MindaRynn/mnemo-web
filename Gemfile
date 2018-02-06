@@ -26,6 +26,10 @@ gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'jquery-rails'
+
+gem 'bootstrap', '~> 4.0.0'
+
 gem 'react_on_rails', '10.0.2' # prefer exact gem version to match npm version
 
 gem 'devise' # Authentication solution for Rails with Warden
