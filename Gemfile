@@ -30,6 +30,8 @@ gem 'jquery-rails'
 
 gem 'bootstrap', '~> 4.0.0'
 
+gem 'pry-rails'
+
 gem 'react_on_rails', '10.0.2' # prefer exact gem version to match npm version
 
 gem 'devise' # Authentication solution for Rails with Warden
