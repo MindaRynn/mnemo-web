@@ -1,4 +1,5 @@
 <h2>Log in</h2>
+
 <%= react_component('LoginForm', props: {url: session_path(resource_name), csrfToken: csrf_token}, html_options: {class: 'form'}) %>
 
 <%= render "devise/shared/links" %>
