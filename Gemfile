@@ -36,7 +36,11 @@ gem 'react_on_rails', '10.0.2' # prefer exact gem version to match npm version
 
 gem 'devise' # Authentication solution for Rails with Warden
 
-gem 'omniauth-facebook' # Authentication solution for Rails with Provider
+gem 'omniauth' # Social Authentication solution for Rails
+
+gem 'omniauth-facebook' # Facebook Authentication solution for Rails
+
+gem 'omniauth-google-oauth2' # Google Authentication solution for Rails
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
