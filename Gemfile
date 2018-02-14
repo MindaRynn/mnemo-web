@@ -26,9 +26,11 @@ gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'jquery-rails'
+gem 'jquery-rails' # Gem to import jquery for rails
 
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 4.0.0' # Gem to import bootstrap for rails
+
+gem 'font-awesome-rails' # Gem to import font awesome for rails
 
 gem 'pry-rails'
 

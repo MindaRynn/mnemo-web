@@ -1,0 +1,121 @@
+.login-form {
+  @include flexbox();
+  @include align-items(center);
+  @include justify-content(center);
+  @include flex-direction(column);
+
+  width: 100%;
+}
+
+.login-form form {
+  width: 100%;
+  .form-input-group:first-of-type {
+    margin-top: 3.125rem;
+  }
+
+  .form-input-group {
+    margin-top: 1.25rem;
+  }
+}
+
+.login-form form .form-input-group {
+  @include flexbox();
+  @include justify-content(space-between);
+  @include align-items(center);
+
+  input {
+    width: 21.875rem;
+    height: 3.125rem;
+    padding: 0 1.875rem;
+    border-radius: 0.625rem;
+    border: 1px map-get($brand-gray, 'light') solid;
+  }
+
+  &.flex-end {
+    @include justify-content(flex-end);
+  }
+}
+
+.login-form form .form-input-group .form-group {
+  @include flexbox();
+  @include justify-content(space-between);
+  @include align-items(center);
+
+  font-size: 12px;
+  line-height: 18px;
+  color: map-get($brand-gray, 'dark');
+
+  a {
+    color: map-get($brand-gray, 'dark');
+  }
+
+  a:before {
+    content: ' ';
+  }
+
+  width: 21.875rem;
+
+  &.centered {
+    @include justify-content(center);
+  }
+}
+
+.login-form-container {
+  @include flexbox();
+  @include flex-direction(column);
+  @include justify-content(center);
+  @include align-items(center);
+
+  margin: auto;
+  width: 33.75rem;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+.auth-container {
+  @include flexbox();
+  @include justify-content(space-between);
+  @include align-items(center);
+
+  padding-top: 1.875rem;
+  border-top: 1px map-get($brand-gray, 'light') solid;
+  width: 100%;
+
+  span {
+    font-size: $font-size-h3;
+  }
+  .auth-button-container {
+    a + a {
+      margin-left: 1.875rem;
+    }
+  }
+
+  .auth-button-container a {
+    @include inline-flex();
+    @include justify-content(center);
+    @include align-items(center);
+
+    @extend h3;
+
+    width: 10rem;
+    height: 3.125rem;
+    line-height: 1.75rem;
+    margin-bottom: 0;
+    color: #FFF;
+    border-radius: 0.625rem;
+  }
+
+  .auth-button-container i {
+    margin-right: 1rem;
+  }
+
+  .auth-button-container a.btn-auth-facebook {
+    background-color: $blue-facebook;
+  }
+
+  .auth-button-container a.btn-auth-google {
+    background-color: $red-google;
+  }
+}

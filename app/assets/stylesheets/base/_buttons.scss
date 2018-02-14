@@ -1,0 +1,11 @@
+.btn.btn-primary {
+  background-color: map-get($brand-orange, 'primary');
+  border-color: map-get($brand-orange, 'primary');
+
+  width: 10rem;
+  height: 3.125rem;
+  border-radius: 0.625rem;
+  font-size: $font-size-h3;
+  font-weight: 800;
+  line-height: 1.75rem;
+}

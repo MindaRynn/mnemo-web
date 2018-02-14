@@ -6,30 +6,41 @@ export default class LoginForm extends React.Component {
   }
 
   render() {
-    let {url, csrfToken} = this.props;
+    let {url, csrfToken, signupPath, forgetPasswordPath} = this.props;
 
     return (
       <form action={url}
             method="post"
             autoComplete="off">
 
-        <div>
-          <label htmlFor="email">Email</label>
+        <div className="form-input-group">
+          <label>Username / Email</label>
           <input type="email"
-                          id="user_email"
-                          name="user[email]"/>
+                 id="user_email"
+                 name="user[email]"/>
         </div>
 
-        <div>
+        <div className="form-input-group">
           <label htmlFor="password">Password</label>
           <input type="password"
-                          id="user_password"
-                          name="user[password]"/>
+                 id="user_password"
+                 name="user[password]"/>
         </div>
         <input type="hidden" name="authenticity_token" value={csrfToken} />
-        <button type="submit">
-          Login
-        </button>
+        <div className="form-input-group flex-end">
+          <div className="form-group">
+            <a href={forgetPasswordPath}> Forget your password?</a>
+            <button class="btn btn-primary" type="submit">
+              Sign in
+            </button>
+          </div>
+        </div>
+
+        <div className="form-input-group flex-end">
+          <div className="form-group centered">
+            Don'nt you have an account? <a href={forgetPasswordPath}> Sign up</a>
+          </div>
+        </div>
       </form>
     );
   }
