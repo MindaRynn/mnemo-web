@@ -1,10 +1,10 @@
-<div class="login-form-container">
+<div class="auth-form-container">
   <h1>Sign in</h1>
 
   <%= react_component('LoginForm', props: {url: session_path(resource_name),
                                            csrfToken: csrf_token,
                                            signupPath: new_registration_path(resource_name),
-                                           forgetPasswordPath: new_password_path(resource_name)}, html_options: {class: 'login-form'}) %>
+                                           forgetPasswordPath: new_password_path(resource_name)}, html_options: {class: 'auth-form'}) %>
 
   <%= render partial: 'devise/shared/auth_buttons' %>
 </div>

@@ -1,4 +1,4 @@
-.login-form {
+.auth-form {
   @include flexbox();
   @include align-items(center);
   @include justify-content(center);
@@ -7,7 +7,7 @@
   width: 100%;
 }
 
-.login-form form {
+.auth-form form {
   width: 100%;
   .form-input-group:first-of-type {
     margin-top: 3.125rem;
@@ -18,25 +18,17 @@
   }
 }
 
-.login-form form .form-input-group {
+.auth-form form .form-input-group {
   @include flexbox();
   @include justify-content(space-between);
   @include align-items(center);
-
-  input {
-    width: 21.875rem;
-    height: 3.125rem;
-    padding: 0 1.875rem;
-    border-radius: 0.625rem;
-    border: 1px map-get($brand-gray, 'light') solid;
-  }
 
   &.flex-end {
     @include justify-content(flex-end);
   }
 }
 
-.login-form form .form-input-group .form-group {
+.auth-form form .form-input-group .form-group {
   @include flexbox();
   @include justify-content(space-between);
   @include align-items(center);
@@ -60,7 +52,7 @@
   }
 }
 
-.login-form-container {
+.auth-form-container {
   @include flexbox();
   @include flex-direction(column);
   @include justify-content(center);
@@ -109,13 +101,5 @@
 
   .auth-button-container i {
     margin-right: 1rem;
-  }
-
-  .auth-button-container a.btn-auth-facebook {
-    background-color: $blue-facebook;
-  }
-
-  .auth-button-container a.btn-auth-google {
-    background-color: $red-google;
   }
 }

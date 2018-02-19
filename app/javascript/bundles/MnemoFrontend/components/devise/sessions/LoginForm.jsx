@@ -38,7 +38,7 @@ export default class LoginForm extends React.Component {
 
         <div className="form-input-group flex-end">
           <div className="form-group centered">
-            Don'nt you have an account? <a href={forgetPasswordPath}> Sign up</a>
+            Don'nt you have an account? <a href={signupPath}> Sign up</a>
           </div>
         </div>
       </form>
