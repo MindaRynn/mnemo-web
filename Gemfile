@@ -26,9 +26,23 @@ gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'jquery-rails' # Gem to import jquery for rails
+
+gem 'bootstrap', '~> 4.0.0' # Gem to import bootstrap for rails
+
+gem 'font-awesome-rails' # Gem to import font awesome for rails
+
+gem 'pry-rails'
+
 gem 'react_on_rails', '10.0.2' # prefer exact gem version to match npm version
 
 gem 'devise' # Authentication solution for Rails with Warden
+
+gem 'omniauth' # Social Authentication solution for Rails
+
+gem 'omniauth-facebook' # Facebook Authentication solution for Rails
+
+gem 'omniauth-google-oauth2' # Google Authentication solution for Rails
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console

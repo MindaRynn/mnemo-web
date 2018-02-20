@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,800');
+
+body {
+  font-family: 'Nunito', sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: $font-extra-bold;
+}
+
+h1 {
+  font-size: $font-size-h1;
+}
+
+h2 {
+  font-size: $font-size-h2;
+}
+
+h3 {
+  font-size: $font-size-h3;
+}
+
+input {
+  width: 21.875rem;
+  height: 3.125rem;
+  padding: 0 1.875rem;
+  border-radius: 0.625rem;
+  border: 1px map-get($brand-gray, 'light') solid;
+}

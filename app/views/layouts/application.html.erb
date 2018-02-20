@@ -3,10 +3,12 @@
   <head>
     <title>MnemoWeb</title>
     <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag 'application' %>
     <%= javascript_pack_tag 'webpack-bundle' %>
   </head>
 
-  <body>
+  <body class="<%= controller_name %> <%= action_name %>">
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>
