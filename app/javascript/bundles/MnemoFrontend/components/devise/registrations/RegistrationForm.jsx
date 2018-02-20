@@ -15,27 +15,23 @@ export default class RegistrationForm extends React.Component {
 
         <div className="form-input-group">
           <label htmlFor="name">Name</label>
-          <input id="user_name"
-                 name="user[name]"/>
+          <input name="user[name]"/>
         </div>
 
         <div className="form-input-group">
           <label htmlFor="email">Email</label>
           <input type="email"
-                 id="user_email"
                  name="user[email]"/>
         </div>
 
         <div className="form-input-group">
           <label htmlFor="password">Password</label>
           <input type="password"
-                 id="user_password"
                  name="user[password]"/>
         </div>
         <div className="form-input-group">
           <label htmlFor="password_confirmation">Confirm Password</label>
           <input type="password"
-                 id="user_password_confirmation"
                  name="user[password_confirmation]"/>
         </div>
         <input type="hidden" name="authenticity_token" value={csrfToken} />

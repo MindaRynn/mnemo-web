@@ -16,14 +16,12 @@ export default class LoginForm extends React.Component {
         <div className="form-input-group">
           <label>Username / Email</label>
           <input type="email"
-                 id="user_email"
                  name="user[email]"/>
         </div>
 
         <div className="form-input-group">
           <label htmlFor="password">Password</label>
           <input type="password"
-                 id="user_password"
                  name="user[password]"/>
         </div>
         <input type="hidden" name="authenticity_token" value={csrfToken} />
