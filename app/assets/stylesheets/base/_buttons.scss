@@ -1,23 +1,65 @@
 .btn.btn-primary {
-  background-color: map-get($brand-orange, 'primary');
-  border-color: map-get($brand-orange, 'primary');
-
-  width: 10rem;
-  height: 3.125rem;
-  border-radius: 0.625rem;
-  font-size: $font-size-h3;
-  font-weight: 800;
-  line-height: 1.75rem;
+    background-color: map-get($brand-orange, 'primary');
+    border-color: map-get($brand-orange, 'primary');
+    width: 10rem;
+    height: 3.125rem;
+    border-radius: 0.625rem;
+    font-size: $font-size-h3;
+    font-weight: 800;
+    line-height: 1.75rem;
 }
 
 .btn.btn-auth-facebook {
-  background-color: $blue-facebook;
+    background-color: $blue-facebook;
 }
 
 .btn.btn-auth-google {
-  background-color: $red-google;
+    background-color: $red-google;
 }
 
 .btn.btn-max-width {
-  width: 100%;
+    width: 100%;
+}
+
+.btn.btn-dropdown {
+    background-color: none;
+    color: map-get($brand-gray, 'dark');
+    width: 10rem;
+    height: 3.125rem;
+    font-size: $font-size-h3;
+    font-weight: $font-regular;
+    line-height: 1.75rem;
+    border-radius: 100px;
+    border-color: map-get($brand-orange, 'light');
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 0.625rem;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
