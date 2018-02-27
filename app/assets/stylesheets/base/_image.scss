@@ -1,0 +1,6 @@
+.img.img-border {
+    border-style: solid;
+    border-width: thin;
+    border-radius: 10px;
+    border-color: map-get($brand-gray, 'light');
+}
