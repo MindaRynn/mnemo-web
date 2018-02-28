@@ -1,14 +1,12 @@
 import React from 'react'
 
 export default class PrimaryButton extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
+        let {text} = this.props;
+
         return (
             <div>
-                <button className="btn btn-primary" type="submit">{this.props.text}</button>
+                <button className="btn btn-primary" type="submit">{text}</button>
             </div>
         );
     }
