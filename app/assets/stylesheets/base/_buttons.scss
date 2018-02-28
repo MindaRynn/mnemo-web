@@ -39,27 +39,29 @@
     display: inline-block;
 }
 
-.dropdown-content {
+.dropdown-menu {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: map-get($brand-gray, 'lightest');
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     border-radius: 0.625rem;
     z-index: 1;
 }
 
-.dropdown-content a {
-    color: black;
+.dropdown-menu a {
+    color: map-get($brand-gray, 'dark');
+    text-align: center;
     padding: 12px 16px;
+    font-weight: $font-regular;
     text-decoration: none;
     display: block;
 }
 
-.dropdown-content a:hover {
-    background-color: #f1f1f1
+.dropdown-menu a:hover {
+    background-color: map-get($brand-gray, 'light');
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
+.dropdown-toggle::after {
+    display: none
 }

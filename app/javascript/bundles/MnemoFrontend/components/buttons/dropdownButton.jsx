@@ -5,16 +5,26 @@ class DropdownButton extends React.Component {
         super(props)
     }
 
+    handleChange() {
+        $("#tableMenu a").click(function(e){
+            e.preventDefault(); // cancel the link behaviour
+            var selText = $(this).text();
+            $("#tableButton").text(selText);
+        });
+    }
+
     render() {
         return (
             <div>
-                <div class="dropdown">
-                    <button class="btn btn-dropdown">Dropdown</button>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
+                <div id="tableDiv" className="dropdown">
+                    <button id="tableButton" className="btn btn-dropdown" type="button" data-toggle="dropdown" onClick={this.handleChange}>
+                        {this.props.values[0]}
+                    </button>
+                    <ul id="tableMenu" className="dropdown-menu">
+                        {
+                            this.props.values.map((value) => <li key={value}><a href="#">{value}</a></li>)
+                        }
+                    </ul>
                 </div>
             </div>
         )
