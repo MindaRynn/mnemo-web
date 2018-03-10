@@ -51,3 +51,7 @@ nav {
   color: map-get($brand-gray, 'light');
   opacity: 1;
 }
+
+a:hover {
+  color: map-get($brand-gray, 'dark');
+}
