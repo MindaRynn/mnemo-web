@@ -7,7 +7,8 @@ nav {
   color: white;
   margin: auto;
   width: 1110px;
-  .navbar-brand {
+  .center {
+    text-align: center;
   }
 }
 
@@ -39,4 +40,9 @@ nav {
 .placeholder img {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+input {
+  height: 50px;
+  width: 256px;
 }
