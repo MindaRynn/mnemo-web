@@ -1,14 +1,42 @@
-.nav-bar-form {
-  background-color: #fff;
-  height: 70px;
+.navbar-container {
+  background-color: map-get($brand-orange, 'primary');
   width: 100%;
 }
 
-.nav-bar-container {
+nav {
+  color: white;
   margin: auto;
-  width: 1100px;
-  p {
-    margin: 0;
-    display: inline-block;
+  width: 1110px;
+  .navbar-brand {
   }
+}
+
+.navbar-nav {
+  display: inline-block;
+}
+
+.nav-item {
+  width: auto;
+  display: inline-block;
+}
+
+.nav-item + .nav-item {
+  margin-left: 2rem;
+}
+
+.nav-link {
+  border-radius: 0;
+  color: #fff;
+  a {
+    font-size: 1rem;
+  }
+}
+
+.placeholders {
+  padding-bottom: 3rem;
+}
+
+.placeholder img {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
