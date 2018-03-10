@@ -42,7 +42,12 @@ nav {
   padding-bottom: 1.5rem;
 }
 
-input {
+.navbar-search {
   height: 50px;
   width: 256px;
+}
+
+::placeholder {
+  color: map-get($brand-gray, 'light');
+  opacity: 1;
 }
