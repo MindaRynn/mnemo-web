@@ -10,6 +10,14 @@ nav {
   .center {
     text-align: center;
   }
+  .form-input-group {
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
+  }
+  @include media-breakpoint-down(lg) {
+    width: 100%;
+  }
 }
 
 .navbar-nav {
@@ -33,18 +41,12 @@ nav {
   }
 }
 
-.placeholders {
-  padding-bottom: 3rem;
-}
-
-.placeholder img {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
 .navbar-search {
   height: 50px;
   width: 256px;
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
 }
 
 ::placeholder {
