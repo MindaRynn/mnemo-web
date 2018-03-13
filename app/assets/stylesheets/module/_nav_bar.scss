@@ -6,7 +6,7 @@
 nav {
   color: white;
   margin: auto;
-  width: 1110px;
+  width: 70rem;
   .center {
     text-align: center;
   }
@@ -42,8 +42,8 @@ nav {
 }
 
 .navbar-search {
-  height: 50px;
-  width: 256px;
+  height: 3.125rem;
+  width: 16rem;
   @include media-breakpoint-down(sm) {
     display: none;
   }
