@@ -10,8 +10,8 @@
 
   <body class="<%= controller_name %> <%= action_name %>">
     <%= render partial: 'shared/nav_bar' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div><%= notice %></div>
+    <div><%= alert %></div>
     <%= yield %>
   </body>
 </html>

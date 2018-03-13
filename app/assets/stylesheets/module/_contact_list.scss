@@ -1,0 +1,20 @@
+.contact-list {
+  padding: 0;
+}
+
+.contact-list .contact-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .item-group {
+    @include flexbox();
+    @include justify-content(space-between);
+    @include align-items(center);
+  }
+}
+
+.contact-list li {
+  list-style: none;
+  display: inline-block;
+}

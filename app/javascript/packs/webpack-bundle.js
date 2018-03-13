@@ -5,6 +5,7 @@ import LoginForm from '../bundles/MnemoFrontend/components/devise/sessions/Login
 import RegistrationForm from '../bundles/MnemoFrontend/components/devise/registrations/RegistrationForm';
 import ForgotPasswordForm from '../bundles/MnemoFrontend/components/devise/passwords/ForgotPasswordForm';
 import ResetPasswordForm from '../bundles/MnemoFrontend/components/devise/passwords/ResetPasswordForm';
+import DirectMessagePage from '../bundles/MnemoFrontend/components/rooms/index';
 
 
 // This is how react_on_rails can see the MnemoFrontend in the browser.
@@ -13,5 +14,6 @@ ReactOnRails.register({
   LoginForm,
   RegistrationForm,
   ForgotPasswordForm,
-  ResetPasswordForm
+  ResetPasswordForm,
+  DirectMessagePage
 });
