@@ -1,7 +1,7 @@
 import React from 'react';
 import ContactList from './contactList'
 
-export default class DirectMessagePage extends React.Component {
+export default class DirectMessage extends React.Component {
   constructor(props) {
     super(props);
   }
