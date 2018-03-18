@@ -1,22 +1,18 @@
-require 'travelbook_api/application_controller'
+require 'api/application_controller'
 
-module TravelbookApi
+module Api
   module V1
     class FriendsController < ApplicationController
-      before_action :doorkeeper_authorize!
-      load_and_authorize_resource class: 'Friendship', except: [:index]
-
       def index
         render json: friends,
                current_user: current_user,
-               each_serializer: UserSimpleSerializer,
                status: :ok
       end
 
       private
 
       def friends
-        paginated_resources_for(find_user.friends)
+        find_user.friends
       end
 
       def find_user
