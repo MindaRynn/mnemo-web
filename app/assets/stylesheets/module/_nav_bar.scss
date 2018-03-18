@@ -1,0 +1,59 @@
+.navbar-container {
+  background-color: map-get($brand-orange, 'primary');
+  width: 100%;
+}
+
+nav {
+  color: white;
+  margin: auto;
+  width: 70rem;
+  .center {
+    text-align: center;
+  }
+  .form-input-group {
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
+  }
+  @include media-breakpoint-down(lg) {
+    width: 100%;
+  }
+}
+
+.navbar-nav {
+  display: inline-block;
+}
+
+.nav-item {
+  width: auto;
+  display: inline-block;
+}
+
+.nav-item + .nav-item {
+  margin-left: 2rem;
+}
+
+.nav-link {
+  border-radius: 0;
+  color: #fff;
+  a {
+    font-size: 1rem;
+  }
+}
+
+.navbar-search {
+  height: 3.125rem;
+  width: 16rem;
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
+
+::placeholder {
+  color: map-get($brand-gray, 'light');
+  opacity: 1;
+}
+
+a:hover {
+  color: map-get($brand-gray, 'dark');
+}

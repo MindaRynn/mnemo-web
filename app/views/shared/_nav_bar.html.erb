@@ -1,0 +1,36 @@
+<% if user_signed_in? %>
+  <div class="navbar-container">
+    <nav class="navbar">
+      <div className="form-input-group">
+        <input class="navbar-search" placeholder="search"
+        />
+      </div>
+      <div class="navbar-brand">Logo</div>
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/users/sign_in">New Feed</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/sign_up">Pinned</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/sign_up">Notification</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+<% else %>
+  <div class="navbar-container">
+    <nav class="navbar">
+      <div class="navbar-brand">Logo</div>
+      <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/users/sign_in">Sign in</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/sign_up">Sign up</a>
+          </li>
+        </ul>
+    </nav>
+  </div>
+<% end %>
