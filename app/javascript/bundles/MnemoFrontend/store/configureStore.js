@@ -11,7 +11,6 @@ import pick from 'lodash/pick';
 import rootReducer from '../reducers/';
 import {initialState as initialAppState} from '../reducers/app';
 import loggerMiddleware from '../lib/middlewares/loggerMiddleware';
-import formatNotification from '../helpers/notificationHelper';
 
 export default function configureStore(initialState) {
   const middlewares = [
@@ -35,17 +34,9 @@ export default function configureStore(initialState) {
   // Merge initial auth state set on Rails view (initialState) with client app + auth initial state (initialAppState)
   let composedAppState = objectAssign({}, initialAppState, pick(initialState, ['currentUser']));
 
-  // if any notifications are passed down, add them to the `app` store
-  if(initialState.notification && initialState.notification.message) {
-    composedAppState = objectAssign({}, composedAppState, {
-      notifications: [ formatNotification(initialState.notification.message) ]
-    });
-  }
-
   let composedInitialState = {
     app: composedAppState
   };
-
   const store = createStore(rootReducer, composedInitialState, composedStore);
 
   if (module.hot) {

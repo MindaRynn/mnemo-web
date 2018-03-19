@@ -12,6 +12,12 @@ config['auth'] = {
   localStorageKey: '_mnemo'
 };
 
+config['notificationStatus'] = {
+  success: 0,
+  error: 1,
+  neutral: 2
+};
+
 config['axios'] = {
   timeout: 15000
 };

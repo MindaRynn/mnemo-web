@@ -18,42 +18,45 @@ class DirectMessage extends BaseContainer {
     );
   }
 }
-//
-// DirectMessage.contextTypes = {
-//   /**
-//    * Holds the current logged in user
-//    * */
-//   currentUser: PropTypes.object.isRequired
-// };
-//
-//
-// DirectMessage.propTypes = {
-//   /**
-//    * Holds the available action creators.
-//    * */
-//   actions: PropTypes.object.isRequired,
-//   /**
-//    * Holds the profile store
-//    * */
-//   directMessage: PropTypes.object.isRequired,
-// };
-//
-// function mapStateToProps(state) {
-//   let {directMessage} = state;
-//
-//   return {
-//     directMessage
-//   };
-// }
-//
-// function mapDispatchToProps(dispatch) {
-//   let actions = {
-//     ...userDirectMessageActions
-//   };
-//
-//   return {
-//     actions: bindActionCreators(actions, dispatch)
-//   };
-// }
 
-export default DirectMessage;
+DirectMessage.contextTypes = {
+  /**
+   * Holds the current logged in user
+   * */
+  currentUser: PropTypes.object.isRequired
+};
+
+
+DirectMessage.propTypes = {
+  /**
+   * Holds the available action creators.
+   * */
+  actions: PropTypes.object.isRequired,
+  /**
+   * Holds the profile store
+   * */
+  directMessage: PropTypes.object.isRequired,
+};
+
+function mapStateToProps(state) {
+  let {directMessage} = state;
+
+  return {
+    directMessage
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  let actions = {
+    ...userDirectMessageActions
+  };
+
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DirectMessage);
