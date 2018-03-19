@@ -14,7 +14,7 @@ class DirectMessage extends BaseContainer {
   render() {
 
     return (
-      <DirectMessageScreen />
+      <DirectMessageScreen {...this.props} />
     );
   }
 }

@@ -23,7 +23,6 @@ export default function(method, endpoint, requestOptions = {}) {
     method: method,
     url: endpoint
   };
-
   return request(objectAssign({}, defaultOptions, requestConfig, requestOptions))
     .then(response => {
       try {

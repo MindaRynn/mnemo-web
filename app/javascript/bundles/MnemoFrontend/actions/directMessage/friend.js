@@ -1,6 +1,6 @@
 import * as types from '../../constants/directMessage/friend';
 import FriendsAdapter from '../../adapters/friends';
-// import {appErrorHandler} from '../app';
+import {appErrorHandler} from '../app';
 
 export function fetchingUserFriend() {
   return {type: types.DIRECT_MESSAGE_IS_FETCHING};
@@ -25,13 +25,12 @@ function fetch(userId, page = 1) {
 export function fetchUserFriend(userId, page = 1) {
   return function (dispatch) {
     dispatch(fetchingUserFriend());
-  
     fetch(userId, page)
       .then((response) => {
-        dispatch(userFriendFetchSuccess(response.data));
+        dispatch(userFriendFetchSuccess(response));
       })
       .catch(errors => {
-        // dispatch(appErrorHandler(errors));
+        dispatch(appErrorHandler(errors));
         dispatch(userFriendFetchFailure());
       });
   };

@@ -1,7 +1,7 @@
 let config = {};
 
 config['api'] = {
-
+  friends: '/api/v1/friends'
 };
 
 config['api']['recordPerPage'] = 25;

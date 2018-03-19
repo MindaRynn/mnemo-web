@@ -1,9 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ContactList from './contactList'
 
 export default class DirectMessage extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    let {currentUser} = this.context;
+    let {actions} = this.props;
+
+
+    actions.fetchUserFriend(currentUser.id);
   }
 
   render() {
@@ -31,3 +40,10 @@ export default class DirectMessage extends React.Component {
     );
   }
 }
+
+DirectMessage.contextTypes = {
+  /**
+   * Holds the current logged in user
+   * */
+  currentUser: PropTypes.object.isRequired
+};
