@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
-    <div id="appRoot">
-      <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+    <div class="root-container">
+      <!--<%= link_to('Logout', destroy_user_session_path, method: :delete) %>-->
       <%= react_component('App', props: {
           currentUser: current_user,
       })

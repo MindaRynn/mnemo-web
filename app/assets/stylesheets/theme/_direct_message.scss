@@ -1,0 +1,26 @@
+body.direct-message {
+  height: 100vh;
+
+  .root-container,
+  .root-container > div,
+  .root-container > div .app-container,
+  .root-container > div .app-container .row,
+  .root-container > div .tab-content,
+  .root-container > div .tab-pane,
+  .root-container > div .contact-list {
+    height: 100%;
+  }
+
+}
+body.direct-message .title-container {
+  height: 5.625rem;
+  box-shadow: 0 2px 5px 0 rgba(56,56,56,0.2);
+
+  ul {
+    @include flexbox();
+    @include justify-content(space-evenly);
+    @include align-items(center);
+
+    height: 100%;
+  }
+}

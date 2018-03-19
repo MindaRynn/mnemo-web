@@ -11,22 +11,23 @@ export default class DirectMessage extends React.Component {
     let {currentUser} = this.context;
     let {actions} = this.props;
 
-
     actions.fetchUserFriend(currentUser.id);
   }
 
   render() {
-    let {friends} = this.props;
+    let {directMessage} = this.props
     return (
       <div className="row">
         <div className="col-4">
-          <ul className="nav">
-            <li><a data-toggle="tab" href="#menu1">Contact</a></li>
-            <li><a data-toggle="tab" href="#menu2">Message</a></li>
-          </ul>
+          <div className="title-container">
+            <ul className="nav">
+              <li><a data-toggle="tab" href="#menu1">Contact</a></li>
+              <li><a data-toggle="tab" href="#menu2">Message</a></li>
+            </ul>
+          </div>
 
           <div className="tab-content">
-            <ContactList />
+            <ContactList directMessage={directMessage} />
             <div id="menu2" className="tab-pane fade">
               <h3>Message</h3>
               <p>Message list</p>

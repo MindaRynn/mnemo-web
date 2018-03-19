@@ -6,7 +6,7 @@ export default class ContactList extends React.Component {
   }
 
   render() {
-    let {friendList, className} = this.props;
+    let {directMessage} = this.props;
 
     return (
       <div id="menu1" className="tab-pane fade active show">

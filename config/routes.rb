@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount Api::Engine => "/api"
 
-  resources :friend_requests, :rooms
+  resources :friend_requests
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   get '*path', to: 'home#index'
 
