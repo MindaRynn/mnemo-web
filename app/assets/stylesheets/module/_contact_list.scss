@@ -1,13 +1,18 @@
 .contact-list {
   padding: 0;
-  margin-top: 6px;
-  box-shadow: 0 2px 5px 0 rgba(56,56,56,0.2);
 }
 
 .contact-list .contact-item {
   display: flex;
   align-items: center;
   padding: 10px 30px;
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 2px 15px 0 rgba(56,56,56,0.2);
+  }
+
   .item-group {
     @include flexbox();
     @include justify-content(space-between);

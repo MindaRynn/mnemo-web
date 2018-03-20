@@ -1,9 +1,11 @@
 body.direct-message {
   height: 100vh;
+  overflow: hidden;
 
   .root-container,
   .root-container > div,
   .root-container > div .app-container,
+  .root-container > div .app-container > div,
   .root-container > div .app-container .row,
   .root-container > div .tab-content,
   .root-container > div .tab-pane,
@@ -11,16 +13,80 @@ body.direct-message {
     height: 100%;
   }
 
+  .root-container > div .tab-content {
+    background-color: #fff;
+    box-shadow: 0 2px 5px 0 rgba(56,56,56,0.2);
+  }
+
+  .root-container > div .app-container .row > div {
+    padding: 0;
+  }
+
+  .root-container > div .app-container .row {
+    > div + div {
+      padding-left: 6px;
+    }
+  }
 }
+
 body.direct-message .title-container {
   height: 5.625rem;
   box-shadow: 0 2px 5px 0 rgba(56,56,56,0.2);
+  background-color: #fff;
+  margin-bottom: 6px;
 
-  ul {
+  ul, .profile-container {
     @include flexbox();
     @include justify-content(space-evenly);
     @include align-items(center);
 
     height: 100%;
+  }
+
+  .profile-container {
+    @include justify-content(flex-start);
+
+    padding: 0 30px;
+  }
+}
+
+body.direct-message .title-container {
+  a {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 28px;
+    color: map-get($brand-gray, 'dark');
+  }
+}
+
+body.direct-message .title-container .nav {
+  a {
+    color: map-get($brand-gray, 'light');
+  }
+
+  a.active {
+    color: map-get($brand-gray, 'dark');
+  }
+}
+
+body.direct-message .chat-container {
+  height: 100%;
+  width: 100%;
+}
+
+body.direct-message .chat-container .comment-field-container {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  height: 116px;
+
+  textarea {
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    box-shadow: 2px 0 5px 0 rgba(56,56,56,0.2);
+    padding: 20px;
+    outline: none
   }
 }

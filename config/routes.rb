@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  mount Api::Engine => "/api"
+  namespace :api do
+    namespace :v1 do
+      resources :friends, only: :index
+    end
+  end
 
   resources :friend_requests
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }

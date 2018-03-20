@@ -44,6 +44,8 @@ gem 'omniauth-facebook' # Facebook Authentication solution for Rails
 
 gem 'omniauth-google-oauth2' # Google Authentication solution for Rails
 
+gem 'active_model_serializers', '0.10.4' # Active Record Serializer to JSON format
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 end
@@ -57,5 +59,3 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-
-gem 'api', path: 'engines/api'

@@ -1,10 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ContactList from './contactList'
+import Room from './room'
 
-export default class DirectMessage extends React.Component {
-  constructor(props) {
-    super(props);
+const initialState = {
+  fetchedFriend: false,
+  currentRoomKey: ''
+};
+
+class DirectMessage extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = initialState;
   }
 
   componentDidMount() {
@@ -14,30 +22,45 @@ export default class DirectMessage extends React.Component {
     actions.fetchUserFriend(currentUser.id);
   }
 
+  componentDidUpdate(prevProps) {
+    let {fetchFriendSuccess, friends} = this.props.directMessage.friend
+
+    if(fetchFriendSuccess && !prevProps.directMessage.friend.fetchFriendSuccess) {
+      this.setState({
+        fetchedFriend: true,
+        currentRoomKey: friends[0].room_key
+      });
+    }
+  }
+
   render() {
     let {directMessage} = this.props
-    return (
-      <div className="row">
-        <div className="col-4">
-          <div className="title-container">
-            <ul className="nav">
-              <li><a data-toggle="tab" href="#menu1">Contact</a></li>
-              <li><a data-toggle="tab" href="#menu2">Message</a></li>
-            </ul>
-          </div>
+    let {fetchedFriend, currentRoomKey} = this.state;
 
-          <div className="tab-content">
-            <ContactList directMessage={directMessage} />
-            <div id="menu2" className="tab-pane fade">
-              <h3>Message</h3>
-              <p>Message list</p>
+    return (
+    <div>
+      {fetchedFriend ?
+        <div className="row">
+          <div className="col-3">
+            <div className="title-container">
+              <ul className="nav">
+                <li><a data-toggle="tab" href="#menu1" className="active show">Contact</a></li>
+                <li><a data-toggle="tab" href="#menu2">Message</a></li>
+              </ul>
+            </div>
+
+            <div className="tab-content">
+              <ContactList directMessage={directMessage} currentRoomKey={currentRoomKey}/>
+              <div id="menu2" className="tab-pane fade">
+                <ul className="contact-list">
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="col-8">
-          Chat
-        </div>
-      </div>
+          <Room directMessage={directMessage} />
+        </div> : null
+      }
+    </div>
     );
   }
 }
@@ -48,3 +71,5 @@ DirectMessage.contextTypes = {
    * */
   currentUser: PropTypes.object.isRequired
 };
+
+export default DirectMessage;
