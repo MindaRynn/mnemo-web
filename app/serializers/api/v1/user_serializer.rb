@@ -1,7 +1,7 @@
 module Api
   module V1
     class UserSerializer < ActiveModel::Serializer
-      attributes :name
+      attributes :id, :name
     end
   end
 end

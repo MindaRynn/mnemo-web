@@ -90,3 +90,13 @@ body.direct-message .chat-container .comment-field-container {
     outline: none
   }
 }
+
+body.direct-message div.flex-box {
+  @include flexbox();
+}
+
+body.direct-message .room-placeholder {
+  display: inline-block;
+  margin: auto;
+  color: map-get($brand-gray, 'light');
+}

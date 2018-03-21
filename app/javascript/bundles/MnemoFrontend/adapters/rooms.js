@@ -24,8 +24,27 @@ class RoomsAdapter extends BaseAdapter {
    *
    * @return {Promise} - a promise which will resolve to the response from server
    */
-  static get(userId) {
-    return this.prototype.getRequest(config['api']['rooms'] + '/' + userId);
+  static get(friendId) {
+    return this.prototype.getRequest(config['api']['rooms'] + '/' + friendId);
+  }
+
+  /**
+   * Create a room for a user
+   *
+   * @param {String} [comment] - the actual comment
+   * @param {Object} [travelogue] - the travelogue to which the comment belongs
+   * @return {Promise} - a promise which will resolve to comment create response
+   */
+  static create(user_ids) {
+    let requestParams = {
+      data: {
+        attributes: {
+          user_ids: user_ids
+        },
+      }
+    };
+
+    return this.prototype.postRequest(`${config['api']['rooms']}`, requestParams);
   }
 }
 

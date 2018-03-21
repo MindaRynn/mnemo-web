@@ -9,6 +9,7 @@ import config from '../../config/';
 
 const initialState = {
   fetchedFriend: false,
+  fetchedRoom: false,
   currentRoomKey: ''
 };
 
@@ -28,10 +29,12 @@ class DirectMessage extends React.Component {
     let {actions} = this.props;
 
     actions.fetchUserFriend(currentUser.id);
+    actions.fetchRoom(currentUser.id);
   }
 
   componentDidUpdate(prevProps) {
     let {fetchFriendSuccess, friends} = this.props.directMessage.friend
+    let {fetchRoomSuccess} = this.props.directMessage.room;
 
     if(fetchFriendSuccess && !prevProps.directMessage.friend.fetchFriendSuccess) {
       this.setState({
@@ -39,16 +42,23 @@ class DirectMessage extends React.Component {
         currentRoomKey: friends[0].room_key
       });
     }
+
+    if(fetchRoomSuccess && !prevProps.directMessage.room.fetchRoomSuccess) {
+      this.setState({
+        fetchedRoom: true
+      });
+    }
   }
 
-  _setRoom(roomKey) {
-    console.log('---------------')
-    console.log(roomKey)
-    console.log('---------------')
+  _setRoom(e, friendId) {
+    let {actions} = this.props;
+
+    actions.getRoom(friendId);
   }
 
   render() {
-    let {directMessage, actions} = this.props
+    let {directMessage} = this.props
+    let {rooms} = directMessage.room;
     let {fetchedFriend, currentRoomKey} = this.state;
 
     return (
@@ -65,10 +75,10 @@ class DirectMessage extends React.Component {
 
             <div className="tab-content">
               <ContactList directMessage={directMessage} currentRoomKey={currentRoomKey} itemClickHandler={this._setRoom} firebase={firebase} />
-              <RoomList directMessage={directMessage} actions={actions} />
+              <RoomList rooms={rooms} />
             </div>
           </div>
-          <Room directMessage={directMessage} />
+          <Room directMessage={directMessage} currentRoomKey={currentRoomKey} />
         </div> : null
       }
     </div>

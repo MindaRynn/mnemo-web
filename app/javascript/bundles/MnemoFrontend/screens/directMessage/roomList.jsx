@@ -1,47 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const initialState = {
-  fetchedRoom: false
-};
-
 class RoomList extends React.Component {
 
   constructor(props) {
     super(props)
 
-    this.state = initialState;
+    this._fetchRoom = this._fetchRoom.bind(this);
   }
 
-  componentDidMount() {
-    let {currentUser} = this.context;
-    let {actions} = this.props;
-
-    actions.fetchUserRoom(currentUser.id);
-  }
-
-  componentDidUpdate(prevProps) {
-    let {fetchRoomSuccess} = this.props.directMessage.room
-
-    if(fetchRoomSuccess && !prevProps.directMessage.room.fetchRoomSuccess) {
-      this.setState({
-        fetchedRoom: true
-      });
-    }
+  _fetchRoom(e, room_key){
+    e.preventDefault();
   }
 
   render() {
-    let {rooms} = this.props.directMessage.room;
-    let {fetchedRoom} = this.state;
+    let {rooms} = this.props
 
     return (
       <div id="menu2" className="tab-pane fade">
-        {fetchedRoom ?
           <ul className="contact-list">
             {rooms.map((room, index) => {
 
               return (
-                <li key={index} className="contact-item">
+                <li key={index} className="contact-item" onClick={e => this._fetchRoom(e, room.room_key)}>
                   <div className="item-group">
                     <div className="avatar"></div>
                     <div className="profile-container">
@@ -49,11 +30,9 @@ class RoomList extends React.Component {
                     </div>
                   </div>
                 </li>
-
               );
             })}
-          </ul> : null
-        }
+          </ul>
       </div>
     );
   }

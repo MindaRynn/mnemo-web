@@ -15,7 +15,7 @@ export default class ContactList extends React.Component {
           {friends.map((friend, index) => {
 
             return (
-              <li key={index} className="contact-item">
+              <li key={index} className="contact-item" onClick={e => itemClickHandler(e, friend.id)}>
                 <div className={ `item-group ${friend.room_key == currentRoomKey ? 'selected' : ''}` }>
                   <div className="avatar"></div>
                   <div className="profile-container">

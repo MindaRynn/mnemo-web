@@ -13,6 +13,10 @@ module Api
                status: :ok
       end
 
+      def create
+
+      end
+
       private
 
       def rooms
@@ -27,6 +31,15 @@ module Api
         return current_user if params[:user_id].nil?
 
         User.find(params[:user_id])
+      end
+
+      def room_params
+        ActiveModelSerializers::Deserialization
+          .jsonapi_parse(params, only: permitted_attributes)
+      end
+
+      def permitted_attributes
+        [:user_ids]
       end
     end
   end

@@ -10,6 +10,10 @@ const initialState = {
   getRoomSuccess: false,
   getRoomFailure: false,
 
+  savingRoom: false,
+  roomSaveSuccess: false,
+  roomSaveFailure: false,
+
   rooms: [],
   room: {}
 };
@@ -58,8 +62,33 @@ export default function userRoomReducer(state = initialState, action = {}) {
         getRoomFailure: true
       });
 
+    case actionTypes.ROOM_IS_SAVING:
+      return objectAssign({}, state, {
+        savingRoom: true,
+        roomSaveSuccess: false,
+        roomSaveFailure: false
+      });
+
+    case actionTypes.ROOM_SAVE_SUCCESS:
+      return objectAssign({}, state, {
+        savingRoom: false,
+        roomSaveSuccess: true,
+        roomSaveFailure: false,
+        rooms: [...state.rooms, room.data],
+      });
+
+    case actionTypes.ROOM_SAVE_FAILURE:
+      return objectAssign({}, state, {
+        savingComment: false,
+        commentSaveSuccess: false,
+        commentSaveFailure: true
+      });
+
     default:
       return state;
   }
 }
 
+function createNewRoom() {
+
+}
