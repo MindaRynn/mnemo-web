@@ -4,6 +4,15 @@ config['api'] = {
   friends: '/api/v1/friends'
 };
 
+config['firebase'] = {
+  apiKey: "AIzaSyBXxxmbRknxtHXpg5EvQzgd-i70I3ZKi7k",
+  authDomain: "mnemo-194409.firebaseapp.com",
+  databaseURL: "https://mnemo-194409.firebaseio.com",
+  projectId: "mnemo-194409",
+  storageBucket: "mnemo-194409.appspot.com",
+  messagingSenderId: "589905994837"
+  };
+
 config['api']['recordPerPage'] = 25;
 
 config['auth'] = {

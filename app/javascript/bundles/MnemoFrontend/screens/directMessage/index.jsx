@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as firebase from 'firebase';
+
 import ContactList from './contactList'
 import Room from './room'
+import config from '../../config/';
 
 const initialState = {
   fetchedFriend: false,
@@ -12,7 +15,11 @@ class DirectMessage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    firebase.initializeApp(config['firebase']);
+
     this.state = initialState;
+
+    this._setRoom = this._setRoom.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +40,12 @@ class DirectMessage extends React.Component {
     }
   }
 
+  _setRoom(roomKey) {
+    console.log('---------------')
+    console.log(roomKey)
+    console.log('---------------')
+  }
+
   render() {
     let {directMessage} = this.props
     let {fetchedFriend, currentRoomKey} = this.state;
@@ -50,7 +63,7 @@ class DirectMessage extends React.Component {
             </div>
 
             <div className="tab-content">
-              <ContactList directMessage={directMessage} currentRoomKey={currentRoomKey}/>
+              <ContactList directMessage={directMessage} currentRoomKey={currentRoomKey} itemClickHandler={this._setRoom} firebase={firebase} />
               <div id="menu2" className="tab-pane fade">
                 <ul className="contact-list">
                 </ul>
