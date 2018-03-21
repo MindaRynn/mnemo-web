@@ -23,7 +23,6 @@ export default class ContactList extends React.Component {
                   </div>
                 </div>
               </li>
-
             );
           })}
         </ul>

@@ -25,7 +25,7 @@ function fetch(userId) {
 export function fetchUserRoom(userId) {
   return function (dispatch) {
     dispatch(fetchingUserRoom());
-    fetch(userId, page)
+    fetch(userId)
       .then((response) => {
         dispatch(userRoomFetchSuccess(response));
       })

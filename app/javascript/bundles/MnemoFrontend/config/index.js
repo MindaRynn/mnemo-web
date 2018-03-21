@@ -1,7 +1,8 @@
 let config = {};
 
 config['api'] = {
-  friends: '/api/v1/friends'
+  friends: '/api/v1/friends',
+  rooms: '/api/v1/rooms'
 };
 
 config['firebase'] = {

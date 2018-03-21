@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import * as firebase from 'firebase';
 
 import ContactList from './contactList'
+import RoomList from './roomList'
 import Room from './room'
 import config from '../../config/';
 
@@ -47,7 +48,7 @@ class DirectMessage extends React.Component {
   }
 
   render() {
-    let {directMessage} = this.props
+    let {directMessage, actions} = this.props
     let {fetchedFriend, currentRoomKey} = this.state;
 
     return (
@@ -64,10 +65,7 @@ class DirectMessage extends React.Component {
 
             <div className="tab-content">
               <ContactList directMessage={directMessage} currentRoomKey={currentRoomKey} itemClickHandler={this._setRoom} firebase={firebase} />
-              <div id="menu2" className="tab-pane fade">
-                <ul className="contact-list">
-                </ul>
-              </div>
+              <RoomList directMessage={directMessage} actions={actions} />
             </div>
           </div>
           <Room directMessage={directMessage} />

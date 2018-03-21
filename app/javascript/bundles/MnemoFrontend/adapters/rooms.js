@@ -14,7 +14,7 @@ class RoomsAdapter extends BaseAdapter {
       user_id: userId
     };
 
-    return this.prototype.getRequest(config['api']['friends'], requestParams);
+    return this.prototype.getRequest(config['api']['rooms'], requestParams);
   }
 
   /**
@@ -25,7 +25,7 @@ class RoomsAdapter extends BaseAdapter {
    * @return {Promise} - a promise which will resolve to the response from server
    */
   static get(userId) {
-    return this.prototype.getRequest(config['api']['friends'] + '/' + userId);
+    return this.prototype.getRequest(config['api']['rooms'] + '/' + userId);
   }
 }
 
