@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import PrimaryButton from './buttons/primaryButton';
 
 export default class LandingPage extends React.Component {
   static propTypes = {
@@ -20,9 +21,19 @@ export default class LandingPage extends React.Component {
   render() {
     return (
       <div>
-        <h3>
-          Landing page
-        </h3>
+        <div className="row content">
+          <div className="col-md-1"></div>
+          <div className="col-md-10">
+            <h1>
+              MNEMO
+            </h1>
+            <h2>
+             Welcome to our final project ....
+            </h2>
+            <PrimaryButton text="Join us" />
+          </div>
+          <div className="col-md-1"></div>
+        </div>
       </div>
     );
   }
