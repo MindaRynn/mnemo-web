@@ -1,6 +1,21 @@
-.bgImg {
-    background-image: image-url("landingPage.jpg");
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.home {
+    background-image: image-url("bgLandingPage.jpg");
+    background-repeat: no-repeat;
+    .navbar-container {
+        background-color: transparent;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        color: white;
+    }
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .content {
+        margin-top: 15%
+    }
 }
