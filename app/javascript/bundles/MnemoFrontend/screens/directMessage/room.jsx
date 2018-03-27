@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import appendReactDOM from 'append-react-dom';
 
 import Message from './message'
 
@@ -14,15 +15,20 @@ class Room extends React.Component {
 
   componentDidUpdate(prevProps) {
     let {currentRoom, firebaseRef} = this.props
+    let {currentUser} = this.context;
+
+    let el = document.getElementsByClassName('message-container')[0]
 
     if (prevProps.currentRoom.room_key !== currentRoom.room_key) {
+      document.getElementsByClassName('message-container')[0].innerHTML = ""
       firebaseRef.child(currentRoom.room_key).once('value', function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
-          var childKey = childSnapshot.key;
           var childData = childSnapshot.val();
-          console.log(childData)
-          console.log(childKey)
-          console.log("---------------")
+          var className =  childData.user_id == currentUser.id ? 'mine' : null
+          appendReactDOM(Message, el, {
+            text: childData.message,
+            className: className
+          });
 
         });
       });
@@ -39,6 +45,7 @@ class Room extends React.Component {
 
   _sendText(e) {
     let code = (e.keyCode ? e.keyCode : e.which);
+    let el = document.getElementsByClassName('message-container')[0]
 
     if (code == 13) {
       e.preventDefault();
@@ -55,6 +62,11 @@ class Room extends React.Component {
           message: messageField.value
         }
       )
+
+      appendReactDOM(Message, el, {
+        text: messageField.value,
+        className: 'mine'
+      });
 
       messageField.value = ''
     }
@@ -78,11 +90,7 @@ class Room extends React.Component {
           </div>
 
           <div className="content-group">
-            <div className="message-container">
-              <Message text="test" className="mine" />
-              <Message text="test" />
-              <Message text="test" />
-            </div>
+            <div className="message-container" />
             <div className="comment-field-container">
               <textarea placeholder="Type messages" onKeyPress={e => this._sendText(e)}/>
             </div>
