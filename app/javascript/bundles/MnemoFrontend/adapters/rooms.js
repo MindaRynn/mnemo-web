@@ -35,11 +35,12 @@ class RoomsAdapter extends BaseAdapter {
    * @param {Object} [travelogue] - the travelogue to which the comment belongs
    * @return {Promise} - a promise which will resolve to comment create response
    */
-  static create(user_ids) {
+  static create(user_ids, roomKey) {
     let requestParams = {
       data: {
         attributes: {
-          user_ids: user_ids
+          user_ids: user_ids,
+          room_key: roomKey
         },
       }
     };

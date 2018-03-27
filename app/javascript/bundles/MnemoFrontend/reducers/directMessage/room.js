@@ -19,7 +19,7 @@ const initialState = {
 };
 
 export default function userRoomReducer(state = initialState, action = {}) {
-  let { type, rooms } = action;
+  let { type, rooms, room } = action;
 
   switch(type) {
     case actionTypes.ROOM_IS_FETCHING:
@@ -52,7 +52,7 @@ export default function userRoomReducer(state = initialState, action = {}) {
         gettingRoom: false,
         getRoomSuccess: true,
         getRoomFailure: false,
-        room: state.room
+        room: room
       });
 
     case actionTypes.GET_ROOM_FAILURE:

@@ -3,6 +3,7 @@
       <!--<%= link_to('Logout', destroy_user_session_path, method: :delete) %>-->
       <%= react_component('App', props: {
           currentUser: current_user,
+          csrfToken: csrf_token
       })
       %>
     </div>

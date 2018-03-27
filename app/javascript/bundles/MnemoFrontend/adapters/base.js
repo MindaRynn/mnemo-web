@@ -1,5 +1,6 @@
 import objectAssign from 'object-assign';
 import config from '../config/';
+import PropTypes from 'prop-types';
 import requestManager from '../lib/requestManager';
 
 class BaseAdapter {
@@ -83,7 +84,7 @@ class BaseAdapter {
   _baseParams(requireToken = true) {
     let baseParams = {};
     let accessToken = this._getAccessToken();
-    
+
     if (requireToken && accessToken) {
       baseParams = objectAssign({}, baseParams, {access_token: accessToken});
     }

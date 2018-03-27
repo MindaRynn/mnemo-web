@@ -46,6 +46,8 @@ gem 'omniauth-google-oauth2' # Google Authentication solution for Rails
 
 gem 'active_model_serializers', '0.10.4' # Active Record Serializer to JSON format
 
+gem 'firebase', '~> 0.2.6'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 end

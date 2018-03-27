@@ -1,4 +1,5 @@
 import * as types from '../../constants/directMessage/room';
+import * as firebase from 'firebase';
 import RoomsAdapter from '../../adapters/rooms';
 import {appErrorHandler} from '../app';
 
@@ -73,30 +74,22 @@ export function fetchRoom(userId) {
 
 export function getRoom(friendId) {
   return function (dispatch) {
-    dispatch(fetchingRoom());
+    dispatch(gettingRoom());
     get(friendId)
       .then((response) => {
-        dispatch(roomFetchSuccess(response));
+        if (response.length == 0) {
+          let roomKey = firebase.database().ref().child('rooms').push().key;
+          RoomsAdapter.create([friendId], roomKey)
+            .then((response) => {
+              dispatch(getRoomSuccess(response));
+            })
+        } else {
+          dispatch(getRoomSuccess(response[0]));
+        }
       })
       .catch(errors => {
         dispatch(appErrorHandler(errors));
-        dispatch(roomFetchFailure());
-      });
-  };
-}
-
-export function createRoom(users) {
-  return function (dispatch) {
-    dispatch(roomIsSaving());
-
-    RoomsAdapter
-      .create(users)
-      .then(function (response) {
-        dispatch(roomSaveSuccess(response));
-      })
-      .catch(errors => {
-        dispatch(appErrorHandler(errors));
-        dispatch(roomSaveFailure());
+        dispatch(getRoomFailure());
       });
   };
 }

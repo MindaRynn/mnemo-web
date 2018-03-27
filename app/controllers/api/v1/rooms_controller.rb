@@ -1,6 +1,8 @@
 module Api
   module V1
     class RoomsController < ApplicationController
+      skip_before_action :verify_authenticity_token
+
       def index
         render json: rooms,
                current_user: current_user,
@@ -14,7 +16,13 @@ module Api
       end
 
       def create
+        room = Room.create(room_key: room_params[:room_key])
+        room.users << current_user
+        room.users << User.find(room_params[:user_ids].first)
 
+        render json: room,
+               current_user: current_user,
+               status: :ok
       end
 
       private
@@ -39,7 +47,7 @@ module Api
       end
 
       def permitted_attributes
-        [:user_ids]
+        [:user_ids, :room_key]
       end
     end
   end

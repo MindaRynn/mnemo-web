@@ -7,13 +7,19 @@ body.direct-message {
   .root-container > div .app-container,
   .root-container > div .app-container > div,
   .root-container > div .app-container .row,
-  .root-container > div .tab-content,
   .root-container > div .tab-pane,
   .root-container > div .contact-list {
     height: 100%;
   }
+  .root-container > div .app-container .row {
+    margin: 0;
+  }
 
-  .root-container > div .tab-content {
+  .root-container > div .content-group {
+    height: calc(100% - 6rem);
+  }
+
+  .root-container > div .list .content-group {
     background-color: #fff;
     box-shadow: 0 2px 5px 0 rgba(56,56,56,0.2);
   }
@@ -74,7 +80,7 @@ body.direct-message .chat-container {
   width: 100%;
 }
 
-body.direct-message .chat-container .comment-field-container {
+body.direct-message .chat-container .content-group .comment-field-container {
   position: fixed;
   width: 100%;
   bottom: 0;
@@ -88,6 +94,32 @@ body.direct-message .chat-container .comment-field-container {
     box-shadow: 2px 0 5px 0 rgba(56,56,56,0.2);
     padding: 20px;
     outline: none
+  }
+}
+
+body.direct-message .chat-container .content-group .message-container {
+  height: calc(100% - 116px);
+  padding: 10px;
+
+  .message-group {
+    @include flexbox();
+
+    margin-bottom: 20px;
+
+    .message {
+      background-color: #FFF6E5;
+      padding: 5px 15px;
+      border-radius: 15px 15px 15px 0;
+      box-shadow: 2px 0 5px 0 rgba(56,56,56,0.2);
+    }
+  }
+
+  .message-group.mine {
+    @include justify-content(flex-end);
+
+    .message {
+      border-radius: 15px 15px 0 15px;
+    }
   }
 }
 

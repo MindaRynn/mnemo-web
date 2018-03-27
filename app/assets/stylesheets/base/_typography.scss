@@ -5,6 +5,10 @@ body {
   background-color: map-get($brand-gray, 'lightest');
 }
 
+body .root-container {
+  padding-top: 66px;
+}
+
 h1,
 h2,
 h3 {

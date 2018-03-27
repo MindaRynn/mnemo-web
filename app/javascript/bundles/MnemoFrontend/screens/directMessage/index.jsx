@@ -52,36 +52,32 @@ class DirectMessage extends React.Component {
 
   _setRoom(e, friendId) {
     let {actions} = this.props;
-
     actions.getRoom(friendId);
   }
 
   render() {
     let {directMessage} = this.props
-    let {rooms} = directMessage.room;
+    let {rooms, room} = directMessage.room;
     let {fetchedFriend, currentRoomKey} = this.state;
 
     return (
-    <div>
-      {fetchedFriend ?
-        <div className="row">
-          <div className="col-3">
-            <div className="title-container">
-              <ul className="nav">
-                <li><a data-toggle="tab" href="#menu1" className="active show">Contact</a></li>
-                <li><a data-toggle="tab" href="#menu2">Message</a></li>
-              </ul>
-            </div>
-
-            <div className="tab-content">
-              <ContactList directMessage={directMessage} currentRoomKey={currentRoomKey} itemClickHandler={this._setRoom} firebase={firebase} />
-              <RoomList rooms={rooms} />
-            </div>
+      <div className="row">
+        {fetchedFriend ?
+        <div className="list col-3">
+          <div className="title-container">
+            <ul className="nav">
+              <li><a data-toggle="tab" href="#menu1" className="active show">Contact</a></li>
+              <li><a data-toggle="tab" href="#menu2">Message</a></li>
+            </ul>
           </div>
-          <Room directMessage={directMessage} currentRoomKey={currentRoomKey} />
-        </div> : null
-      }
-    </div>
+
+          <div className="content-group">
+            <ContactList directMessage={directMessage} currentRoomKey={currentRoomKey} itemClickHandler={this._setRoom} firebase={firebase} />
+            <RoomList rooms={rooms}/>
+          </div>
+        </div> : null }
+        <Room currentRoom={room} firebaseRef={firebase.database().ref().child('rooms')} />
+      </div>
     );
   }
 }
