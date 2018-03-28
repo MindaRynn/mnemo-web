@@ -21,17 +21,36 @@ class Room extends React.Component {
 
     if (prevProps.currentRoom.room_key !== currentRoom.room_key) {
       document.getElementsByClassName('message-container')[0].innerHTML = ""
+
       firebaseRef.child(currentRoom.room_key).once('value', function(snapshot) {
+        let itemsProcessed = 0;
+        let length = snapshot.numChildren()
+
         snapshot.forEach(function(childSnapshot) {
+          itemsProcessed++;
+
           var childData = childSnapshot.val();
           var className =  childData.user_id == currentUser.id ? 'mine' : null
           appendReactDOM(Message, el, {
             text: childData.message,
             className: className
           });
-
-        });
+          if(itemsProcessed === length) {
+            el.scrollTo(0, el.scrollHeight - el.clientHeight);
+          }
+        })
       });
+
+      firebaseRef.child(currentRoom.room_key).on('child_added',function(snapshot){
+        let className =  snapshot.val().user_id == currentUser.id ? 'mine' : null
+
+        appendReactDOM(Message, el, {
+          text: snapshot.val().message,
+          className: className
+        });
+
+        el.scrollTo(0, el.scrollHeight - el.clientHeight);
+      })
     }
   }
 
@@ -63,13 +82,10 @@ class Room extends React.Component {
         }
       )
 
-      appendReactDOM(Message, el, {
-        text: messageField.value,
-        className: 'mine'
-      });
-
       messageField.value = ''
     }
+
+    el.scrollTo(0, el.scrollHeight - el.clientHeight);
   }
 
   render() {
