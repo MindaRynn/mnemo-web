@@ -52,6 +52,10 @@ gem 'rails_admin', '~> 1.3'
 
 gem 'figaro'
 
+gem "sinatra"
+
+gem "google-cloud-storage"
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 end
