@@ -7,17 +7,10 @@
       })
       %>
 
-<<<<<<< 9febc8cab9f052293946f18dfc562096e454db8c
       <%# <form method="POST" action="/upload" enctype="multipart/form-data">
         <input type="file" name="file">
         <input type="submit" value="Upload">
       </form> %>
-=======
-      <form method="POST" action="/upload" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-      </form>
->>>>>>> prevent csrf token
     </div>
 <% else %>
   <%= link_to('Login', new_user_session_path)  %>
