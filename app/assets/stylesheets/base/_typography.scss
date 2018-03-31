@@ -2,6 +2,7 @@
 body {
     font-family: 'Nunito', sans-serif;
     background-color: map-get($brand-gray, 'lightest');
+    margin-top: 56px;
 }
 
 body .root-container {

@@ -7,10 +7,10 @@
       })
       %>
 
-      <form method="POST" action="/upload" enctype="multipart/form-data">
+      <%# <form method="POST" action="/upload" enctype="multipart/form-data">
         <input type="file" name="file">
         <input type="submit" value="Upload">
-      </form>
+      </form> %>
     </div>
 <% else %>
   <%= link_to('Login', new_user_session_path)  %>
