@@ -13,6 +13,8 @@ class UploadController < ApplicationController
 
     # The public URL can be used to directly access the uploaded file via HTTP
     file.public_url
+
+    render json: file.public_url
   end
 
   def bucket
