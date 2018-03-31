@@ -42,7 +42,7 @@ export default class EditForm extends React.Component {
       username: e.target.value
     });
   }
- 
+
   handleClick(e) {
     e.preventDefault()
     // Explicitly focus the text input using the raw DOM API.
@@ -173,7 +173,6 @@ export default class EditForm extends React.Component {
             }
           </div>
         </div>
-
       </div>
 
 
