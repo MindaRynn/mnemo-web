@@ -9,6 +9,20 @@
   line-height: 1.75rem;
 }
 
+.btn.btn-tab {
+  height: 3.125rem;
+  font-size: $font-size-h3;
+  background-color: transparent; 
+  font-weight: 800;
+  line-height: 1.75rem;
+  padding: 0px 0px;
+}
+
+.btn:focus,.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
 .btn.btn-auth-facebook {
   background-color: $blue-facebook;
 }
