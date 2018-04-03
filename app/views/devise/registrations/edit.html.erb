@@ -1,6 +1,7 @@
-<div class="auth-form-container">
+<div>
   <%= react_component('EditForm', props: {url: registration_path(resource_name),
                                                   csrfToken: csrf_token,
-                                                  avatarUrl: current_user.image},
-                                          html_options: {class: 'auth-form'}) %>
+                                                  avatarUrl: current_user.image,
+                                                  username: current_user.name,
+                                                  email: current_user.email}) %>
 </div>

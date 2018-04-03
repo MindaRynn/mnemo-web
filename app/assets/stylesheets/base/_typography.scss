@@ -2,7 +2,7 @@
 body {
     font-family: 'Nunito', sans-serif;
     background-color: map-get($brand-gray, 'lightest');
-    margin-top: 56px;
+    margin-top: 100px;
 }
 
 body .root-container {
@@ -33,6 +33,10 @@ input {
     padding: 0 1.875rem;
     border-radius: 0.625rem;
     border: 1px map-get($brand-gray, 'light') solid;
+}
+
+.input.input-width-max {
+  width: 100% !important;
 }
 
 input[type=checkbox] {
