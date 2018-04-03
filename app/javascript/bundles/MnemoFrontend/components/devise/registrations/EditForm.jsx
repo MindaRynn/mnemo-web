@@ -103,7 +103,7 @@ export default class EditForm extends React.Component {
                 <button style={this.state.activeTab == "password" ? {color: '#454550'} : {color: '#d7d7d7'}} name="password" onClick={this.handleTab} className="btn btn-tab">Password</button>
               </div>
             </div>
-            {this.state.activeTab == "profile" && 
+            {this.state.activeTab == "profile" &&
               <div className="col-md-10">
                 <div className="row space-item">
 
