@@ -6,6 +6,7 @@
     "append-react-dom": "^1.0.1",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
+    "compression-webpack-plugin": "^1.1.11",
     "firebase": "^4.11.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
