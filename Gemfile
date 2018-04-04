@@ -48,6 +48,8 @@ gem 'active_model_serializers', '0.10.4' # Active Record Serializer to JSON form
 
 gem 'firebase', '~> 0.2.6'
 
+gem 'rails_admin', '~> 1.3'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 end
