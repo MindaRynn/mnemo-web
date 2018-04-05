@@ -100,6 +100,7 @@ body.direct-message .chat-container .content-group .comment-field-container {
 body.direct-message .chat-container .content-group .message-container {
   height: calc(100% - 116px);
   padding: 10px;
+  overflow: auto;
 
   .message-group {
     @include flexbox();
