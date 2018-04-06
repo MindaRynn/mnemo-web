@@ -19,7 +19,16 @@
 }
 
 .line-split {
-  background-color: peru;
-  width: 3px;
-  height: 100vh;
+  background-color: map-get($brand-orange, "primary");;
+  width: 1px;
+  height: 100%;
+  margin-left: 50%;
+}
+
+.space-item {
+  margin-top: 1.3rem;
+}
+
+.input.input-bio{
+  height: 6rem;
 }
