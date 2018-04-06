@@ -51,6 +51,7 @@ export default class EditForm extends React.Component {
       bio: e.target.value
     });
   }
+
   handleClick(e) {
     e.preventDefault()
     // Explicitly focus the text input using the raw DOM API.
