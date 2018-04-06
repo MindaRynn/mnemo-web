@@ -35,6 +35,17 @@
   width: 100%;
 }
 
+.btn.btn-select-image {
+  background-color: map-get($brand-orange, "lightest");
+  border-color: map-get($brand-orange, "heavy");
+  color: map-get($brand-orange, "primary");
+  width: 150px;
+  border-radius: 0.625rem;
+  font-size: $font-size-h3;
+  font-weight: 800;
+  line-height: 1.75rem;
+}
+
 .btn.btn-dropdown {
   background-color: none;
   color: map-get($brand-gray, "dark");
