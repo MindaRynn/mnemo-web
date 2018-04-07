@@ -86,7 +86,8 @@ export default class EditForm extends React.Component {
 
   render() {
     let {url, csrfToken, signinPath} = this.props;
-    let {avatar} = this.state
+    let {avatar} = this.state;
+    const dummyAvatar = "https://storage.googleapis.com/mnemo-storage/placeHolderAvatar/tempAvatar.jpg";
 
     // debugger
     return (
@@ -151,7 +152,7 @@ export default class EditForm extends React.Component {
                   <div className="col-md-2"><div className="line-split"></div></div>
 
                   <div className="col-md-3">
-                    {avatar ? <Image type="standard" src={this.state.avatar} /> : <Image type="standard" src="https://storage.googleapis.com/mnemo-storage/placeHolderAvatar/tempAvatar.jpg" />}
+                    {avatar ? <Image type="standard" src={this.state.avatar} /> : <Image type="standard" src={dummyAvatar} />}
                     <form id="avatarForm" onSubmit={this.submitHandler} encType="multipart/form-data">
                       <label htmlFor="avatar" style={{marginBottom: "0px"}} className="btn btn-select-image space-item">Select image</label>
                       <input onChange={this.inputOnChangeHandler} style={{display: 'none'}} id="avatar" type="file" name="file" />
