@@ -168,7 +168,7 @@ export default class EditForm extends React.Component {
                 <div className="form-input-group">
                   <div className="row space-item">
                     <div className="col-md-4 align-self-center">
-                      <label htmlFor="username">Current sassword</label>
+                      <label htmlFor="username">Current password</label>
                     </div>
                     <div className="col-md-8">
                       <input type="password" className="input input-width-max" name="user[password]"/>
