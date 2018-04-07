@@ -110,7 +110,7 @@ export default class EditForm extends React.Component {
                     <form ref={(ref) => this.avtarForm = ref} action={url} method="post" autoComplete="off">
                       <div className="form-input-group">
                         <div className="row">
-                          <div className="col-md-4">
+                          <div className="col-md-4 align-self-center">
                             <label htmlFor="username">Username</label>
                           </div>
                           <div className="col-md-8">
@@ -118,7 +118,7 @@ export default class EditForm extends React.Component {
                           </div>
                         </div>
                         <div className="row space-item">
-                          <div className="col-md-4">
+                          <div className="col-md-4 align-self-center">
                             <label htmlFor="email">Email</label>
                           </div>
                           <div className="col-md-8">
@@ -126,11 +126,11 @@ export default class EditForm extends React.Component {
                           </div>
                         </div>
                         <div className="row space-item">
-                          <div className="col-md-4">
+                          <div className="col-md-4 align-self-center">
                             <label htmlFor="bio">Bio</label>
                           </div>
                           <div className="col-md-8">
-                            <input className="input input-width-max" onChange={this.handleChangeBio} name="user[bio]" value={this.state.bio}/>
+                            <textarea className="textarea textarea-width-max" rows="4" onChange={this.handleChangeBio} name="user[bio]" value={this.state.bio}></textarea>
                           </div>
                         </div>
                         <div className="row space-item">
@@ -166,7 +166,7 @@ export default class EditForm extends React.Component {
               <div className="col-md-6">
                 <div className="form-input-group">
                   <div className="row space-item">
-                    <div className="col-md-4">
+                    <div className="col-md-4 align-self-center">
                       <label htmlFor="username">Current sassword</label>
                     </div>
                     <div className="col-md-8">
@@ -174,7 +174,7 @@ export default class EditForm extends React.Component {
                     </div>
                   </div>
                   <div className="row space-item">
-                    <div className="col-md-4">
+                    <div className="col-md-4 align-self-center">
                       <label htmlFor="email">New password</label>
                     </div>
                     <div className="col-md-8">
@@ -182,7 +182,7 @@ export default class EditForm extends React.Component {
                     </div>
                   </div>
                   <div className="row space-item">
-                    <div className="col-md-4">
+                    <div className="col-md-4 align-self-center">
                       <label htmlFor="email">Re-enter password</label>
                     </div>
                     <div className="col-md-8">
