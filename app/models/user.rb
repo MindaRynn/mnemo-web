@@ -22,6 +22,21 @@ class User < ApplicationRecord
     end
   end
 
+  def clean_up_passwords
+    self.password = self.password_confirmation = nil
+  end
+
+  def update_without_password(params, *options)
+    if params[:password].nil?
+      params.delete(:password)
+      params.delete(:password_confirmation)
+    end
+
+    result = update_attributes(params, *options)
+    clean_up_passwords
+    result
+  end
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
