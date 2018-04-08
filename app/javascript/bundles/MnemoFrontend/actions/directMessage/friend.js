@@ -24,6 +24,7 @@ function fetch(userId, page = 1) {
 
 export function fetchUserFriend(userId, page = 1) {
   return function (dispatch) {
+
     dispatch(fetchingUserFriend());
     fetch(userId, page)
       .then((response) => {

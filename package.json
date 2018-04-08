@@ -6,6 +6,7 @@
     "append-react-dom": "^1.0.1",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
+    "compression-webpack-plugin": "^1.1.11",
     "firebase": "^4.11.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
@@ -17,7 +18,8 @@
     "react-router-scroll": "^0.4.4",
     "redux": "^3.7.2",
     "redux-immutable-state-invariant": "^2.1.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "uglifyjs-webpack-plugin": "^1.2.4"
   },
   "devDependencies": {
     "webpack-dev-server": "^2.11.1"

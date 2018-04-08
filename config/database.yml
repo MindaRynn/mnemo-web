@@ -79,7 +79,4 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: mnemo-web_production
-  username: mnemo-web
-  password: <%= ENV['MNEMO-WEB_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
