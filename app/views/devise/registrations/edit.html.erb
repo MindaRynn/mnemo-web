@@ -5,5 +5,5 @@
                                                   username: current_user.name,
                                                   email: current_user.email,
                                                   bio: current_user.bio,
-                                                  resetPasswordToken: params[:reset_password_token]}) %>
+                                                  resetPasswordToken: current_user.send_reset_password_instructions}) %>
 </div>
