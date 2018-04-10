@@ -11,7 +11,6 @@ import ProfileForm from '../bundles/MnemoFrontend/components/devise/registration
 import PasswordForm from '../bundles/MnemoFrontend/components/devise/registrations/PasswordForm';
 import App from '../bundles/MnemoFrontend/App';
 import Profile from '../bundles/MnemoFrontend/containers/Profile';
-
 // This is how react_on_rails can see the MnemoFrontend in the browser.
 ReactOnRails.register({
   LandingPage,
