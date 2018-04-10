@@ -1,6 +1,8 @@
 .setting-container {
-  margin-left: 3.438rem;
-  margin-right: 3.438rem;
+  // margin-left: 3.438rem;
+  // margin-right: 3.438rem;
+  margin-left: 8rem;
+  margin-right: 8rem;
 
   .row {
     margin-left: 0px;
@@ -38,5 +40,26 @@
 
   &.active {
     display: block;
+  }
+}
+
+body.edit .setting-container {
+  a {
+    font-size: $font-size-h2;
+    font-weight: 800;
+    line-height: 28px;
+    color: map-get($brand-gray, 'dark');
+  }
+}
+
+body.edit .setting-container .nav {
+  display: block;
+
+  a {
+    color: map-get($brand-gray, 'light');
+  }
+
+  a.active {
+    color: map-get($brand-gray, 'dark');
   }
 }
