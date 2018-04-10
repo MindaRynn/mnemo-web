@@ -32,3 +32,11 @@
 .input.input-bio{
   height: 6rem;
 }
+
+.setting-container .tab-pane {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}

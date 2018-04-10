@@ -71,15 +71,7 @@ GEM
     crass (1.0.3)
     declarative (0.0.10)
     declarative-option (0.1.0)
-<<<<<<< HEAD
-<<<<<<< HEAD
-    devise (4.4.3)
-=======
     devise (4.3.0)
->>>>>>> prevent csrf token
-=======
-    devise (4.4.3)
->>>>>>> add css line
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 6.0)
@@ -337,15 +329,7 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uber (0.1.0)
-<<<<<<< HEAD
-<<<<<<< HEAD
-    uglifier (4.1.8)
-=======
     uglifier (4.1.5)
->>>>>>> prevent csrf token
-=======
-    uglifier (4.1.8)
->>>>>>> add css line
       execjs (>= 0.3.0, < 3)
     warden (1.2.7)
       rack (>= 1.0)

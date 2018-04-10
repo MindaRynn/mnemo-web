@@ -6,15 +6,7 @@
           csrfToken: csrf_token
       })
       %>
-      <form method="POST" action="/upload" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-      </form>
     </div>
 <% else %>
-  <%= link_to('Login', new_user_session_path)  %>
-  <%= link_to('Register', new_user_registration_path)  %>
-  <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+    <%= react_component 'LandingPage' %>
 <% end %>
-
-<%= react_component 'LandingPage' %>
