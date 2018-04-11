@@ -2,7 +2,8 @@ let config = {};
 
 config['api'] = {
   friends: '/api/v1/friends',
-  rooms: '/api/v1/rooms'
+  rooms: '/api/v1/rooms',
+  capsules: '/api/v1/time_capsules'
 };
 
 config['firebase'] = {
