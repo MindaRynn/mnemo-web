@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import BaseContainer from './Base';
-import DirectMessageScreen from '../screens/directMessage/';
 
 // import {ProfileActions} from '../actions/profile/';
 

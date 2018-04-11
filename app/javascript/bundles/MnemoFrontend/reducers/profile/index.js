@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
-// import friendReducer from './friend';
+import capsuleReducer from './capsule';
 // import roomReducer from './room';
 
 const profileRootReducer = combineReducers({
-  // friend: friendReducer,
+  capsule: capsuleReducer
   // room: roomReducer
 });
 
