@@ -39,14 +39,6 @@ export default class ProfileForm extends React.Component {
     });
   }
 
-  handleClick(e) {
-    e.preventDefault();
-    // Explicitly focus the text input using the raw DOM API.
-    if (this.avtarForm !== null) {
-      // debugger
-    }
-  }
-
   inputOnChangeHandler(e) {
     document.getElementById("submitButton").click();
   }
@@ -80,8 +72,7 @@ export default class ProfileForm extends React.Component {
               ref={ref => (this.avtarForm = ref)}
               action={url}
               method="post"
-              autoComplete="off"
-            >
+              autoComplete="off">
               <div className="form-input-group">
                 <div className="row">
                   <div className="col-md-4 align-self-center">
@@ -92,8 +83,7 @@ export default class ProfileForm extends React.Component {
                       className="input input-width-max"
                       onChange={this.handleChangeUsername}
                       name="user[name]"
-                      value={this.state.username}
-                    />
+                      value={this.state.username}/>
                   </div>
                 </div>
                 <div className="row space-item">
@@ -105,8 +95,7 @@ export default class ProfileForm extends React.Component {
                       className="input input-width-max"
                       onChange={this.handleChangeEmail}
                       name="user[email]"
-                      value={this.state.email}
-                    />
+                      value={this.state.email}/>
                   </div>
                 </div>
                 <div className="row space-item">
@@ -119,20 +108,15 @@ export default class ProfileForm extends React.Component {
                       rows="4"
                       onChange={this.handleChangeBio}
                       name="user[bio]"
-                      value={this.state.bio}
-                    />
+                      value={this.state.bio}/>
                   </div>
                 </div>
                 <div className="row space-item">
                   <div className="col-md-4" />
                   <div className="col-md-8">
                     <button
-                      onClick={e => {
-                        this.handleClick;
-                      }}
                       className="btn btn-primary btn-max-width"
-                      type="submit"
-                    >
+                      type="submit">
                       Save change
                     </button>
                   </div>
@@ -142,14 +126,12 @@ export default class ProfileForm extends React.Component {
               <input
                 type="hidden"
                 name="authenticity_token"
-                value={csrfToken}
-              />
+                value={csrfToken}/>
               <input type="hidden" name="_method" value="put" />
               <input
                 type="hidden"
                 name="user[image]"
-                value={this.state.avatar}
-              />
+                value={this.state.avatar}/>
             </form>
           </div>
 
@@ -166,13 +148,11 @@ export default class ProfileForm extends React.Component {
             <form
               id="avatarForm"
               onSubmit={this.submitHandler}
-              encType="multipart/form-data"
-            >
+              encType="multipart/form-data">
               <label
                 htmlFor="avatar"
                 style={{ marginBottom: "0px" }}
-                className="btn btn-select-image space-item"
-              >
+                className="btn btn-select-image space-item">
                 Select image
               </label>
               <input
@@ -180,14 +160,12 @@ export default class ProfileForm extends React.Component {
                 style={{ display: "none" }}
                 id="avatar"
                 type="file"
-                name="file"
-              />
+                name="file"/>
               <input
                 id="submitButton"
                 style={{ display: "none" }}
                 type="submit"
-                value="Upload"
-              />
+                value="Upload"/>
             </form>
           </div>
         </div>

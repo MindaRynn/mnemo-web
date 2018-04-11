@@ -5,10 +5,6 @@ export default class PasswordForm extends React.Component {
     super(props);
   }
 
-  handleClick(e) {
-    e.preventDefault();
-  }
-
   render() {
     let { url, csrfToken, resetPasswordToken } = this.props;
 
@@ -25,8 +21,7 @@ export default class PasswordForm extends React.Component {
                   <input
                     type="password"
                     className="input input-width-max"
-                    name="user[password]"
-                  />
+                    name="user[password]"/>
                 </div>
               </div>
               <div className="row space-item">
@@ -37,8 +32,7 @@ export default class PasswordForm extends React.Component {
                   <input
                     type="password"
                     className="input input-width-max"
-                    name="user[password_confirmation]"
-                  />
+                    name="user[password_confirmation]"/>
                 </div>
               </div>
               <input type="hidden" name="_method" value="put" />
@@ -46,18 +40,13 @@ export default class PasswordForm extends React.Component {
               <input
                 type="hidden"
                 name="user[reset_password_token]"
-                value={resetPasswordToken}
-              />
+                value={resetPasswordToken}/>
               <div className="row space-item">
                 <div className="col-md-4" />
                 <div className="col-md-8">
                   <button
-                    onClick={e => {
-                      this.handleClick;
-                    }}
                     className="btn btn-primary btn-max-width"
-                    type="submit"
-                  >
+                    type="submit">
                     Save change
                   </button>
                 </div>
