@@ -28,8 +28,8 @@ class Profile extends React.Component {
     return (
       <div>
         <div className="row">
-          <div className="col-4 text-center">
-            <Image type="standard" src={this.state.avatar}/>
+          <div className="col-4" >
+            <center><Image type="standard" src={this.state.avatar}/></center>
           </div>
           <div className="col-5">
             <div className="row"><h2>{this.state.name}</h2></div>
