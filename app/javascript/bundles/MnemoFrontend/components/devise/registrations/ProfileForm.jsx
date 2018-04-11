@@ -56,12 +56,9 @@ export default class ProfileForm extends React.Component {
 
     let data = new FormData(e.target);
     let _this = this;
-    // console.log(_this)
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/upload");
     xhr.onload = function(event) {
-      // debugger
-
       _this.setState({
         avatar: event.target.response
       });

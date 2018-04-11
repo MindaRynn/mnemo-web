@@ -19,7 +19,6 @@ export default class EditForm extends React.Component {
     let {url, csrfToken, signinPath, resetPasswordToken} = this.props;
     let {avatar} = this.state;
 
-    // debugger
     return (
       <div>
         <div className="setting-container">

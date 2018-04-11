@@ -37,9 +37,9 @@
 
 .btn.btn-select-image {
   background-color: map-get($brand-orange, "lightest");
-  border-color: map-get($brand-orange, "heavy");
+  border-color: map-get($brand-orange, "dark");
   color: map-get($brand-orange, "primary");
-  width: 150px;
+  width: 9.375rem;
   border-radius: 0.625rem;
   font-size: $font-size-h3;
   font-weight: 800;

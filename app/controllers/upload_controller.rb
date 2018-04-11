@@ -21,7 +21,7 @@ class UploadController < ApplicationController
     keyfile = File.join(Rails.root, 'app', 'assets', 'config', 'keyfile.json')
 
     $storage = Google::Cloud::Storage.new(
-      project_id: "mnemo-194409",
+      project_id: Figaro.env.project_id,
       credentials: keyfile
     )
 
