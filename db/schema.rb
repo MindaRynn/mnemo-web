@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180411112722) do
+ActiveRecord::Schema.define(version: 20180411154853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,10 @@ ActiveRecord::Schema.define(version: 20180411112722) do
     t.text "media_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "memory_box_id"
+    t.index ["memory_box_id"], name: "index_media_on_memory_box_id"
+    t.index ["user_id"], name: "index_media_on_user_id"
   end
 
   create_table "memory_boxes", force: :cascade do |t|
@@ -34,6 +38,10 @@ ActiveRecord::Schema.define(version: 20180411112722) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "time_capsule_id"
+    t.index ["time_capsule_id"], name: "index_memory_boxes_on_time_capsule_id"
+    t.index ["user_id"], name: "index_memory_boxes_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -54,6 +62,8 @@ ActiveRecord::Schema.define(version: 20180411112722) do
   create_table "time_capsules", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_time_capsules_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
