@@ -1,0 +1,2 @@
+class TimeCapsule < ApplicationRecord
+end
