@@ -10,7 +10,7 @@ gem 'pg', '~> 0.18' # Use postgresql as the database for Active Record
 gem 'puma', '~> 3.7' # Use Puma as the app server
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
-gem 'webpacker' # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
+gem 'webpacker', '3.2.1' # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -51,6 +51,10 @@ gem 'firebase', '~> 0.2.6'
 gem 'rails_admin', '~> 1.3'
 
 gem 'figaro'
+
+gem "sinatra"
+
+gem "google-cloud-storage"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console

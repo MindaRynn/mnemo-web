@@ -10,11 +10,14 @@ class Image extends React.Component {
   render() {
     let size = types[this.props.type] || types.standard;
     let { src } = this.props;
+    const imageStyle = {
+      width: size,
+      height: size,
+      backgroundImage: `url(${src})`
+    }
 
     return (
-      <div>
-        <img className="img img-border" width={size} height={size} src={src} />
-      </div>
+      <div className="img img-border" style={imageStyle} ></div>
     );
   }
 }

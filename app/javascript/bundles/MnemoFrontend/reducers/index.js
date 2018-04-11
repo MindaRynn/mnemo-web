@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   routing: routerReducer,
   // Application reducers
   app: appReducer,
-  directMessage: directMessageReducer,
+  directMessage: directMessageReducer
 });
 
 export default rootReducer;

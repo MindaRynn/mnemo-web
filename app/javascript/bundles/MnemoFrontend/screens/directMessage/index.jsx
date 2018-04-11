@@ -52,6 +52,7 @@ class DirectMessage extends React.Component {
 
   _setRoom(e, friendId) {
     let {actions} = this.props;
+
     actions.getRoom(friendId);
   }
 
