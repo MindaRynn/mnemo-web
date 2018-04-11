@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180407180308) do
+ActiveRecord::Schema.define(version: 20180411112722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,20 @@ ActiveRecord::Schema.define(version: 20180407180308) do
   create_table "friendships", force: :cascade do |t|
     t.integer "user_id"
     t.integer "friend_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "media", force: :cascade do |t|
+    t.integer "media_type"
+    t.text "media_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "memory_boxes", force: :cascade do |t|
+    t.text "subject"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -35,6 +49,11 @@ ActiveRecord::Schema.define(version: 20180407180308) do
     t.bigint "room_id", null: false
     t.index ["room_id", "user_id"], name: "index_rooms_users_on_room_id_and_user_id"
     t.index ["user_id", "room_id"], name: "index_rooms_users_on_user_id_and_room_id"
+  end
+
+  create_table "time_capsules", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
