@@ -1,0 +1,2 @@
+class MemoryBox < ApplicationRecord
+end
