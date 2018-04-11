@@ -3,7 +3,9 @@ let config = {};
 config['api'] = {
   friends: '/api/v1/friends',
   rooms: '/api/v1/rooms',
-  capsules: '/api/v1/time_capsules'
+  time_capsules: '/api/v1/time_capsules',
+  medium: '/api/v1/medium',
+  memory_boxes: '/api/v1/memory_boxes'
 };
 
 config['firebase'] = {

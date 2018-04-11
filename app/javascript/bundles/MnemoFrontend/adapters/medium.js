@@ -1,9 +1,9 @@
 import config from '../config/';
 import BaseAdapter from './base';
 
-class CapsulesAdapter extends BaseAdapter {
+class MediumAdapter extends BaseAdapter {
   /**
-   * Get capsules of a user identified by `userId`
+   * Get meium of a user identified by `userId`
    *
    * @param userId {String} - id of the user whose friends are to be fetched
    *
@@ -14,8 +14,8 @@ class CapsulesAdapter extends BaseAdapter {
       user_id: userId
     };
 
-    return this.prototype.getRequest(config['api']['time_capsules'], requestParams);
+    return this.prototype.getRequest(config['api']['medium'], requestParams);
   }
 }
 
-export default CapsulesAdapter;
+export default MediumAdapter;
