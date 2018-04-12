@@ -82,18 +82,63 @@ body.direct-message .chat-container {
 
 body.direct-message .chat-container .content-group .comment-field-container {
   position: fixed;
-  width: 100%;
+  background-color: #fff;
   bottom: 0;
-  height: 116px;
+  height: 220px;
+  border: none;
+  box-shadow: 2px 0 5px 0 rgba(56,56,56,0.2);
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  outline: none;
 
   textarea {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     width: 100%;
-    height: 100%;
-
+    height: 6.25rem;
+    background-color: map-get($brand-gray, "lightest");
     border: none;
-    box-shadow: 2px 0 5px 0 rgba(56,56,56,0.2);
-    padding: 20px;
     outline: none
+  }
+}
+
+body.direct-message .chat-container .content-group .comment-field-container .timing-container {
+  display: inline-flex;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  label {
+    color: map-get($brand-orange, "primary");
+  }
+}
+
+body.direct-message .chat-container .content-group .comment-field-container .upload-container {
+  display: inline-flex;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  .align-right {
+      text-align: right;
+  }
+
+  i {
+    color: map-get($brand-orange, "light");
+    padding-right: 1.25rem;
+  }
+
+  button {
+    width: 5rem;
+    height: 1.875rem;
+    color: white;
+    font-weight: bolder;
+    background-color: map-get($brand-orange, "primary");
+    border-radius: 1rem;
+    border: none;
   }
 }
 

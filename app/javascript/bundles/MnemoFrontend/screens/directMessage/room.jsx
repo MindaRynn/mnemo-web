@@ -92,7 +92,7 @@ class Room extends React.Component {
     let {currentRoom} = this.props;
 
     return (
-    <div className={`col-9 ${Object.getOwnPropertyNames(currentRoom).length === 0 ? 'flex-box' : ''}`}>
+    <div className={`col-8 ${Object.getOwnPropertyNames(currentRoom).length === 0 ? 'flex-box' : ''}`}>
       { Object.getOwnPropertyNames(currentRoom).length === 0 ?
         <div className="room-placeholder">
           Text to someone to Create you Chat room
@@ -107,8 +107,27 @@ class Room extends React.Component {
 
           <div className="content-group">
             <div className="message-container" />
-            <div className="comment-field-container">
+            <div className="col-8 comment-field-container">
               <textarea placeholder="Type messages" onKeyPress={e => this._sendText(e)}/>
+              <div className="timing-container">
+                <div className="col-md-6">
+                  <label>Wrap time: </label>
+
+                </div>
+                <div className="col-md-6">
+                  <label>Open time: </label>
+                </div>
+              </div>
+              <div className="upload-container">
+                <div className="col-md-6">
+                  <i className="fa fa-microphone"></i>
+                  <i className="fa fa-image"></i>
+                  <i className="fa fa-video-camera"></i>
+                </div>
+                <div className="col-md-6 align-right">
+                  <button>Post</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
