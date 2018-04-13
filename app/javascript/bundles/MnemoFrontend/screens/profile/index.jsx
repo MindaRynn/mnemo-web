@@ -65,7 +65,6 @@ class Profile extends React.Component {
             <input className="form-control" type="text" placeholder="Writing something.."/>
             <div className="input-group-append">
               <label htmlFor="file" style={{ marginBottom: "0px" }} id="upload-icon" className="btn align-middle"><i className="fa fa-image"></i></label>
-
               <input style={{ display: "none" }} id="file" type="file" name="file"/>
             </div>
           </div>
