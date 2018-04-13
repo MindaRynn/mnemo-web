@@ -48,6 +48,7 @@ body.profile .profile-container {
 
 body.profile .profile-container .nav {
   margin-bottom: 1rem;
+
   .space-toggle {
     margin-left: 2rem;
   }
@@ -60,3 +61,4 @@ body.profile .profile-container .nav {
     color: map-get($brand-gray, 'dark');
   }
 }
+
