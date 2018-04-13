@@ -1,21 +1,7 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> add data-toggle
 body.profile .profile-container {
   margin-left: 10rem;
   margin-right: 10rem;
   margin-top: 8rem;
-<<<<<<< HEAD
-=======
-body.profile {
-  .app-container {
-    margin-left: 10rem;
-    margin-right: 10rem;
-  }
->>>>>>> edit position component
-=======
->>>>>>> add data-toggle
 }
 
 .sameline {
@@ -25,11 +11,8 @@ body.profile {
 #upload-icon {
   background-color: white;
   border-color: #ced4da #ced4da #ced4da transparent;
-<<<<<<< HEAD
   border-radius: 0rem 0.625rem 0.625rem 0rem;
   z-index: 0;
-=======
->>>>>>> add data-toggle
 }
 
 .profile-container .tab-pane {
@@ -47,7 +30,6 @@ body.profile .profile-container {
     line-height: 28px;
     color: map-get($brand-gray, 'dark');
   }
-<<<<<<< HEAD
 
   .card-header {
     background-color: white;
@@ -66,11 +48,6 @@ body.profile .profile-container {
 
 body.profile .profile-container .nav {
   margin-bottom: 1rem;
-=======
-}
-
-body.profile .profile-container .nav {
->>>>>>> add data-toggle
   .space-toggle {
     margin-left: 2rem;
   }
@@ -82,9 +59,5 @@ body.profile .profile-container .nav {
   a.active {
     color: map-get($brand-gray, 'dark');
   }
-<<<<<<< HEAD
 }
 
-=======
-}
->>>>>>> add data-toggle
