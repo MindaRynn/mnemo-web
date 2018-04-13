@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import config from '../../config/';
 import Image from '../../components/image/';
 import PrimaryButton from '../../components/buttons/primaryButton';
+import Capsule from './capsule'
 
 class Profile extends React.Component {
   constructor(props, context) {
@@ -21,6 +22,18 @@ class Profile extends React.Component {
   }
 
   componentDidUpdate(prevProps) {}
+
+  createCapsule = () => {
+    let capsule = [];
+    for(let i = 0; i < 4; i++) {
+      capsule.push(
+        <div key={i.toString()} className="col-4">
+          <Capsule name={this.state.name} date="20 jan 2018" file={this.state.avatar} like="50" comment="hello" view="30"/>
+        </div>
+      )
+    }
+    return capsule;
+  }
 
   render() {
     let {profile} = this.props
@@ -51,7 +64,7 @@ class Profile extends React.Component {
           <div className="input-group">
             <input className="form-control" type="text" placeholder="Writing something.."/>
             <div className="input-group-append">
-              <label htmlFor="file" style={{ marginBottom: "0px" }} id="upload-icon" className="btn">Upload</label>
+              <label htmlFor="file" style={{ marginBottom: "0px" }} id="upload-icon" className="btn align-middle"><i className="fa fa-image"></i></label>
               <input style={{ display: "none" }} id="file" type="file" name="file"/>
             </div>
           </div>
@@ -59,6 +72,11 @@ class Profile extends React.Component {
             <li className="space-item"><a data-toggle="tab" href="#menu1" className="space-toggle active show">All</a></li>
             <li className="space-item"><a data-toggle="tab" href="#menu2" className="space-toggle">Opened</a></li>
           </ul>
+          
+          <div className="row">
+            {this.createCapsule()}
+          </div>
+          
         </div>
       </div>
     );

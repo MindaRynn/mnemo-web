@@ -11,6 +11,8 @@ body.profile .profile-container {
 #upload-icon {
   background-color: white;
   border-color: #ced4da #ced4da #ced4da transparent;
+  border-radius: 0rem 0.625rem 0.625rem 0rem;
+  z-index: 0;
 }
 
 .profile-container .tab-pane {
@@ -28,9 +30,24 @@ body.profile .profile-container {
     line-height: 28px;
     color: map-get($brand-gray, 'dark');
   }
+
+  .card-header {
+    background-color: white;
+    border: 0px;
+  }
+
+  .card-img-top {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+  }
+
+  .form-control {
+    border-radius: 0.625rem 0rem 0rem 0.625rem;
+  }
 }
 
 body.profile .profile-container .nav {
+  margin-bottom: 1rem;
   .space-toggle {
     margin-left: 2rem;
   }
@@ -43,3 +60,6 @@ body.profile .profile-container .nav {
     color: map-get($brand-gray, 'dark');
   }
 }
+
+
+
