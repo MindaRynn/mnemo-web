@@ -12,16 +12,26 @@ class Room extends React.Component {
     this._roomName = this._roomName.bind(this);
     this._sendText = this._sendText.bind(this);
     this.state = {
-      startDate: moment()
+      startDate: moment(),
+      endDate: moment()
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(date) {
-    this.setState({
-      startDate: date
-    });
+  handleChange = ({ startDate, endDate }) => {
+    startDate = startDate || this.state.startDate
+    endDate = endDate || this.state.endDate
+
+    if (startDate.isAfter(endDate)) {
+      endDate = startDate
+    }
+
+    this.setState({ startDate, endDate })
   }
+
+  handleChangeStart = (startDate) => this.handleChange({ startDate })
+
+  handleChangeEnd = (endDate) => this.handleChange({ endDate })
 
   componentDidUpdate(prevProps) {
     let {currentRoom, firebaseRef} = this.props
@@ -125,7 +135,10 @@ class Room extends React.Component {
                   <div className="small-field">
                     <DatePicker
                       selected={this.state.startDate}
-                      onChange={this.handleChange}
+                      selectsStart
+                      startDate={this.state.startDate}
+                      endDate={this.state.endDate}
+                      onChange={this.handleChangeStart}
                       showTimeSelect
                       showTimeSelectOnly
                       timeIntervals={15}
@@ -136,7 +149,10 @@ class Room extends React.Component {
                   <div className="large-field">
                     <DatePicker
                       selected={this.state.startDate}
-                      onChange={this.handleChange}
+                      selectsStart
+                      startDate={this.state.startDate}
+                      endDate={this.state.endDate}
+                      onChange={this.handleChangeStart}
                     />
                   </div>
                 </div>
@@ -144,8 +160,11 @@ class Room extends React.Component {
                   <label>Open time: </label>
                   <div className="small-field">
                     <DatePicker
-                      selected={this.state.startDate}
-                      onChange={this.handleChange}
+                      selected={this.state.endDate}
+                      selectsStart
+                      startDate={this.state.startDate}
+                      endDate={this.state.endDate}
+                      onChange={this.handleChangeEnd}
                       showTimeSelect
                       showTimeSelectOnly
                       timeIntervals={15}
@@ -155,8 +174,11 @@ class Room extends React.Component {
                   </div>
                   <div className="large-field">
                     <DatePicker
-                      selected={this.state.startDate}
-                      onChange={this.handleChange}
+                      selected={this.state.endDate}
+                      selectsStart
+                      startDate={this.state.startDate}
+                      endDate={this.state.endDate}
+                      onChange={this.handleChangeEnd}
                     />
                   </div>
                 </div>
