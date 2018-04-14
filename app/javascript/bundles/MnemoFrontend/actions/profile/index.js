@@ -1,7 +1,5 @@
-// import * as friendActions from './friend';
-// import * as roomActions from './room';
+import * as timeCapsuleActions from './timeCapsule';
 
 export const profileActions = {
-  // ...friendActions,
-  // ...roomActions
+  ...timeCapsuleActions
 };

@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import BaseContainer from './Base';
 
-// import {ProfileActions} from '../actions/profile/';
+import {profileActions} from '../actions/profile/';
 
 class Profile extends BaseContainer {
   static displayName = 'Profile';
@@ -47,17 +47,17 @@ function mapStateToProps(state) {
   };
 }
 
-// function mapDispatchToProps(dispatch) {
-//   let actions = {
-//     ...profileActions
-//   };
+function mapDispatchToProps(dispatch) {
+  let actions = {
+    ...profileActions
+  };
 
-//   return {
-//     actions: bindActionCreators(actions, dispatch)
-//   };
-// }
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
 
 export default connect(
   mapStateToProps,
-  // mapDispatchToProps
+  mapDispatchToProps
 )(Profile);
