@@ -5,6 +5,8 @@ import Message from './message'
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
+import CommentField from '../../components/commentField';
+
 class Room extends React.Component {
 
   constructor(props) {
@@ -129,73 +131,10 @@ class Room extends React.Component {
 
           <div className="content-group">
             <div className="message-container" />
-            <div className="col-8 comment-field-container">
-              <textarea placeholder="Type messages" onKeyPress={e => this._sendText(e)}/>
-              <div className="timing-container">
-                <div className="col-md-6">
-                  <label>Wrap time: </label>
-                  <div className="small-field">
-                    <DatePicker
-                      selected={this.state.startDate}
-                      selectsStart
-                      startDate={this.state.startDate}
-                      endDate={this.state.endDate}
-                      onChange={this.handleChangeStart}
-                      showTimeSelect
-                      showTimeSelectOnly
-                      timeIntervals={15}
-                      dateFormat="LT"
-                      timeCaption="Time"
-                    />
-                  </div>
-                  <div className="large-field">
-                    <DatePicker
-                      selected={this.state.startDate}
-                      selectsStart
-                      startDate={this.state.startDate}
-                      endDate={this.state.endDate}
-                      onChange={this.handleChangeStart}
-                    />
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <label>Open time: </label>
-                  <div className="small-field">
-                    <DatePicker
-                      selected={this.state.endDate}
-                      selectsStart
-                      startDate={this.state.startDate}
-                      endDate={this.state.endDate}
-                      onChange={this.handleChangeEnd}
-                      showTimeSelect
-                      showTimeSelectOnly
-                      timeIntervals={15}
-                      dateFormat="LT"
-                      timeCaption="Time"
-                    />
-                  </div>
-                  <div className="large-field">
-                    <DatePicker
-                      selected={this.state.endDate}
-                      selectsStart
-                      startDate={this.state.startDate}
-                      endDate={this.state.endDate}
-                      onChange={this.handleChangeEnd}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="upload-container">
-                <div className="col-md-6">
-                  <i className="fa fa-microphone"></i>
-                  <i className="fa fa-image"></i>
-                  <i className="fa fa-video-camera"></i>
-                </div>
-                <div className="col-md-6 align-right">
-                  <button>Post</button>
-                </div>
-              </div>
-            </div>
+            <CommentField startDate={this.state.startDate}
+                          endDate={this.state.endDate}
+                          startDateChangeHandler={this.handleChangeStart}
+                          endDateChangeHandler={this.handleChangeEnd} />
           </div>
         </div>
       }
