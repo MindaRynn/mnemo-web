@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import config from '../../config/';
 import Image from '../../components/image/';
 import PrimaryButton from '../../components/buttons/primaryButton';
-import Capsule from './capsule'
+import Capsule from './capsule';
+import CommentField from '../../components/commentField/';
 
 class Profile extends React.Component {
   constructor(props, context) {
@@ -61,13 +62,14 @@ class Profile extends React.Component {
             <div className="col-2"></div>
           </div>
           <hr/>
-          <div className="input-group">
+          {/* <div className="input-group">
             <input className="form-control" type="text" placeholder="Writing something.."/>
             <div className="input-group-append">
               <label htmlFor="file" style={{ marginBottom: "0px" }} id="upload-icon" className="btn align-middle"><i className="fa fa-image"></i></label>
               <input style={{ display: "none" }} id="file" type="file" name="file"/>
             </div>
-          </div>
+          </div> */}
+          <CommentField startDate={} endDate={} startDateChangeHandler={} endDateChangeHandler={}/>
           <ul className="nav">
             <li className="space-item"><a data-toggle="tab" href="#menu1" className="space-toggle active show">All</a></li>
             <li className="space-item"><a data-toggle="tab" href="#menu2" className="space-toggle">Opened</a></li>
