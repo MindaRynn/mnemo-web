@@ -4,11 +4,11 @@ import DatePicker from 'react-datepicker';
 export default class CommentField extends React.Component {
 
   render() {
-    let {startDate, endDate, startDateChangeHandler, endDateChangeHandler} = this.props
+    let {startDate, endDate, startDateChangeHandler, endDateChangeHandler, sendTextHandler} = this.props
 
     return (
       <div className="col-8 comment-field-container">
-        <textarea placeholder="Type messages" onKeyPress={e => this._sendText(e)}/>
+        <textarea placeholder="Type messages" onKeyPress={e => sendTextHandler(e)}/>
         <div className="timing-container">
           <div className="col-md-6">
             <label>Wrap time: </label>
@@ -66,7 +66,7 @@ export default class CommentField extends React.Component {
             <i className="fa fa-video-camera"></i>
           </div>
           <div className="col-md-6 align-right">
-            <button>Post</button>
+            <button onClick={e => sendTextHandler(e)}>Post</button>
           </div>
         </div>
       </div>

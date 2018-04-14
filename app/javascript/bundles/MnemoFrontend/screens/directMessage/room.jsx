@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import appendReactDOM from 'append-react-dom';
 import Message from './message'
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 import CommentField from '../../components/commentField';
@@ -134,7 +133,8 @@ class Room extends React.Component {
             <CommentField startDate={this.state.startDate}
                           endDate={this.state.endDate}
                           startDateChangeHandler={this.handleChangeStart}
-                          endDateChangeHandler={this.handleChangeEnd} />
+                          endDateChangeHandler={this.handleChangeEnd}
+                          sendTextHandler={this._sendText}/>
           </div>
         </div>
       }
