@@ -1,75 +1,123 @@
 import React from "react";
 import DatePicker from 'react-datepicker';
+import PropTypes from 'prop-types';
 
-export default class CommentField extends React.Component {
+import Image from "../../components/image";
+
+class CommentField extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.inputOnChangeHandler = this.inputOnChangeHandler.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
+
+    this.state = {
+      image: ''
+    };
+  }
+
+  _openUploadWindow(){
+    document.getElementById('avatar').click()
+  }
+
+
+  inputOnChangeHandler(e) {
+    document.getElementById("submitButton").click();
+  }
+
+  submitHandler(e) {
+    e.preventDefault();
+
+    let data = new FormData(e.target);
+    let _this = this;
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "/upload");
+    xhr.onload = function(event) {
+      _this.setState({
+        image: event.target.response
+      });
+    };
+
+    xhr.send(data);
+  }
 
   render() {
-    let {startDate, endDate, startDateChangeHandler, endDateChangeHandler, sendTextHandler, containerClass} = this.props
+    let {openDate, openDateChangeHandler, sendTextHandler, containerClass, buttonText} = this.props
+    let {currentUser} = this.context;
 
     return (
       <div className={`${containerClass} comment-field-container`}>
-        <textarea placeholder="Type messages" onKeyPress={e => sendTextHandler(e)}/>
-        <div className="timing-container">
-          <div className="col-md-6">
-            <label>Wrap time: </label>
-            <div className="small-field">
-              <DatePicker
-                selected={startDate}
-                selectsStart
-                startDate={startDate}
-                endDate={endDate}
-                onChange={startDateChangeHandler}
-                showTimeSelect
-                showTimeSelectOnly
-                timeIntervals={15}
-                dateFormat="LT"
-                timeCaption="Time"/>
-            </div>
-            <div className="large-field">
-              <DatePicker
-                selected={startDate}
-                selectsStart
-                startDate={startDate}
-                endDate={endDate}
-                onChange={startDateChangeHandler}/>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <label>Open time: </label>
-            <div className="small-field">
-              <DatePicker
-                selected={endDate}
-                selectsStart
-                startDate={startDate}
-                endDate={endDate}
-                onChange={endDateChangeHandler}
-                showTimeSelect
-                showTimeSelectOnly
-                timeIntervals={15}
-                dateFormat="LT"
-                timeCaption="Time"/>
-            </div>
-            <div className="large-field">
-              <DatePicker
-                selected={startDate}
-                selectsStart
-                startDate={startDate}
-                endDate={endDate}
-                onChange={endDateChangeHandler}/>
-            </div>
-          </div>
-        </div>
         <div className="upload-container">
-          <div className="col-md-6">
-            <i className="fa fa-microphone"></i>
-            <i className="fa fa-image"></i>
-            <i className="fa fa-video-camera"></i>
-          </div>
-          <div className="col-md-6 align-right">
-            <button onClick={e => sendTextHandler(e)}>Post</button>
+          <form
+            onSubmit={this.submitHandler}
+            encType="multipart/form-data">
+            <div onClick={this._openUploadWindow}>
+              <Image type="standard" src={this.state.image} classNames={`${this.state.image.length ? '' : 'add-icon'}`}/>
+            </div>
+
+            <input
+              onChange={this.inputOnChangeHandler}
+              style={{ display: "none" }}
+              id="avatar"
+              type="file"
+              name="file"/>
+
+            <input
+              id="submitButton"
+              style={{ display: "none" }}
+              type="submit"
+              value="Upload"/>
+
+            <input
+              type="hidden"
+              name="authenticity_token"
+              value={currentUser.csrfToken}/>
+
+            <input
+              type="hidden"
+              name="user[image]"
+              value={this.state.image}/>
+          </form>
+        </div>
+        <div className="textfield-container">
+          <textarea placeholder="Type messages" onKeyPress={e => sendTextHandler(e, this.state.image)}/>
+          <div className="timing-container">
+            <div>
+              <label>Open time: </label>
+              <div className="small-field">
+                <DatePicker
+                  selected={openDate}
+                  selectsStart
+                  onChange={openDateChangeHandler}
+                  showTimeSelect
+                  showTimeSelectOnly
+                  timeIntervals={15}
+                  dateFormat="LT"
+                  timeCaption="Time"
+                />
+              </div>
+              <div className="large-field">
+                <DatePicker
+                  selected={openDate}
+                  selectsStart
+                  onChange={openDateChangeHandler}
+                />
+              </div>
+            </div>
+            <button onClick={e => sendTextHandler(e, this.state.image)}>{buttonText}</button>
           </div>
         </div>
       </div>
     );
   }
 }
+
+CommentField.contextTypes = {
+  /**
+   * Holds the current logged in user
+   * */
+  currentUser: PropTypes.object.isRequired
+};
+
+export default CommentField;

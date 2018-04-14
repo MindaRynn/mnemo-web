@@ -1,6 +1,8 @@
 .comment-field-container {
+  @include flexbox();
+
   background-color: #fff;
-  height: 13.75rem;
+  min-height: 13.75rem;
   border: none;
   box-shadow: 2px 0 5px 0 rgba(56,56,56,0.2);
   padding-left: 1.875rem;
@@ -17,6 +19,16 @@
     border: none;
     outline: none
   }
+
+  button {
+    height: 1.875rem;
+    padding: 0 20px;
+    color: white;
+    font-weight: $font-extra-bold;
+    background-color: map-get($brand-orange, "primary");
+    border-radius: 1rem;
+    border: none;
+  }
 }
 
 .comment-field-container .timing-container {
@@ -25,13 +37,17 @@
   padding-top: 10px;
   padding-bottom: 10px;
 
+  > div {
+    @include flex-grow(1);
+  }
+
   label {
     padding-right: 2.125rem;
     color: map-get($brand-orange, "primary");
   }
 
   .react-datepicker-wrapper {
-    padding-right: 0.625;
+    padding-right: 0.625rem;
     text-align: center;
     display: inline-block;
     input {
@@ -67,26 +83,12 @@
 
 .comment-field-container .upload-container {
   @include inline-flex();
-  width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  @include justify-content(space-between);
 
-  .align-right {
-    text-align: right;
-  }
+  position: relative;
 
   i {
     color: map-get($brand-orange, "light");
     padding-right: 1.25rem;
-  }
-
-  button {
-    width: 5rem;
-    height: 1.875rem;
-    color: white;
-    font-weight: bolder;
-    background-color: map-get($brand-orange, "primary");
-    border-radius: 1rem;
-    border: none;
   }
 }

@@ -9,7 +9,8 @@ const types = {
 class Image extends React.Component {
   render() {
     let size = types[this.props.type] || types.standard;
-    let { src } = this.props;
+    let { src, classNames } = this.props;
+
     const imageStyle = {
       width: size,
       height: size,
@@ -17,7 +18,7 @@ class Image extends React.Component {
     }
 
     return (
-      <div className="img img-border" style={imageStyle} ></div>
+      <div className={`img img-border ${classNames ? classNames : ''}`} style={imageStyle} ></div>
     );
   }
 }

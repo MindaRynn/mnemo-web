@@ -9,7 +9,7 @@ class CategoryList extends React.Component {
 
   render() {
     return (
-      <div className="list col-4">
+      <div className="list col-3">
         Category
       </div>
     );
