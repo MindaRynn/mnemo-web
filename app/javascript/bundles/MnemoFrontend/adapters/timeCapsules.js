@@ -1,7 +1,7 @@
 import config from '../config/';
 import BaseAdapter from './base';
 
-class CapsulesAdapter extends BaseAdapter {
+class TimeCapsulesAdapter extends BaseAdapter {
   /**
    * Get capsules of a user identified by `userId`
    *
@@ -18,4 +18,4 @@ class CapsulesAdapter extends BaseAdapter {
   }
 }
 
-export default CapsulesAdapter;
+export default TimeCapsulesAdapter;

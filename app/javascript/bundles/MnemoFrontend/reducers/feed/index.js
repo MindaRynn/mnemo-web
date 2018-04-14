@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
-const feedRootReducer = combineReducers({
+import timeCapsuleReducer from './timeCapsule';
 
+const feedRootReducer = combineReducers({
+  timeCapsule: timeCapsuleReducer,
 });
 
 export default feedRootReducer;
