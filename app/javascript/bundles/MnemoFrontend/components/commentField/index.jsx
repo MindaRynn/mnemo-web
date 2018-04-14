@@ -4,10 +4,10 @@ import DatePicker from 'react-datepicker';
 export default class CommentField extends React.Component {
 
   render() {
-    let {startDate, endDate, startDateChangeHandler, endDateChangeHandler, sendTextHandler} = this.props
+    let {startDate, endDate, startDateChangeHandler, endDateChangeHandler, sendTextHandler, containerClass} = this.props
 
     return (
-      <div className="col-8 comment-field-container">
+      <div className={`${containerClass} comment-field-container`}>
         <textarea placeholder="Type messages" onKeyPress={e => sendTextHandler(e)}/>
         <div className="timing-container">
           <div className="col-md-6">

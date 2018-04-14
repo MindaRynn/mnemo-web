@@ -130,7 +130,8 @@ class Room extends React.Component {
 
           <div className="content-group">
             <div className="message-container" />
-            <CommentField startDate={this.state.startDate}
+            <CommentField containerClass="col-8"
+                          startDate={this.state.startDate}
                           endDate={this.state.endDate}
                           startDateChangeHandler={this.handleChangeStart}
                           endDateChangeHandler={this.handleChangeEnd}

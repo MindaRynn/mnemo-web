@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import CategoryList from './categoryList'
+import CapsuleList from './capsuleList'
+
 const initialState = {
   fetchedCapsule: false
 };
@@ -20,7 +23,7 @@ class Feed extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    let {fetchTimeCapsuleSuccess, timeCapsules} = this.props.feed.timeCapsule
+    let {fetchTimeCapsuleSuccess} = this.props.feed.timeCapsule
 
     if(fetchTimeCapsuleSuccess && !prevProps.feed.timeCapsule.fetchTimeCapsuleSuccess) {
       this.setState({
@@ -34,13 +37,8 @@ class Feed extends React.Component {
 
     return (
       <div className="row">
-        <div className="list col-4">
-          Category
-        </div>
-        {fetchedCapsule ?
-          <div className="list col-8">
-            FEED LIST
-          </div> : null }
+        <CategoryList />
+        {fetchedCapsule ? <CapsuleList /> : null }
       </div>
     );
   }
