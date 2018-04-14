@@ -78,7 +78,6 @@ class Room extends React.Component {
   }
 
   _sendText(e, imageLink) {
-    let {openDate} = this.state;
     let code = (e.keyCode ? e.keyCode : e.which);
     let el = document.getElementsByClassName('message-container')[0]
 
@@ -95,15 +94,13 @@ class Room extends React.Component {
         {
           user_id: currentUser.id,
           message: messageField.value,
-          openDate: openDate
         }
       )
 
       if(imageLink.length){
-        debugger
-        firebaseRef.child(currentRoom.room_key).child(chatKey).child('image').push(
+        firebaseRef.child(currentRoom.room_key).child(chatKey).child('image').set(
           {url: imageLink}
-        );
+        )
       }
 
       messageField.value = ''
