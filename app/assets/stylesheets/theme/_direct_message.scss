@@ -112,7 +112,53 @@ body.direct-message .chat-container .content-group .comment-field-container .tim
   padding-top: 10px;
   padding-bottom: 10px;
   label {
+    padding-right: 2.125rem;
     color: map-get($brand-orange, "primary");
+  }
+  .dropdown {
+    width: auto;
+    padding-right: 0.625rem;
+    input {
+      width: 5rem;
+      height: 1.875rem;
+      border-radius: 1rem;
+      border-color: map-get($brand-orange, "light");
+    }
+    .long-input {
+      width: 10rem;
+    }
+  }
+
+  .react-datepicker-wrapper {
+    padding-right: 0.625;
+    text-align: center;
+    display: inline-block;
+    input {
+      padding: 0;
+      text-align: center;
+      font-size: 12px;
+      width: 10rem;
+      height: 1.875rem;
+      border-radius: 1rem;
+      border-color: map-get($brand-orange, "light");
+    }
+  }
+
+  .small-field {
+    display: inline-block;
+    padding-right: 10px;
+    .react-datepicker-wrapper {
+      input {
+        width: 5rem;
+      }
+    }
+    ul {
+      padding: 0;
+    }
+  }
+
+  .large-field {
+    display: inline-block;
   }
 }
 

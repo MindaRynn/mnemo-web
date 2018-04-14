@@ -1,16 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import appendReactDOM from 'append-react-dom';
-
 import Message from './message'
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 class Room extends React.Component {
 
   constructor(props) {
     super(props)
-
     this._roomName = this._roomName.bind(this);
     this._sendText = this._sendText.bind(this);
+    this.state = {
+      startDate: moment()
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(date) {
+    this.setState({
+      startDate: date
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -90,7 +100,7 @@ class Room extends React.Component {
 
   render() {
     let {currentRoom} = this.props;
-
+    var date = new Date();
     return (
     <div className={`col-8 ${Object.getOwnPropertyNames(currentRoom).length === 0 ? 'flex-box' : ''}`}>
       { Object.getOwnPropertyNames(currentRoom).length === 0 ?
@@ -112,10 +122,43 @@ class Room extends React.Component {
               <div className="timing-container">
                 <div className="col-md-6">
                   <label>Wrap time: </label>
-
+                  <div className="small-field">
+                    <DatePicker
+                      selected={this.state.startDate}
+                      onChange={this.handleChange}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      dateFormat="LT"
+                      timeCaption="Time"
+                    />
+                  </div>
+                  <div className="large-field">
+                    <DatePicker
+                      selected={this.state.startDate}
+                      onChange={this.handleChange}
+                    />
+                  </div>
                 </div>
                 <div className="col-md-6">
                   <label>Open time: </label>
+                  <div className="small-field">
+                    <DatePicker
+                      selected={this.state.startDate}
+                      onChange={this.handleChange}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      dateFormat="LT"
+                      timeCaption="Time"
+                    />
+                  </div>
+                  <div className="large-field">
+                    <DatePicker
+                      selected={this.state.startDate}
+                      onChange={this.handleChange}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="upload-container">
