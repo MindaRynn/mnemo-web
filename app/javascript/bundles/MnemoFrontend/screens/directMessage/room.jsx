@@ -1,17 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import appendReactDOM from 'append-react-dom';
-
 import Message from './message'
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 class Room extends React.Component {
 
   constructor(props) {
     super(props)
-
     this._roomName = this._roomName.bind(this);
     this._sendText = this._sendText.bind(this);
+    this.state = {
+      startDate: moment(),
+      endDate: moment()
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeStart = this.handleChangeStart.bind(this);
+    this.handleChangeEnd = this.handleChangeEnd.bind(this);
   }
+
+  handleChange ({ startDate, endDate }){
+    startDate = startDate || this.state.startDate;
+    endDate = endDate || this.state.endDate;
+
+    if (startDate.isAfter(endDate)) {
+      endDate = startDate;
+    }
+
+    this.setState({ startDate, endDate });
+  }
+
+  handleChangeStart (startDate) { this.handleChange({ startDate }); }
+
+  handleChangeEnd (endDate) { this.handleChange({ endDate }); }
 
   componentDidUpdate(prevProps) {
     let {currentRoom, firebaseRef} = this.props
@@ -90,9 +112,9 @@ class Room extends React.Component {
 
   render() {
     let {currentRoom} = this.props;
-
+    var date = new Date();
     return (
-    <div className={`col-9 ${Object.getOwnPropertyNames(currentRoom).length === 0 ? 'flex-box' : ''}`}>
+    <div className={`col-8 ${Object.getOwnPropertyNames(currentRoom).length === 0 ? 'flex-box' : ''}`}>
       { Object.getOwnPropertyNames(currentRoom).length === 0 ?
         <div className="room-placeholder">
           Text to someone to Create you Chat room
@@ -107,8 +129,72 @@ class Room extends React.Component {
 
           <div className="content-group">
             <div className="message-container" />
-            <div className="comment-field-container">
+            <div className="col-8 comment-field-container">
               <textarea placeholder="Type messages" onKeyPress={e => this._sendText(e)}/>
+              <div className="timing-container">
+                <div className="col-md-6">
+                  <label>Wrap time: </label>
+                  <div className="small-field">
+                    <DatePicker
+                      selected={this.state.startDate}
+                      selectsStart
+                      startDate={this.state.startDate}
+                      endDate={this.state.endDate}
+                      onChange={this.handleChangeStart}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      dateFormat="LT"
+                      timeCaption="Time"
+                    />
+                  </div>
+                  <div className="large-field">
+                    <DatePicker
+                      selected={this.state.startDate}
+                      selectsStart
+                      startDate={this.state.startDate}
+                      endDate={this.state.endDate}
+                      onChange={this.handleChangeStart}
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <label>Open time: </label>
+                  <div className="small-field">
+                    <DatePicker
+                      selected={this.state.endDate}
+                      selectsStart
+                      startDate={this.state.startDate}
+                      endDate={this.state.endDate}
+                      onChange={this.handleChangeEnd}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      dateFormat="LT"
+                      timeCaption="Time"
+                    />
+                  </div>
+                  <div className="large-field">
+                    <DatePicker
+                      selected={this.state.endDate}
+                      selectsStart
+                      startDate={this.state.startDate}
+                      endDate={this.state.endDate}
+                      onChange={this.handleChangeEnd}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="upload-container">
+                <div className="col-md-6">
+                  <i className="fa fa-microphone"></i>
+                  <i className="fa fa-image"></i>
+                  <i className="fa fa-video-camera"></i>
+                </div>
+                <div className="col-md-6 align-right">
+                  <button>Post</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -117,7 +203,6 @@ class Room extends React.Component {
     );
   }
 }
-
 Room.contextTypes = {
   /**
    * Holds the current logged in user

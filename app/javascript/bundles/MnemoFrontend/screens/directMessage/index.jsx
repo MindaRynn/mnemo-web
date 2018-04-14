@@ -64,7 +64,7 @@ class DirectMessage extends React.Component {
     return (
       <div className="row">
         {fetchedFriend ?
-        <div className="list col-3">
+        <div className="list col-4">
           <div className="title-container">
             <ul className="nav">
               <li><a data-toggle="tab" href="#menu1" className="active show">Contact</a></li>
