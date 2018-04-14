@@ -20,6 +20,7 @@ class Image extends React.Component {
 
     return (
       <div className={`img img-border ${classNames ? classNames : ''}`} style={imageStyle} ></div>
+
     );
   }
 }

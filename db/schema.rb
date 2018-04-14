@@ -87,7 +87,11 @@ ActiveRecord::Schema.define(version: 20180415163303) do
     t.string "name"
     t.text "image"
     t.text "bio"
+<<<<<<< HEAD
     t.bigint "time_capsule_id"
+=======
+    t.integer "time_capsule_id"
+>>>>>>> edit new capsule box
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["time_capsule_id"], name: "index_users_on_time_capsule_id"

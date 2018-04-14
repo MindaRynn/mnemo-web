@@ -16,7 +16,8 @@ class Profile extends React.Component {
       bio: this.context.currentUser.bio,
       name: this.context.currentUser.name,
       startDate: moment(),
-      endDate: moment()
+      endDate: moment(),
+      fetchedCapsule: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeStart = this.handleChangeStart.bind(this);
@@ -41,24 +42,33 @@ class Profile extends React.Component {
   componentDidMount() {
     let {currentUser} = this.context;
     let {actions} = this.props;
+
+    actions.fetchTimeCapsule(currentUser.memory_boxes);
   }
 
-  componentDidUpdate(prevProps) {}
+  componentDidUpdate(prevProps) {
+    let {fetchTimeCapsuleSuccess} = this.props.profile.capsule
+
+    if(fetchTimeCapsuleSuccess && !prevProps.profile.capsule.fetchTimeCapsuleSuccess) {
+      this.setState({
+        fetchedCapsule: true,
+      });
+    }
+  }
 
   createCapsule = () => {
-    let capsule = [];
-    for(let i = 0; i < 4; i++) {
-      capsule.push(
-        <div key={i.toString()} className="col-4">
-          <Capsule name={this.state.name} date="20 jan 2018" file={this.state.avatar} like="50" comment="hello" view="30"/>
-        </div>
-      )
-    }
-    return capsule;
+    let capsules = [];
+    this.props.profile.capsule.timeCapsules.map((capsule) => {
+      capsules.push(
+        <Capsule key={capsule.id} avatar={this.state.avatar} name={this.state.name} capsule={capsule}/>
+      );
+    });
+    return capsules;
   }
 
   render() {
     let {profile} = this.props
+    let {fetchedCapsule} = this.state
 
     return (
       <div>
@@ -83,26 +93,18 @@ class Profile extends React.Component {
             <div className="col-2"></div>
           </div>
           <hr/>
-          {/* <div className="input-group">
-            <input className="form-control" type="text" placeholder="Writing something.."/>
-            <div className="input-group-append">
-              <label htmlFor="file" style={{ marginBottom: "0px" }} id="upload-icon" className="btn align-middle"><i className="fa fa-image"></i></label>
-              <input style={{ display: "none" }} id="file" type="file" name="file"/>
-            </div>
-          </div> */}
-          <CommentField startDate={this.state.startDate}
-                          endDate={this.state.endDate}
-                          startDateChangeHandler={this.handleChangeStart}
-                          endDateChangeHandler={this.handleChangeEnd}
-                          sendTextHandler={this._sendText}/>
+          <CommentField containerClass="col-12"
+                        startDate={this.state.startDate}
+                        endDate={this.state.endDate}
+                        startDateChangeHandler={this.handleChangeStart}
+                        endDateChangeHandler={this.handleChangeEnd}
+                        sendTextHandler={this._sendText}/>
           <ul className="nav">
             <li className="space-item"><a data-toggle="tab" href="#menu1" className="space-toggle active show">All</a></li>
             <li className="space-item"><a data-toggle="tab" href="#menu2" className="space-toggle">Opened</a></li>
           </ul>
           
-          <div className="row">
-            {this.createCapsule()}
-          </div>
+          {fetchedCapsule ? this.createCapsule() : null}
           
         </div>
       </div>
