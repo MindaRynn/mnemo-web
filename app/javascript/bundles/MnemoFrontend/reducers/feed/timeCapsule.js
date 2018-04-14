@@ -23,7 +23,7 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
         fetchingTimeCapsule: false,
         fetchTimeCapsuleSuccess: true,
         fetchTimeCapsuleFailure: false,
-        timeCapsules: state.friends.concat(timeCapsules)
+        timeCapsules: state.timeCapsules.concat(timeCapsules)
       });
 
     case actionTypes.TIME_CAPSULE_FETCH_FAILURE:

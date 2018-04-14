@@ -6,6 +6,13 @@ class Feed extends React.Component {
     super(props, context);
   }
 
+  componentDidMount() {
+    let {currentUser} = this.context;
+    let {actions} = this.props;
+
+    actions.fetchTimeCapsule(currentUser.id);
+  }
+
   render() {
 
     return (
