@@ -16,22 +16,24 @@ class Room extends React.Component {
       endDate: moment()
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleChangeStart = this.handleChangeStart.bind(this);
+    this.handleChangeEnd = this.handleChangeEnd.bind(this);
   }
 
-  handleChange = ({ startDate, endDate }) => {
-    startDate = startDate || this.state.startDate
-    endDate = endDate || this.state.endDate
+  handleChange ({ startDate, endDate }){
+    startDate = startDate || this.state.startDate;
+    endDate = endDate || this.state.endDate;
 
     if (startDate.isAfter(endDate)) {
-      endDate = startDate
+      endDate = startDate;
     }
 
-    this.setState({ startDate, endDate })
+    this.setState({ startDate, endDate });
   }
 
-  handleChangeStart = (startDate) => this.handleChange({ startDate })
+  handleChangeStart (startDate) { this.handleChange({ startDate }); }
 
-  handleChangeEnd = (endDate) => this.handleChange({ endDate })
+  handleChangeEnd (endDate) { this.handleChange({ endDate }); }
 
   componentDidUpdate(prevProps) {
     let {currentRoom, firebaseRef} = this.props
@@ -201,7 +203,6 @@ class Room extends React.Component {
     );
   }
 }
-
 Room.contextTypes = {
   /**
    * Holds the current logged in user

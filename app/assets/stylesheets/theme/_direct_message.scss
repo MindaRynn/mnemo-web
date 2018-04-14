@@ -84,20 +84,17 @@ body.direct-message .chat-container .content-group .comment-field-container {
   position: fixed;
   background-color: #fff;
   bottom: 0;
-  height: 220px;
+  height: 13.75rem;
   border: none;
   box-shadow: 2px 0 5px 0 rgba(56,56,56,0.2);
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 1.875rem;
+  padding-right: 1.875rem;
   padding-top: 10px;
   padding-bottom: 10px;
   outline: none;
 
   textarea {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 1.25rem;
     width: 100%;
     height: 6.25rem;
     background-color: map-get($brand-gray, "lightest");
@@ -107,26 +104,14 @@ body.direct-message .chat-container .content-group .comment-field-container {
 }
 
 body.direct-message .chat-container .content-group .comment-field-container .timing-container {
-  display: inline-flex;
+  @include inline-flex();
   width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
+
   label {
     padding-right: 2.125rem;
     color: map-get($brand-orange, "primary");
-  }
-  .dropdown {
-    width: auto;
-    padding-right: 0.625rem;
-    input {
-      width: 5rem;
-      height: 1.875rem;
-      border-radius: 1rem;
-      border-color: map-get($brand-orange, "light");
-    }
-    .long-input {
-      width: 10rem;
-    }
   }
 
   .react-datepicker-wrapper {
@@ -147,11 +132,13 @@ body.direct-message .chat-container .content-group .comment-field-container .tim
   .small-field {
     display: inline-block;
     padding-right: 10px;
+
     .react-datepicker-wrapper {
       input {
         width: 5rem;
       }
     }
+
     ul {
       padding: 0;
     }
@@ -163,7 +150,7 @@ body.direct-message .chat-container .content-group .comment-field-container .tim
 }
 
 body.direct-message .chat-container .content-group .comment-field-container .upload-container {
-  display: inline-flex;
+  @include inline-flex();
   width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
