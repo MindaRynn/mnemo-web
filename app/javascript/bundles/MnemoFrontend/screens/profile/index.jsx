@@ -5,6 +5,7 @@ import Image from '../../components/image/';
 import PrimaryButton from '../../components/buttons/primaryButton';
 import Capsule from './capsule';
 import CommentField from '../../components/commentField/';
+import moment from 'moment';
 
 class Profile extends React.Component {
   constructor(props, context) {
@@ -13,9 +14,29 @@ class Profile extends React.Component {
     this.state = {
       avatar: this.context.currentUser.image,
       bio: this.context.currentUser.bio,
-      name: this.context.currentUser.name
+      name: this.context.currentUser.name,
+      startDate: moment(),
+      endDate: moment()
     }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeStart = this.handleChangeStart.bind(this);
+    this.handleChangeEnd = this.handleChangeEnd.bind(this);
   }
+
+  handleChange ({ startDate, endDate }){
+    startDate = startDate || this.state.startDate;
+    endDate = endDate || this.state.endDate;
+
+    if (startDate.isAfter(endDate)) {
+      endDate = startDate;
+    }
+
+    this.setState({ startDate, endDate });
+  }
+
+  handleChangeStart (startDate) { this.handleChange({ startDate }); }
+
+  handleChangeEnd (endDate) { this.handleChange({ endDate }); }
 
   componentDidMount() {
     let {currentUser} = this.context;
@@ -69,7 +90,11 @@ class Profile extends React.Component {
               <input style={{ display: "none" }} id="file" type="file" name="file"/>
             </div>
           </div> */}
-          <CommentField startDate={} endDate={} startDateChangeHandler={} endDateChangeHandler={}/>
+          <CommentField startDate={this.state.startDate}
+                          endDate={this.state.endDate}
+                          startDateChangeHandler={this.handleChangeStart}
+                          endDateChangeHandler={this.handleChangeEnd}
+                          sendTextHandler={this._sendText}/>
           <ul className="nav">
             <li className="space-item"><a data-toggle="tab" href="#menu1" className="space-toggle active show">All</a></li>
             <li className="space-item"><a data-toggle="tab" href="#menu2" className="space-toggle">Opened</a></li>
