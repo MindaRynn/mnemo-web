@@ -60,7 +60,6 @@ class Room extends React.Component {
 
       firebaseRef.child(currentRoom.room_key).on('child_added',function(snapshot){
         let className =  snapshot.val().user_id == currentUser.id ? 'mine' : null
-
         if(snapshot.val().hasOwnProperty('image') && snapshot.val().message != ""){
           appendReactDOM(MessageWithImage, el, {
             src: snapshot.val().image.url,
@@ -104,19 +103,16 @@ class Room extends React.Component {
 
       let messageField = document.getElementsByTagName('textarea')[0]
 
-      let chatKey =  firebaseRef.child(currentRoom.room_key).push().key;
-      firebaseRef.child(currentRoom.room_key).child(chatKey).set(
-        {
-          user_id: currentUser.id,
-          message: messageField.value,
-        }
-      )
+      let messageObjet = {
+        user_id: currentUser.id,
+        message: messageField.value
+      }
 
       if(imageLink.length){
-        firebaseRef.child(currentRoom.room_key).child(chatKey).child('image').set(
-          {url: imageLink}
-        )
+        messageObjet['image'] = {url: imageLink}
       }
+
+      firebaseRef.child(currentRoom.room_key).push(messageObjet);
 
       messageField.value = ''
     }
