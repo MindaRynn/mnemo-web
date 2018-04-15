@@ -17,13 +17,13 @@ export default class Capsule extends React.Component {
       <div>
         <div className="row capsule-box">
           
-          <div className="col-1"><Image type="post" src={avatar}/></div>
+          <div className="col-1"><Image size="s" src={avatar}/></div>
           <div className="col-11">
             <div className="row">
               <div className="col-2"><h3>{name}</h3></div>
-              <div className="col-5">March 30 at 10:05pm</div>
-              <div className="col-2 text-right">{this.state.status}<StatusCircle status={this.state.status}/></div>
-              <div className="col-3 text-right">Wrapped April 4 at 10:05pm</div>
+              <div className="col-5 font-status-size">March 30 at 10:05pm</div>
+              <div className="col-2 text-right font-status-size">{this.state.status}<StatusCircle status={this.state.status}/></div>
+              <div className="col-3 text-right font-status-size">Wrapped April 4 at 10:05pm</div>
             </div>
             <div className="row">
               <div className="col-12 topic-box-color">

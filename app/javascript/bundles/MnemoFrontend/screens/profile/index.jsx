@@ -75,7 +75,7 @@ class Profile extends React.Component {
         <div className="profile-container">
           <div className="row">
             <div className="col-4" >
-              <center><Image type="standard" src={this.state.avatar}/></center>
+              <center><Image size="lx" src={this.state.avatar}/></center>
             </div>
             <div className="col-5">
               <div className="row"><h2>{this.state.name}</h2></div>

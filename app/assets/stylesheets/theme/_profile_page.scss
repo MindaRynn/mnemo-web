@@ -31,6 +31,10 @@ body.profile .profile-container {
     color: map-get($brand-gray, 'dark');
   }
 
+  h3 {
+    font-weight: 500;
+  }
+
   .card-header {
     background-color: white;
     border: 0px;
@@ -47,6 +51,12 @@ body.profile .profile-container {
 
   .form-control {
     border-radius: 0.625rem 0rem 0rem 0.625rem;
+  }
+
+  .font-status-size {
+    font-size: 12px;
+    color: #454550;
+    line-height: 18px;
   }
 
   .capsule-box {

@@ -12,10 +12,9 @@ class StatusCircle extends React.Component {
     let color = colors[this.props.status];
     const circleStyle = {
       backgroundColor: color,
-      borderRadius: 50,
-      width: 14,
-      height: 14,
-      marginTop: 4,
+      borderRadius: "50%",
+      width: 9,
+      height: 9,
       marginLeft: 5,
       display: "inline-block"
     }
