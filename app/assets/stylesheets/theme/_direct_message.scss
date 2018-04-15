@@ -81,102 +81,26 @@ body.direct-message .chat-container {
 }
 
 body.direct-message .chat-container .content-group .comment-field-container {
+  @include flexbox();
+
   position: fixed;
-  background-color: #fff;
   bottom: 0;
-  height: 13.75rem;
-  border: none;
-  box-shadow: 2px 0 5px 0 rgba(56,56,56,0.2);
-  padding-left: 1.875rem;
-  padding-right: 1.875rem;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  outline: none;
 
-  textarea {
-    padding: 1.25rem;
+  min-height: 10.75rem;
+
+  .upload-container {
+    margin-right: 20px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .textfield-container {
     width: 100%;
-    height: 6.25rem;
-    background-color: map-get($brand-gray, "lightest");
-    border: none;
-    outline: none
-  }
-}
-
-body.direct-message .chat-container .content-group .comment-field-container .timing-container {
-  @include inline-flex();
-  width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-
-  label {
-    padding-right: 2.125rem;
-    color: map-get($brand-orange, "primary");
-  }
-
-  .react-datepicker-wrapper {
-    padding-right: 0.625;
-    text-align: center;
-    display: inline-block;
-    input {
-      padding: 0;
-      text-align: center;
-      font-size: 12px;
-      width: 10rem;
-      height: 1.875rem;
-      border-radius: 1rem;
-      border-color: map-get($brand-orange, "light");
-    }
-  }
-
-  .small-field {
-    display: inline-block;
-    padding-right: 10px;
-
-    .react-datepicker-wrapper {
-      input {
-        width: 5rem;
-      }
-    }
-
-    ul {
-      padding: 0;
-    }
-  }
-
-  .large-field {
-    display: inline-block;
-  }
-}
-
-body.direct-message .chat-container .content-group .comment-field-container .upload-container {
-  @include inline-flex();
-  width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-
-  .align-right {
-      text-align: right;
-  }
-
-  i {
-    color: map-get($brand-orange, "light");
-    padding-right: 1.25rem;
-  }
-
-  button {
-    width: 5rem;
-    height: 1.875rem;
-    color: white;
-    font-weight: bolder;
-    background-color: map-get($brand-orange, "primary");
-    border-radius: 1rem;
-    border: none;
   }
 }
 
 body.direct-message .chat-container .content-group .message-container {
-  height: calc(100% - 116px);
+  height: calc(100vh - 175px - 85px - 55px);
   padding: 10px;
   overflow: auto;
 
@@ -199,6 +123,31 @@ body.direct-message .chat-container .content-group .message-container {
     .message {
       border-radius: 15px 15px 0 15px;
     }
+  }
+
+  .modal-header {
+    background-color: black;
+  }
+
+  .modal-body {
+    background-color: black;
+  }
+
+  .modal-content {
+    height: 90vh;
+}
+
+  .close {
+    @include justify-content(flex-start);
+    @include align-items(flex-start);
+    color: white;
+  }
+  
+  .container-fluid {
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    height: 80vh;
   }
 }
 

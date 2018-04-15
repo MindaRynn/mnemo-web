@@ -1,38 +1,34 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,800');
 body {
-    font-family: 'Nunito', sans-serif;
-    background-color: map-get($brand-gray, 'lightest');
-    margin-top: 3.5rem;
-}
-
-body .root-container {
-  padding-top: 66px;
+  font-family: 'Nunito', sans-serif;
+  background-color: map-get($brand-gray, 'lightest');
+  margin-top: 3.5rem;
 }
 
 h1,
 h2,
 h3 {
-    font-weight: $font-extra-bold;
+  font-weight: $font-extra-bold;
 }
 
 h1 {
-    font-size: $font-size-h1;
+  font-size: $font-size-h1;
 }
 
 h2 {
-    font-size: $font-size-h2;
+  font-size: $font-size-h2;
 }
 
 h3 {
-    font-size: $font-size-h3;
+  font-size: $font-size-h3;
 }
 
 input {
-    width: 21.875rem;
-    height: 3.125rem;
-    padding: 0 1.875rem;
-    border-radius: 0.625rem;
-    border: 1px map-get($brand-gray, 'light') solid;
+  width: 21.875rem;
+  height: 3.125rem;
+  padding: 0 1.875rem;
+  border-radius: 0.625rem;
+  border: 1px map-get($brand-gray, 'light') solid;
 }
 
 .input.input-width-max {

@@ -1,15 +1,17 @@
 import React from "react";
 
 const types = {
-  notification: 95,
-  standard: 150,
-  post: 60
+  s: 60,
+  m: 95,
+  l: 120,
+  lx: 150
 };
 
 class Image extends React.Component {
   render() {
-    let size = types[this.props.type] || types.standard;
-    let { src } = this.props;
+    let size = types[this.props.size] || types.lx;
+    let { src, classNames } = this.props;
+
     const imageStyle = {
       width: size,
       height: size,
@@ -17,7 +19,7 @@ class Image extends React.Component {
     }
 
     return (
-      <div className="img img-border" style={imageStyle} ></div>
+      <div className={`img img-border ${classNames ? classNames : ''}`} style={imageStyle} ></div>
     );
   }
 }

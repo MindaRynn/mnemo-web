@@ -5,4 +5,18 @@
   border-color: map-get($brand-gray, 'light');
   background-repeat: no-repeat;
   background-size: cover;
+
+  &.add-icon:before {
+      content: '+';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      font-size: $font-size-h1;
+      color: map-get($brand-gray, 'light');
+  }
+
+  &.circle {
+    border-radius: 50%;
+  }
 }

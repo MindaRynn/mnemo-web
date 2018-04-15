@@ -1,0 +1,1 @@
+export const MEDIA_ADDED = 'MEDIA_ADDED';

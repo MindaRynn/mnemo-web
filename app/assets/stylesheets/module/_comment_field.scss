@@ -1,0 +1,104 @@
+.comment-field-container {
+  background-color: #fff;
+  min-height: 13.75rem;
+  border: none;
+  box-shadow: 2px 0 5px 0 rgba(56,56,56,0.2);
+  padding-left: 1.875rem;
+  padding-right: 1.875rem;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  outline: none;
+
+  textarea {
+    padding: 1.25rem;
+    height: 6.25rem;
+  }
+
+  textarea, .textfield-group input {
+    background-color: map-get($brand-gray, "lightest");
+    border: none;
+    outline: none;
+    width: 100%;
+  }
+
+  input + textarea {
+    margin-top: 10px;
+  }
+
+  button.submit-button {
+    height: 1.875rem;
+    padding: 0 20px;
+    color: white;
+    font-weight: $font-extra-bold;
+    background-color: map-get($brand-orange, "primary");
+    border-radius: 1rem;
+    border: none;
+  }
+}
+
+.comment-field-container .timing-container {
+  @include inline-flex();
+  @include justify-content(space-between);
+
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  .react-datepicker-wrapper {
+    text-align: center;
+    display: inline-block;
+
+    input {
+      padding: 0;
+    }
+  }
+
+  .small-field {
+    display: inline-block;
+    padding-right: 10px;
+
+    .react-datepicker-wrapper {
+      input {
+        width: 5rem;
+      }
+    }
+
+    ul {
+      padding: 0;
+    }
+  }
+
+  .large-field {
+    display: inline-block;
+  }
+}
+
+.comment-field-container {
+  label {
+    padding-right: 2.125rem;
+    color: map-get($brand-orange, "primary");
+  }
+
+  .timing-container .react-datepicker-wrapper input,
+  .friend-seach-container input,
+  .dropdown > a {
+    text-align: center;
+    font-size: 12px;
+    width: 10rem;
+    height: 1.875rem;
+    border-radius: 1rem;
+    border-color: map-get($brand-orange, "light");
+  }
+}
+
+.comment-field-container .upload-container {
+  @include inline-flex();
+  @include justify-content(space-between);
+
+  position: relative;
+
+  i {
+    color: map-get($brand-orange, "light");
+    padding-right: 1.25rem;
+  }
+}

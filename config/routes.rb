@@ -4,6 +4,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :friends, only: :index
       resources :rooms, only: [:index, :show, :create]
+      resources :time_capsules, only: [:index, :create]
+      resources :memory_boxes, only: [:index, :create]
+      resources :medium, only: [:index, :create]
     end
   end
 

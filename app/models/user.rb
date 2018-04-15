@@ -10,9 +10,12 @@ class User < ApplicationRecord
          :omniauthable,
          omniauth_providers: [:facebook, :google_oauth2]
 
+  has_and_belongs_to_many :rooms
   has_many :friendships, dependent: :destroy
   has_many :friends, :through => :friendships
-  has_and_belongs_to_many :rooms
+  has_many :time_capsules
+  has_many :medium
+  has_many :memory_boxes
 
   def self.new_with_session(params, session)
     super.tap do |user|

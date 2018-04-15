@@ -16,7 +16,10 @@ import configureStore from './store/configureStore';
  *
  */
 const App = (_props, _railsContext) => {
-  const store = configureStore(_props, _railsContext);
+  let currentUser = _props.currentUser
+  currentUser['csrfToken'] = _props.csrfToken
+
+  const store = configureStore({currentUser: currentUser}, _railsContext);
   // Create an enhanced history that syncs navigation events with the store
   const history = syncHistoryWithStore(
     browserHistory,

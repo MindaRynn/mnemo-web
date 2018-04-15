@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180407180308) do
+ActiveRecord::Schema.define(version: 20180415163303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,28 @@ ActiveRecord::Schema.define(version: 20180407180308) do
     t.integer "friend_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "media", force: :cascade do |t|
+    t.integer "media_type"
+    t.text "media_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "memory_box_id"
+    t.index ["memory_box_id"], name: "index_media_on_memory_box_id"
+    t.index ["user_id"], name: "index_media_on_user_id"
+  end
+
+  create_table "memory_boxes", force: :cascade do |t|
+    t.text "subject"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "time_capsule_id"
+    t.index ["time_capsule_id"], name: "index_memory_boxes_on_time_capsule_id"
+    t.index ["user_id"], name: "index_memory_boxes_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -35,6 +57,16 @@ ActiveRecord::Schema.define(version: 20180407180308) do
     t.bigint "room_id", null: false
     t.index ["room_id", "user_id"], name: "index_rooms_users_on_room_id_and_user_id"
     t.index ["user_id", "room_id"], name: "index_rooms_users_on_user_id_and_room_id"
+  end
+
+  create_table "time_capsules", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.text "wrap_date"
+    t.text "open_date"
+    t.integer "direct_type", default: 0, null: false
+    t.index ["user_id"], name: "index_time_capsules_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,8 +87,10 @@ ActiveRecord::Schema.define(version: 20180407180308) do
     t.string "name"
     t.text "image"
     t.text "bio"
+    t.bigint "time_capsule_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["time_capsule_id"], name: "index_users_on_time_capsule_id"
   end
 
 end

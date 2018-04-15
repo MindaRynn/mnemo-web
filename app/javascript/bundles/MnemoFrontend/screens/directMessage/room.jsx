@@ -1,39 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import appendReactDOM from 'append-react-dom';
-import Message from './message'
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
+
+import Message from './message'
+import Image from './image'
+import CommentField from '../../components/commentField'
+import MessageWithImage from './messageWithImage'
 
 class Room extends React.Component {
 
   constructor(props) {
     super(props)
+
+    this.state = {
+      openDate: moment()
+    };
+
     this._roomName = this._roomName.bind(this);
     this._sendText = this._sendText.bind(this);
-    this.state = {
-      startDate: moment(),
-      endDate: moment()
-    };
     this.handleChange = this.handleChange.bind(this);
-    this.handleChangeStart = this.handleChangeStart.bind(this);
-    this.handleChangeEnd = this.handleChangeEnd.bind(this);
   }
 
-  handleChange ({ startDate, endDate }){
-    startDate = startDate || this.state.startDate;
-    endDate = endDate || this.state.endDate;
-
-    if (startDate.isAfter(endDate)) {
-      endDate = startDate;
+  handleChange (openDate){
+    if (moment().isAfter(openDate)) {
+      openDate = moment();
     }
 
-    this.setState({ startDate, endDate });
+    this.setState({ openDate: openDate });
   }
-
-  handleChangeStart (startDate) { this.handleChange({ startDate }); }
-
-  handleChangeEnd (endDate) { this.handleChange({ endDate }); }
 
   componentDidUpdate(prevProps) {
     let {currentRoom, firebaseRef} = this.props
@@ -53,10 +48,10 @@ class Room extends React.Component {
 
           var childData = childSnapshot.val();
           var className =  childData.user_id == currentUser.id ? 'mine' : null
-          appendReactDOM(Message, el, {
-            text: childData.message,
-            className: className
-          });
+          // appendReactDOM(Message, el, {
+          //   text: childData.message,
+          //   className: className
+          // });
           if(itemsProcessed === length) {
             el.scrollTo(0, el.scrollHeight - el.clientHeight);
           }
@@ -65,11 +60,23 @@ class Room extends React.Component {
 
       firebaseRef.child(currentRoom.room_key).on('child_added',function(snapshot){
         let className =  snapshot.val().user_id == currentUser.id ? 'mine' : null
-
-        appendReactDOM(Message, el, {
-          text: snapshot.val().message,
-          className: className
-        });
+        if(snapshot.val().hasOwnProperty('image') && snapshot.val().message != ""){
+          appendReactDOM(MessageWithImage, el, {
+            src: snapshot.val().image.url,
+            text: snapshot.val().message,
+            className: className
+          });
+        } else if(snapshot.val().hasOwnProperty('image')){
+          appendReactDOM(Image, el, {
+            src: snapshot.val().image.url,
+            className: className
+          });
+        } else {
+          appendReactDOM(Message, el, {
+            text: snapshot.val().message,
+            className: className
+          });
+        }
 
         el.scrollTo(0, el.scrollHeight - el.clientHeight);
       })
@@ -84,7 +91,7 @@ class Room extends React.Component {
     return room.users.filter(user => user.id != currentUser.id)[0].name;
   }
 
-  _sendText(e) {
+  _sendText(e, imageLink) {
     let code = (e.keyCode ? e.keyCode : e.which);
     let el = document.getElementsByClassName('message-container')[0]
 
@@ -96,13 +103,16 @@ class Room extends React.Component {
 
       let messageField = document.getElementsByTagName('textarea')[0]
 
+      let messageObjet = {
+        user_id: currentUser.id,
+        message: messageField.value
+      }
 
-      firebaseRef.child(currentRoom.room_key).push (
-        {
-          user_id: currentUser.id,
-          message: messageField.value
-        }
-      )
+      if(imageLink.length){
+        messageObjet['image'] = {url: imageLink}
+      }
+
+      firebaseRef.child(currentRoom.room_key).push(messageObjet);
 
       messageField.value = ''
     }
@@ -112,97 +122,36 @@ class Room extends React.Component {
 
   render() {
     let {currentRoom} = this.props;
-    var date = new Date();
-    return (
-    <div className={`col-8 ${Object.getOwnPropertyNames(currentRoom).length === 0 ? 'flex-box' : ''}`}>
-      { Object.getOwnPropertyNames(currentRoom).length === 0 ?
-        <div className="room-placeholder">
-          Text to someone to Create you Chat room
-        </div>
-      :
-        <div className="chat-container">
-          <div className="title-container">
-            <div className="profile-container">
-              <a>{this._roomName(currentRoom)}</a>
-            </div>
-          </div>
 
-          <div className="content-group">
-            <div className="message-container" />
-            <div className="col-8 comment-field-container">
-              <textarea placeholder="Type messages" onKeyPress={e => this._sendText(e)}/>
-              <div className="timing-container">
-                <div className="col-md-6">
-                  <label>Wrap time: </label>
-                  <div className="small-field">
-                    <DatePicker
-                      selected={this.state.startDate}
-                      selectsStart
-                      startDate={this.state.startDate}
-                      endDate={this.state.endDate}
-                      onChange={this.handleChangeStart}
-                      showTimeSelect
-                      showTimeSelectOnly
-                      timeIntervals={15}
-                      dateFormat="LT"
-                      timeCaption="Time"
-                    />
-                  </div>
-                  <div className="large-field">
-                    <DatePicker
-                      selected={this.state.startDate}
-                      selectsStart
-                      startDate={this.state.startDate}
-                      endDate={this.state.endDate}
-                      onChange={this.handleChangeStart}
-                    />
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <label>Open time: </label>
-                  <div className="small-field">
-                    <DatePicker
-                      selected={this.state.endDate}
-                      selectsStart
-                      startDate={this.state.startDate}
-                      endDate={this.state.endDate}
-                      onChange={this.handleChangeEnd}
-                      showTimeSelect
-                      showTimeSelectOnly
-                      timeIntervals={15}
-                      dateFormat="LT"
-                      timeCaption="Time"
-                    />
-                  </div>
-                  <div className="large-field">
-                    <DatePicker
-                      selected={this.state.endDate}
-                      selectsStart
-                      startDate={this.state.startDate}
-                      endDate={this.state.endDate}
-                      onChange={this.handleChangeEnd}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="upload-container">
-                <div className="col-md-6">
-                  <i className="fa fa-microphone"></i>
-                  <i className="fa fa-image"></i>
-                  <i className="fa fa-video-camera"></i>
-                </div>
-                <div className="col-md-6 align-right">
-                  <button>Post</button>
-                </div>
+    return (
+      <div className={`col-8 ${Object.getOwnPropertyNames(currentRoom).length === 0 ? 'flex-box' : ''}`}>
+        { Object.getOwnPropertyNames(currentRoom).length === 0 ?
+          <div className="room-placeholder">
+            Text to someone to Create you Chat room
+          </div>
+          :
+          <div className="chat-container">
+            <div className="title-container">
+              <div className="profile-container">
+                <a>{this._roomName(currentRoom)}</a>
               </div>
             </div>
+
+            <div className="content-group">
+              <div className="message-container" />
+              <CommentField containerClass="col-8"
+                            openDate={this.state.openDate}
+                            sendTextHandler={this._sendText}
+                            openDateChangeHandler={this.handleChange}
+                            buttonText="Post" />
+            </div>
           </div>
-        </div>
-      }
-    </div>
+        }
+      </div>
     );
   }
 }
+
 Room.contextTypes = {
   /**
    * Holds the current logged in user

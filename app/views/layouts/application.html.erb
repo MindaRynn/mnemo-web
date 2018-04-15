@@ -9,7 +9,7 @@
     <%= render partial: 'shared/nav_bar' %>
   </head>
 
-  <body class="<%= controller_name %> <%= action_name %>">
+  <body class="<%= controller_name %> <%= action_name %> <%= 'landing-page' unless user_signed_in? %>">
     <div><%= notice %></div>
     <div><%= alert %></div>
     <%= yield %>
