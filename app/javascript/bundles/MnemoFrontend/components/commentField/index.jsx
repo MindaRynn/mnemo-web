@@ -10,6 +10,7 @@ class CommentField extends React.Component {
 
     this.inputOnChangeHandler = this.inputOnChangeHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
+    this.sendTextAndResetImage = this.sendTextAndResetImage.bind(this);
 
     this.state = {
       image: ''
@@ -40,6 +41,19 @@ class CommentField extends React.Component {
     };
 
     xhr.send(data);
+  }
+
+  sendTextAndResetImage(e, image) {
+    let {sendTextHandler} = this.props;
+
+    let code = (e.keyCode ? e.keyCode : e.which);
+
+    if (code == 13) {
+      sendTextHandler(e, image);
+      this.setState({
+        image: ''
+      })
+    }
   }
 
   render() {
@@ -81,7 +95,7 @@ class CommentField extends React.Component {
           </form>
         </div>
         <div className="textfield-container">
-          <textarea placeholder="Type messages" onKeyPress={e => sendTextHandler(e, this.state.image)}/>
+          <textarea placeholder="Type messages" onKeyPress={e => this.sendTextAndResetImage(e, this.state.image)}/>
           <div className="timing-container">
             <div>
               <label>Open time: </label>
@@ -105,7 +119,7 @@ class CommentField extends React.Component {
                 />
               </div>
             </div>
-            <button onClick={e => sendTextHandler(e, this.state.image)}>{buttonText}</button>
+            <button onClick={e => this.sendTextAndResetImage(e, this.state.image)}>{buttonText}</button>
           </div>
         </div>
       </div>

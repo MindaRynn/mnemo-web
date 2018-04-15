@@ -4,7 +4,9 @@ import appendReactDOM from 'append-react-dom';
 import moment from 'moment';
 
 import Message from './message'
+import Image from './image'
 import CommentField from '../../components/commentField'
+import MessageWithImage from './messageWithImage'
 
 class Room extends React.Component {
 
@@ -46,10 +48,10 @@ class Room extends React.Component {
 
           var childData = childSnapshot.val();
           var className =  childData.user_id == currentUser.id ? 'mine' : null
-          appendReactDOM(Message, el, {
-            text: childData.message,
-            className: className
-          });
+          // appendReactDOM(Message, el, {
+          //   text: childData.message,
+          //   className: className
+          // });
           if(itemsProcessed === length) {
             el.scrollTo(0, el.scrollHeight - el.clientHeight);
           }
@@ -59,10 +61,23 @@ class Room extends React.Component {
       firebaseRef.child(currentRoom.room_key).on('child_added',function(snapshot){
         let className =  snapshot.val().user_id == currentUser.id ? 'mine' : null
 
-        appendReactDOM(Message, el, {
-          text: snapshot.val().message,
-          className: className
-        });
+        if(snapshot.val().hasOwnProperty('image') && snapshot.val().message != ""){
+          appendReactDOM(MessageWithImage, el, {
+            src: snapshot.val().image.url,
+            text: snapshot.val().message,
+            className: className
+          });
+        } else if(snapshot.val().hasOwnProperty('image')){
+          appendReactDOM(Image, el, {
+            src: snapshot.val().image.url,
+            className: className
+          });
+        } else {
+          appendReactDOM(Message, el, {
+            text: snapshot.val().message,
+            className: className
+          });
+        }
 
         el.scrollTo(0, el.scrollHeight - el.clientHeight);
       })
