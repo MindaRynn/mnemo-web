@@ -19,7 +19,8 @@ class Image extends React.Component {
     }
 
     return (
-      <div className={`img img-border ${classNames ? classNames : ''}`} style={imageStyle} ></div>
+      <div className={`img img-border img-fluid ${classNames ? classNames : ''}`} style={imageStyle} ></div>
+
     );
   }
 }
