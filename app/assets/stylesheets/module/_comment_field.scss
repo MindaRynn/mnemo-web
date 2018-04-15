@@ -11,14 +11,21 @@
 
   textarea {
     padding: 1.25rem;
-    width: 100%;
     height: 6.25rem;
-    background-color: map-get($brand-gray, "lightest");
-    border: none;
-    outline: none
   }
 
-  button {
+  textarea, .textfield-group input {
+    background-color: map-get($brand-gray, "lightest");
+    border: none;
+    outline: none;
+    width: 100%;
+  }
+
+  input + textarea {
+    margin-top: 10px;
+  }
+
+  button.submit-button {
     height: 1.875rem;
     padding: 0 20px;
     color: white;
@@ -73,6 +80,7 @@
   }
 
   .timing-container .react-datepicker-wrapper input,
+  .friend-seach-container input,
   .dropdown > a {
     text-align: center;
     font-size: 12px;

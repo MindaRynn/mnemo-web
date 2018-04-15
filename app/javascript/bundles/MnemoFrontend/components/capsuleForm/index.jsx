@@ -4,13 +4,41 @@ import PropTypes from 'prop-types';
 
 import Image from "../../components/image";
 
+
+
+const directType = {
+  me: 'Only me',
+  everyone: 'Everyone who join',
+  friend: 'Friend'
+};
+
 class CapsuleForm extends React.Component {
 
   constructor(props) {
     super(props);
 
+    this.state = {
+      directTo: 'everyone',
+      capsuleName: '',
+      capsuleDetail: '',
+      friendName: ''
+    };
+
     this.inputOnChangeHandler = this.inputOnChangeHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
+    this._checkIfSelected = this._checkIfSelected.bind(this);
+    this._setDirectTo = this._setDirectTo.bind(this);
+    this._capsuleNameHandler = this._capsuleNameHandler.bind(this);
+    this._capsuleDetailHandler = this._capsuleDetailHandler.bind(this);
+    this._friendNameHandler = this._friendNameHandler.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    let {createTimeCapsuleSuccess} = this.props.timeCapsule
+
+    if(prevProps.timeCapsule.creatingTimeCapsule && createTimeCapsuleSuccess) {
+      //TODO : Clear Form
+    }
   }
 
   _openUploadWindow(){
@@ -20,6 +48,30 @@ class CapsuleForm extends React.Component {
 
   inputOnChangeHandler(e) {
     document.getElementById("submitButton").click();
+  }
+
+  _capsuleNameHandler(e){
+    e.preventDefault();
+
+    this.setState({
+      capsuleName: e.target.value
+    });
+  }
+
+  _capsuleDetailHandler(e){
+    e.preventDefault();
+
+    this.setState({
+      capsuleDetail: e.target.value
+    });
+  }
+
+  _friendNameHandler(e){
+    e.preventDefault();
+
+    this.setState({
+      friendName: e.target.value
+    });
   }
 
   submitHandler(e) {
@@ -40,23 +92,43 @@ class CapsuleForm extends React.Component {
     xhr.send(data);
   }
 
+  _checkIfSelected(selected) {
+    let {directTo} = this.state;
+
+    if (selected == directTo) return 'selected';
+
+    return ''
+  }
+
+  _setDirectTo(e, selected) {
+    e.preventDefault();
+
+    this.setState({
+      directTo: selected
+    })
+  }
+
   render() {
     let {wrapDate, openDate, wrapDateChangeHandler, openDateChangeHandler, sendTextHandler, buttonText, medium} = this.props;
     let {currentUser} = this.context;
+    let {directTo} = this.state;
 
     return (
       <div className='comment-field-container'>
         <div className="profile col-1">
-          PROFILE
+          <Image classNames="circle" src={currentUser.image} size="s" />
         </div>
         <div className="form-group col-11">
-          <textarea placeholder="Type messages" onKeyPress={e => sendTextHandler(e)}/>
+          <div className="textfield-group">
+            <input placeholder="Capsule's Name"  onChange={this._capsuleNameHandler} />
+            <textarea placeholder="Tell about these Memories" onChange={this._capsuleDetailHandler} />
+          </div>
 
           <div className="media-form">
             {medium.map((media, index) => {
 
               return (
-                <Image key={index} type="standard" src={media} size="l" />
+                <Image key={index} src={media} size="l" />
               );
             })}
             { medium.length >= 4 ?
@@ -93,7 +165,7 @@ class CapsuleForm extends React.Component {
 
           <div className="timing-container">
             <div>
-              <label>Wrap time: </label>
+              <label>Wrap time : </label>
               <div className="small-field">
                 <DatePicker selected={wrapDate}
                             selectsStart
@@ -111,7 +183,7 @@ class CapsuleForm extends React.Component {
               </div>
             </div>
             <div>
-              <label>Open time: </label>
+              <label>Open time : </label>
               <div className="small-field">
                 <DatePicker selected={openDate}
                             selectsStart
@@ -131,20 +203,30 @@ class CapsuleForm extends React.Component {
           </div>
           <div className="button-container">
             <div>
-              <label>Open time: </label>
+              <label>Direct to : </label>
               <div className="dropdown show">
-                <a className="btn dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown link
+                <a className={`btn dropdown-toggle ${directTo == 'friend' ? 'friend' : ''}`}
+                   id="dropdownMenuLink"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">
+                  {directType[directTo]}
                 </a>
 
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a className="dropdown-item" href="#">Action</a>
-                  <a className="dropdown-item" href="#">Another action</a>
-                  <a className="dropdown-item" href="#">Something else here</a>
+                  <a onClick={e => this._setDirectTo(e, 'me')} className={`dropdown-item ${ this._checkIfSelected('me', directTo)}`} href="#">{directType['me']}</a>
+                  <a onClick={e => this._setDirectTo(e, 'everyone')} className={`dropdown-item ${ this._checkIfSelected('everyone', directTo)}`} href="#">{directType['everyone']}</a>
+                  <a onClick={e => this._setDirectTo(e, 'friend')} className={`dropdown-item ${ this._checkIfSelected('friend' ,directTo)}`} href="#">{directType['friend']}</a>
                 </div>
               </div>
             </div>
-            <button onClick={e => sendTextHandler(e)}>{buttonText}</button>
+            {
+             directTo == 'friend' ?
+               <div className="friend-seach-container">
+                 <input onChange={this._friendNameHandler} />
+               </div> : null
+            }
+            <button className="submit-button" onClick={e => sendTextHandler(e, this.state)}>{buttonText}</button>
           </div>
         </div>
       </div>

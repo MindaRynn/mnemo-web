@@ -2,14 +2,32 @@ body.feed .app-container {
   padding: 1.875rem 12rem 0 12rem;
 }
 
+body.feed .comment-field-container {
+  padding-top: 30px;
+}
+
+body.feed .comment-field-container .profile {
+  padding: 0;
+}
+
 body.feed .comment-field-container .button-container {
   @include flexbox();
   @include justify-content(space-between)
 }
 
+body.feed .comment-field-container .dropdown {
+  a.friend {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
 body.feed .comment-field-container .dropdown-menu {
   a {
     font-size: $font-size-h4;
+  }
+
+  .dropdown-item.selected {
+    color: map-get($brand-orange, "primary");
   }
 }
 
@@ -30,7 +48,23 @@ body.feed .comment-field-container {
 body.feed .comment-field-container .media-form {
   @include flexbox();
 
+  padding-top: 6px;
+
   .img + .img {
     margin-left: 10px;
+  }
+}
+
+body.feed .comment-field-container .friend-seach-container {
+  @include flex-grow(1);
+
+  padding-right: 20px;
+
+
+  input {
+    width: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
   }
 }

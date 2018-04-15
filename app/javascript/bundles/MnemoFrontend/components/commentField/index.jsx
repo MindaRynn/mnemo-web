@@ -119,7 +119,7 @@ class CommentField extends React.Component {
                 />
               </div>
             </div>
-            <button onClick={e => this.sendTextAndResetImage(e, this.state.image)}>{buttonText}</button>
+            <button className="submit-button" onClick={e => this.sendTextAndResetImage(e, this.state.image)}>{buttonText}</button>
           </div>
         </div>
       </div>

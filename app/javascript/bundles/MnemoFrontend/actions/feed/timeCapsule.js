@@ -14,9 +14,29 @@ function timeCapsuleFetchFailure() {
   return {type: types.TIME_CAPSULE_FETCH_FAILURE};
 }
 
+function creatingTimeCapsule() {
+  return {type: types.TIME_CAPSULE_IS_CREATING};
+}
+
+function timeCapsuleCreateSuccess() {
+  return {type: types.TIME_CAPSULE_CREATE_SUCCESS};
+}
+
+function timeCapsuleCreateFailure() {
+  return {type: types.TIME_CAPSULE_CREATE_FAILURE};
+}
+
 function fetch(userId) {
   return TimeCapsulesAdapter
     .fetch(userId)
+    .then((response) => {
+      return response;
+    })
+}
+
+function create(userId, timeCapsuleDetail) {
+  return TimeCapsulesAdapter
+    .create(userId, timeCapsuleDetail)
     .then((response) => {
       return response;
     })
@@ -33,6 +53,21 @@ export function fetchTimeCapsule(userId) {
       .catch(errors => {
         dispatch(appErrorHandler(errors));
         dispatch(timeCapsuleFetchFailure());
+      });
+  };
+}
+
+export function createTimeCapsule(userId, timeCapsuleDetail) {
+  return function (dispatch) {
+
+    dispatch(creatingTimeCapsule());
+    create(userId, timeCapsuleDetail)
+      .then((response) => {
+        dispatch(timeCapsuleCreateSuccess(response));
+      })
+      .catch(errors => {
+        dispatch(appErrorHandler(errors));
+        dispatch(timeCapsuleCreateFailure());
       });
   };
 }

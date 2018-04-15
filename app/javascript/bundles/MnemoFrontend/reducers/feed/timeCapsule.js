@@ -6,6 +6,10 @@ const initialState = {
   fetchTimeCapsuleSuccess: false,
   fetchTimeCapsuleFailure: false,
 
+  creatingTimeCapsule: false,
+  createTimeCapsuleSuccess: false,
+  createTimeCapsuleFailure: false,
+
   timeCapsules: []
 };
 
@@ -15,7 +19,9 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
   switch(type) {
     case actionTypes.TIME_CAPSULE_IS_FETCHING:
       return objectAssign({}, state, {
-        fetchingTimeCapsule: true
+        fetchingTimeCapsule: true,
+        fetchTimeCapsuleSuccess: false,
+        fetchTimeCapsuleFailure: false
       });
 
     case actionTypes.TIME_CAPSULE_FETCH_SUCCESS:
@@ -31,6 +37,29 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
         fetchingTimeCapsule: false,
         fetchTimeCapsuleSuccess: false,
         fetchTimeCapsuleFailure: true
+      });
+
+// ------------------------------------------------------------
+
+    case actionTypes.TIME_CAPSULE_IS_CREATING:
+      return objectAssign({}, state, {
+        creatingTimeCapsule: true,
+        createTimeCapsuleSuccess: false,
+        createTimeCapsuleFailure: false
+      });
+
+    case actionTypes.TIME_CAPSULE_CREATE_SUCCESS:
+      return objectAssign({}, state, {
+        creatingTimeCapsule: false,
+        createTimeCapsuleSuccess: true,
+        createTimeCapsuleFailure: false,
+      });
+
+    case actionTypes.TIME_CAPSULE_CREATE_FAILURE:
+      return objectAssign({}, state, {
+        creatingTimeCapsule: false,
+        createTimeCapsuleSuccess: false,
+        createTimeCapsuleFailure: true
       });
 
     default:

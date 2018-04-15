@@ -15,4 +15,8 @@
       font-size: $font-size-h1;
       color: map-get($brand-gray, 'light');
   }
+
+  &.circle {
+    border-radius: 50%;
+  }
 }

@@ -13,9 +13,11 @@ class CapsuleList extends React.Component {
       wrapDate: moment(),
       openDate: moment()
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.wrapDateChangeHandler = this.wrapDateChangeHandler.bind(this);
     this.openDateChangeHandler = this.openDateChangeHandler.bind(this);
+    this._sendText = this._sendText.bind(this);
   }
 
   handleChange ({ wrapDate, openDate }){
@@ -33,17 +35,34 @@ class CapsuleList extends React.Component {
 
   openDateChangeHandler (openDate) { this.handleChange({ openDate }); }
 
+  _sendText(e, capsuleDetail) {
+    e.preventDefault();
+
+    let {actions} = this.props;
+    let {currentUser} = this.context;
+
+    capsuleDetail['wrapDate'] = this.state.wrapDate.toDate();
+    capsuleDetail['openDate'] = this.state.openDate.toDate();
+    capsuleDetail['medium'] = this.props.medium;
+
+    actions.createTimeCapsule(currentUser.id, capsuleDetail)
+  }
+
   render() {
-    let {actions, medium} = this.props;
+    let {actions, medium, timeCapsule} = this.props;
     return (
       <div className="list col-9">
         <CapsuleForm hasOpenTime={true}
                      hasWrapTime={true}
+                     wrapDateChangeHandler={this.wrapDateChangeHandler}
+                     openDateChangeHandler={this.openDateChangeHandler}
                      openDate={this.state.openDate}
                      wrapDate={this.state.wrapDate}
                      buttonText="Create Time Capsule"
                      actions={actions}
-                     medium={medium} />
+                     medium={medium}
+                     sendTextHandler={this._sendText}
+                     timeCapsule={timeCapsule} />
       </div>
     );
   }
