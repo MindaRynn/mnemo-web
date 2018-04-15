@@ -124,6 +124,31 @@ body.direct-message .chat-container .content-group .message-container {
       border-radius: 15px 15px 0 15px;
     }
   }
+
+  .modal-header {
+    background-color: black;
+  }
+
+  .modal-body {
+    background-color: black;
+  }
+
+  .modal-content {
+    height: 90vh;
+}
+
+  .close {
+    @include justify-content(flex-start);
+    @include align-items(flex-start);
+    color: white;
+  }
+  
+  .container-fluid {
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    height: 80vh;
+  }
 }
 
 body.direct-message div.flex-box {
