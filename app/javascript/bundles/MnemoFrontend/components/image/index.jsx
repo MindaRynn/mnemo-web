@@ -1,14 +1,15 @@
 import React from "react";
 
 const types = {
-  notification: 95,
-  standard: 150,
-  post: 60
+  s: 60,
+  m: 95,
+  l: 120,
+  lx: 150
 };
 
 class Image extends React.Component {
   render() {
-    let size = types[this.props.type] || types.standard;
+    let size = types[this.props.size] || types.lx;
     let { src, classNames } = this.props;
 
     const imageStyle = {

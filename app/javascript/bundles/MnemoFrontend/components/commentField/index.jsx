@@ -17,7 +17,7 @@ class CommentField extends React.Component {
   }
 
   _openUploadWindow(){
-    document.getElementById('avatar').click()
+    document.getElementById('uploader').click()
   }
 
 
@@ -59,7 +59,7 @@ class CommentField extends React.Component {
             <input
               onChange={this.inputOnChangeHandler}
               style={{ display: "none" }}
-              id="avatar"
+              id="uploader"
               type="file"
               name="file"/>
 

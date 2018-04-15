@@ -34,11 +34,13 @@ class Feed extends React.Component {
 
   render() {
     let {fetchedCapsule} = this.state
+    let {actions} = this.props;
+    let {medium} = this.props.feed.media
 
     return (
       <div className="row">
         <CategoryList />
-        {fetchedCapsule ? <CapsuleList /> : null }
+        {fetchedCapsule ? <CapsuleList actions={actions} medium={medium} /> : null }
       </div>
     );
   }

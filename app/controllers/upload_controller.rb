@@ -11,9 +11,6 @@ class UploadController < ApplicationController
     # Upload file to Google Cloud Storage bucket
     file = bucket.create_file file_path, file_name, acl: "public"
 
-    # The public URL can be used to directly access the uploaded file via HTTP
-    file.public_url
-
     render json: file.public_url
   end
 

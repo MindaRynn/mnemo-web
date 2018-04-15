@@ -1,3 +1,36 @@
 body.feed .app-container {
-  padding: 1.875rem 6.25rem 0 6.25rem;
+  padding: 1.875rem 12rem 0 12rem;
+}
+
+body.feed .comment-field-container .button-container {
+  @include flexbox();
+  @include justify-content(space-between)
+}
+
+body.feed .comment-field-container .dropdown-menu {
+  a {
+    font-size: $font-size-h4;
+  }
+}
+
+body.feed .comment-field-container .upload-container {
+  .upload-button {
+    cursor: pointer;
+  }
+}
+
+
+body.feed .comment-field-container {
+  @include flexbox();
+
+ .img + .upload-container {
+   margin-left: 10px;
+ }
+}
+body.feed .comment-field-container .media-form {
+  @include flexbox();
+
+  .img + .img {
+    margin-left: 10px;
+  }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import CommentField from '../../components/commentField'
+import CapsuleForm from '../../components/capsuleForm'
 
 class CapsuleList extends React.Component {
 
@@ -34,12 +34,16 @@ class CapsuleList extends React.Component {
   openDateChangeHandler (openDate) { this.handleChange({ openDate }); }
 
   render() {
+    let {actions, medium} = this.props;
     return (
       <div className="list col-9">
-        <CommentField hasOpenTime={true}
-                      hasWrapTime={true}
-                      openDate={this.state.openDate}
-                      wrapDate={this.state.wrapDate}/>
+        <CapsuleForm hasOpenTime={true}
+                     hasWrapTime={true}
+                     openDate={this.state.openDate}
+                     wrapDate={this.state.wrapDate}
+                     buttonText="Create Time Capsule"
+                     actions={actions}
+                     medium={medium} />
       </div>
     );
   }

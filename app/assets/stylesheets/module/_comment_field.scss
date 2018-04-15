@@ -1,6 +1,4 @@
 .comment-field-container {
-  @include flexbox();
-
   background-color: #fff;
   min-height: 13.75rem;
   border: none;
@@ -33,31 +31,18 @@
 
 .comment-field-container .timing-container {
   @include inline-flex();
+  @include justify-content(space-between);
+
   width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
 
-  > div {
-    @include flex-grow(1);
-  }
-
-  label {
-    padding-right: 2.125rem;
-    color: map-get($brand-orange, "primary");
-  }
-
   .react-datepicker-wrapper {
-    padding-right: 0.625rem;
     text-align: center;
     display: inline-block;
+
     input {
       padding: 0;
-      text-align: center;
-      font-size: 12px;
-      width: 10rem;
-      height: 1.875rem;
-      border-radius: 1rem;
-      border-color: map-get($brand-orange, "light");
     }
   }
 
@@ -78,6 +63,23 @@
 
   .large-field {
     display: inline-block;
+  }
+}
+
+.comment-field-container {
+  label {
+    padding-right: 2.125rem;
+    color: map-get($brand-orange, "primary");
+  }
+
+  .timing-container .react-datepicker-wrapper input,
+  .dropdown > a {
+    text-align: center;
+    font-size: 12px;
+    width: 10rem;
+    height: 1.875rem;
+    border-radius: 1rem;
+    border-color: map-get($brand-orange, "light");
   }
 }
 

@@ -2,15 +2,15 @@ import * as types from '../../constants/feed/timeCapsule';
 import TimeCapsulesAdapter from '../../adapters/timeCapsules';
 import {appErrorHandler} from '../app';
 
-export function fetchingTimeCapsule() {
+function fetchingTimeCapsule() {
   return {type: types.TIME_CAPSULE_IS_FETCHING};
 }
 
-export function timeCapsuleFetchSuccess(timeCapsules) {
+function timeCapsuleFetchSuccess(timeCapsules) {
   return {type: types.TIME_CAPSULE_FETCH_SUCCESS, timeCapsules: timeCapsules};
 }
 
-export function timeCapsuleFetchFailure() {
+function timeCapsuleFetchFailure() {
   return {type: types.TIME_CAPSULE_FETCH_FAILURE};
 }
 

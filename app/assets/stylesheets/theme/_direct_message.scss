@@ -81,6 +81,8 @@ body.direct-message .chat-container {
 }
 
 body.direct-message .chat-container .content-group .comment-field-container {
+  @include flexbox();
+
   position: fixed;
   bottom: 0;
 
