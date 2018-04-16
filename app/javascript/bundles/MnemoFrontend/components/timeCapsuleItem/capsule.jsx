@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from '../../components/image/';
 import StatusCircle from '../../screens/profile/statusCircle';
-import Moment from 'moment';
+import moment from 'moment';
 
 export default class Capsule extends React.Component {
   constructor(props) {
@@ -9,20 +9,11 @@ export default class Capsule extends React.Component {
 
     this.state = {
       status: this.props.capsule.status == 0 ? "AVAILABLE" : "JOINED",
-      created_at: Moment(this.props.capsule.created_at.toLocaleString()).format('LLL'),
-      wrap_date: Moment(this.props.capsule.wrap_date.toLocaleString()).format('LLL'),
-      open_date: Moment(this.props.capsule.open_date.toLocaleString()).format('LLL')
+      created_at: moment(this.props.capsule.created_at.toLocaleString()).format('LLL'),
+      wrap_date: moment(this.props.capsule.wrap_date.toLocaleString()).format('LLL')
 
     }
   }
-
-  componentWillMount() {
-    let startDate = new Moment(this.props.capsule.wrap_date.toLocaleString());
-    let endDate = new Moment(this.props.capsule.open_date.toLocaleString());
-    let duration = Moment.duration(endDate.diff(startDate));
-    let hours = duration.asHours();
-  }
-
 
   render() {
     let {name,avatar,capsule} = this.props
