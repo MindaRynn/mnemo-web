@@ -1,5 +1,5 @@
 import objectAssign from 'object-assign';
-import * as actionTypes from '../../constants/feed/media';
+import * as actionTypes from '../../constants/profile/media';
 
 const initialState = {
   medium: []

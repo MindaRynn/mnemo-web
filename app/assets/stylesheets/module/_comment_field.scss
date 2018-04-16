@@ -83,7 +83,7 @@
   .friend-seach-container input,
   .dropdown > a {
     text-align: center;
-    font-size: 12px;
+    font-size: $font-size-h5;
     width: 10rem;
     height: 1.875rem;
     border-radius: 1rem;
@@ -100,5 +100,71 @@
   i {
     color: map-get($brand-orange, "light");
     padding-right: 1.25rem;
+  }
+}
+
+.comment-field-container.capsule-form {
+  @include flexbox();
+
+  padding-top: 30px;
+
+  .img + .upload-container {
+    margin-left: 10px;
+  }
+}
+
+.comment-field-container.capsule-form .profile {
+  padding: 0;
+}
+
+.comment-field-container.capsule-form .button-container {
+  @include flexbox();
+  @include justify-content(space-between)
+}
+
+.comment-field-container.capsule-form .dropdown {
+  a.friend {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+.comment-field-container.capsule-form .dropdown-menu {
+  a {
+    font-size: $font-size-h4;
+  }
+
+  .dropdown-item.selected {
+    color: map-get($brand-orange, "primary");
+  }
+}
+
+.comment-field-container.capsule-form .upload-container {
+  .upload-button {
+    cursor: pointer;
+  }
+}
+
+
+.comment-field-container.capsule-form .media-form {
+  @include flexbox();
+
+  padding-top: 6px;
+
+  .img + .img {
+    margin-left: 10px;
+  }
+}
+
+.comment-field-container.capsule-form .friend-seach-container {
+  @include flex-grow(1);
+
+  padding-right: 20px;
+
+
+  input {
+    width: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
   }
 }

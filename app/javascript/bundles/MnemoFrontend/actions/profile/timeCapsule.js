@@ -14,6 +14,22 @@ export function timeCapsuleFetchFailure() {
   return {type: types.TIME_CAPSULE_FETCH_FAILURE};
 }
 
+//-------------------------------------------------------
+
+function creatingTimeCapsule() {
+  return {type: types.TIME_CAPSULE_IS_CREATING};
+}
+
+function timeCapsuleCreateSuccess(timeCapsule) {
+  return {type: types.TIME_CAPSULE_CREATE_SUCCESS, timeCapsule: timeCapsule};
+}
+
+function timeCapsuleCreateFailure() {
+  return {type: types.TIME_CAPSULE_CREATE_FAILURE};
+}
+
+//-------------------------------------------------------
+
 function fetch(userId) {
   return TimeCapsulesAdapter
     .fetch(userId)
@@ -21,6 +37,16 @@ function fetch(userId) {
       return response;
     })
 }
+
+function create(userId, timeCapsuleDetail) {
+  return TimeCapsulesAdapter
+    .create(userId, timeCapsuleDetail)
+    .then((response) => {
+      return response;
+    })
+}
+
+//-------------------------------------------------------
 
 export function fetchTimeCapsule(userId) {
   return function (dispatch) {
@@ -36,3 +62,19 @@ export function fetchTimeCapsule(userId) {
       });
   };
 }
+
+export function createTimeCapsule(userId, timeCapsuleDetail) {
+  return function (dispatch) {
+
+    dispatch(creatingTimeCapsule());
+    create(userId, timeCapsuleDetail)
+      .then((response) => {
+        dispatch(timeCapsuleCreateSuccess(response));
+      })
+      .catch(errors => {
+        dispatch(appErrorHandler(errors));
+        dispatch(timeCapsuleCreateFailure());
+      });
+  };
+}
+

@@ -18,8 +18,8 @@ function creatingTimeCapsule() {
   return {type: types.TIME_CAPSULE_IS_CREATING};
 }
 
-function timeCapsuleCreateSuccess() {
-  return {type: types.TIME_CAPSULE_CREATE_SUCCESS};
+function timeCapsuleCreateSuccess(timeCapsule) {
+  return {type: types.TIME_CAPSULE_CREATE_SUCCESS, timeCapsule: timeCapsule};
 }
 
 function timeCapsuleCreateFailure() {
