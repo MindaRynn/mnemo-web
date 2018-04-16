@@ -5,7 +5,8 @@ config['api'] = {
   rooms: '/api/v1/rooms',
   time_capsules: '/api/v1/time_capsules',
   medium: '/api/v1/medium',
-  memory_boxes: '/api/v1/memory_boxes'
+  memory_boxes: '/api/v1/memory_boxes',
+  tags: '/api/v1/tags',
 };
 
 config['firebase'] = {

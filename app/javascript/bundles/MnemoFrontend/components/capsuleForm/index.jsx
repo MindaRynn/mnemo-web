@@ -17,6 +17,7 @@ const initialState = {
   directTo: 'everyone',
   capsuleName: '',
   capsuleDetail: '',
+  capsuleTag:'',
   friendName: ''
 };
 
@@ -33,6 +34,7 @@ class CapsuleForm extends React.Component {
     this._setDirectTo = this._setDirectTo.bind(this);
     this._capsuleNameHandler = this._capsuleNameHandler.bind(this);
     this._capsuleDetailHandler = this._capsuleDetailHandler.bind(this);
+    this._capsuleTagHandler = this._capsuleTagHandler.bind(this);
     this._friendNameHandler = this._friendNameHandler.bind(this);
     this._deleteMedia = this._deleteMedia.bind(this);
     this._updateWrappedTime = this._updateWrappedTime.bind(this);
@@ -100,6 +102,14 @@ class CapsuleForm extends React.Component {
     });
   }
 
+  _capsuleTagHandler(e){
+    e.preventDefault();
+
+    this.setState({
+      capsuleTag: e.target.value
+    });
+  }
+
   _friendNameHandler(e){
     e.preventDefault();
 
@@ -164,7 +174,8 @@ class CapsuleForm extends React.Component {
         }
         <div className="form-group">
           <div className="textfield-group">
-            <input placeholder="Capsule's Name"  onChange={this._capsuleNameHandler} value={this.state.capsuleName} />
+            <input className="half-field" placeholder="Capsule's Name"  onChange={this._capsuleNameHandler} value={this.state.capsuleName} />
+            <input className="half-field" placeholder="Tag"  onChange={this._capsuleTagHandler} value={this.state.capsuleTag} />
             <textarea placeholder="Tell about these Memories" onChange={this._capsuleDetailHandler}  value={this.state.capsuleDetail} />
           </div>
 

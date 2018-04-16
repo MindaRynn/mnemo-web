@@ -7,7 +7,8 @@ import CapsuleList from './capsuleList'
 import Capsule from '../../components/timeCapsuleItem/index'
 
 const initialState = {
-  fetchedCapsule: false
+  fetchedCapsule: false,
+  fetchedTag: false
 };
 
 class Feed extends React.Component {
@@ -19,28 +20,37 @@ class Feed extends React.Component {
 
   componentDidMount() {
     let {actions} = this.props;
-
+    
     actions.fetchTimeCapsule();
+    actions.fetchTimeCapsule(currentUser.id);
+    actions.fetchTags();
   }
 
   componentDidUpdate(prevProps) {
     let {fetchTimeCapsuleSuccess} = this.props.feed.timeCapsule
+    let {fetchTagSuccess} = this.props.feed.tag
 
     if(fetchTimeCapsuleSuccess && !prevProps.feed.timeCapsule.fetchTimeCapsuleSuccess) {
       this.setState({
         fetchedCapsule: true,
       });
     }
+
+    if(fetchTagSuccess && !prevProps.feed.tag.fetchTagSuccess) {
+      this.setState({
+        fetchedTag: true,
+      });
+    }
   }
 
   render() {
-    let {fetchedCapsule} = this.state
+    let {fetchedCapsule, fetchedTag} = this.state
     let {actions, feed} = this.props;
     let {medium} = this.props.feed.media
 
     return (
       <div className="row">
-        <CategoryList />
+        {fetchedTag ? <CategoryList tags={feed.tag.tags} /> : null }
         {fetchedCapsule ? <CapsuleList actions={actions} medium={medium} timeCapsule={feed.timeCapsule} /> : null }
       </div>
     );
