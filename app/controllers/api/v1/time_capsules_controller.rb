@@ -31,6 +31,10 @@ module Api
         end
 
         time_capsule.memory_boxes << memory_box
+
+        render json: time_capsule,
+               current_user: current_user,
+               status: :ok
       end
 
       private

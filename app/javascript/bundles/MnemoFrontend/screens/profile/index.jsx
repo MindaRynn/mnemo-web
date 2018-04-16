@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import config from '../../config/';
 import Image from '../../components/image/';
 import PrimaryButton from '../../components/buttons/primaryButton';
 import Capsule from './capsule';
-import CommentField from '../../components/commentField/';
+import CapsuleForm from '../../components/capsuleForm'
 import moment from 'moment';
 
 class Profile extends React.Component {
@@ -15,41 +14,69 @@ class Profile extends React.Component {
       avatar: this.context.currentUser.image,
       bio: this.context.currentUser.bio,
       name: this.context.currentUser.name,
-      startDate: moment(),
-      endDate: moment(),
+      wrapDate: moment(),
+      openDate: moment(),
       fetchedCapsule: false
     }
+
     this.handleChange = this.handleChange.bind(this);
-    this.handleChangeStart = this.handleChangeStart.bind(this);
-    this.handleChangeEnd = this.handleChangeEnd.bind(this);
+    this.wrapDateChangeHandler = this.wrapDateChangeHandler.bind(this);
+    this.openDateChangeHandler = this.openDateChangeHandler.bind(this);
+    this._sendText = this._sendText.bind(this);
+    this._resetForm = this._resetForm.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange ({ startDate, endDate }){
-    startDate = startDate || this.state.startDate;
-    endDate = endDate || this.state.endDate;
+  handleChange ({ wrapDate, openDate }){
+    wrapDate = wrapDate || this.state.wrapDate;
+    openDate = openDate || this.state.openDate;
 
-    if (startDate.isAfter(endDate)) {
-      endDate = startDate;
+    if (wrapDate.isAfter(openDate)) {
+      openDate = wrapDate;
     }
 
-    this.setState({ startDate, endDate });
+    this.setState({ wrapDate, openDate });
   }
 
-  handleChangeStart (startDate) { this.handleChange({ startDate }); }
+  wrapDateChangeHandler (wrapDate) { this.handleChange({ wrapDate }); }
 
-  handleChangeEnd (endDate) { this.handleChange({ endDate }); }
+  openDateChangeHandler (openDate) { this.handleChange({ openDate }); }
 
-  componentDidMount() {
+  _sendText(e, capsuleDetail) {
+    e.preventDefault();
+
+    let {actions} = this.props;
     let {currentUser} = this.context;
+
+    capsuleDetail['wrapDate'] = this.state.wrapDate.toDate();
+    capsuleDetail['openDate'] = this.state.openDate.toDate();
+    capsuleDetail['medium'] = this.props.profile.media.medium;
+
+    actions.createTimeCapsule(currentUser.id, capsuleDetail)
+  }
+
+  _resetForm() {
     let {actions} = this.props;
 
-    actions.fetchTimeCapsule(currentUser.memory_boxes);
+    actions.resetMedium();
+
+    this.setState({
+      wrapDate: moment(),
+      openDate: moment()
+    });
+
+  }
+
+  componentDidMount() {
+    let {actions} = this.props;
+
+    actions.fetchTimeCapsule();
   }
 
   componentDidUpdate(prevProps) {
-    let {fetchTimeCapsuleSuccess} = this.props.profile.capsule
+    let {fetchTimeCapsuleSuccess} = this.props.profile.timeCapsule
 
-    if(fetchTimeCapsuleSuccess && !prevProps.profile.capsule.fetchTimeCapsuleSuccess) {
+    if(fetchTimeCapsuleSuccess && !prevProps.profile.timeCapsule.fetchTimeCapsuleSuccess) {
       this.setState({
         fetchedCapsule: true,
       });
@@ -58,16 +85,18 @@ class Profile extends React.Component {
 
   createCapsule = () => {
     let capsules = [];
-    this.props.profile.capsule.timeCapsules.map((capsule) => {
+    this.props.profile.timeCapsule.timeCapsules.map((timeCapsule) => {
       capsules.push(
-        <Capsule key={capsule.id} avatar={this.state.avatar} name={this.state.name} capsule={capsule}/>
+        <Capsule key={timeCapsule.id} avatar={this.state.avatar} name={this.state.name} capsule={timeCapsule}/>
       );
     });
     return capsules;
   }
 
   render() {
-    let {profile} = this.props
+    let {actions, profile} = this.props;
+    let {timeCapsule} = profile;
+    let {medium} = profile.media;
     let {fetchedCapsule} = this.state
 
     return (
@@ -93,16 +122,26 @@ class Profile extends React.Component {
             <div className="col-2"></div>
           </div>
           <hr/>
-          <CommentField containerClass="col-12"
-                        startDate={this.state.startDate}
-                        endDate={this.state.endDate}
-                        startDateChangeHandler={this.handleChangeStart}
-                        endDateChangeHandler={this.handleChangeEnd}
-                        sendTextHandler={this._sendText}/>
-          <ul className="nav">
-            <li className="space-item"><a data-toggle="tab" href="#menu1" className="space-toggle active show">All</a></li>
-            <li className="space-item"><a data-toggle="tab" href="#menu2" className="space-toggle">Opened</a></li>
-          </ul>
+          <CapsuleForm hasOpenTime={true}
+                       hasWrapTime={true}
+                       wrapDateChangeHandler={this.wrapDateChangeHandler}
+                       openDateChangeHandler={this.openDateChangeHandler}
+                       openDate={this.state.openDate}
+                       wrapDate={this.state.wrapDate}
+                       buttonText="Create Time Capsule"
+                       actions={actions}
+                       medium={medium}
+                       resetFormHandler={this._resetForm}
+                       sendTextHandler={this._sendText}
+                       timeCapsule={timeCapsule} />
+          <div className="row">
+            <div className="col-8">
+              <ul className="nav">
+                <li className="space-item"><a data-toggle="tab" href="#menu1" className="space-toggle active show">All</a></li>
+                <li className="space-item"><a data-toggle="tab" href="#menu2" className="space-toggle">Opened</a></li>
+              </ul>
+            </div>
+          </div>
           
           {fetchedCapsule ? this.createCapsule() : null}
           

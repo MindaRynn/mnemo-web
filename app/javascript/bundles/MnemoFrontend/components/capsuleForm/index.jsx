@@ -12,17 +12,19 @@ const directType = {
   friend: 'Friend'
 };
 
+const initialState = {
+  directTo: 'everyone',
+  capsuleName: '',
+  capsuleDetail: '',
+  friendName: ''
+};
+
 class CapsuleForm extends React.Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      directTo: 'everyone',
-      capsuleName: '',
-      capsuleDetail: '',
-      friendName: ''
-    };
+    this.state = initialState
 
     this.inputOnChangeHandler = this.inputOnChangeHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
@@ -34,10 +36,12 @@ class CapsuleForm extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    let {createTimeCapsuleSuccess} = this.props.timeCapsule
+    let {createTimeCapsuleSuccess} = this.props.timeCapsule;
+    let {resetFormHandler} = this.props;
 
-    if(prevProps.timeCapsule.creatingTimeCapsule && createTimeCapsuleSuccess) {
-      //TODO : Clear Form
+    if(!prevProps.timeCapsule.createTimeCapsuleSuccess && createTimeCapsuleSuccess) {
+      this.setState(initialState)
+      resetFormHandler();
     }
   }
 
@@ -114,14 +118,14 @@ class CapsuleForm extends React.Component {
     let {directTo} = this.state;
 
     return (
-      <div className='comment-field-container'>
+      <div className='comment-field-container capsule-form'>
         <div className="profile col-1">
           <Image classNames="circle" src={currentUser.image} size="s" />
         </div>
         <div className="form-group col-11">
           <div className="textfield-group">
-            <input placeholder="Capsule's Name"  onChange={this._capsuleNameHandler} />
-            <textarea placeholder="Tell about these Memories" onChange={this._capsuleDetailHandler} />
+            <input placeholder="Capsule's Name"  onChange={this._capsuleNameHandler} value={this.state.capsuleName} />
+            <textarea placeholder="Tell about these Memories" onChange={this._capsuleDetailHandler}  value={this.state.capsuleDetail} />
           </div>
 
           <div className="media-form">

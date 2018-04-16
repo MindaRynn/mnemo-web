@@ -33,7 +33,7 @@
   @include justify-content(space-between);
   @include align-items(center);
 
-  font-size: 12px;
+  font-size: $font-size-h5;
   line-height: 18px;
   color: map-get($brand-gray, 'dark');
 

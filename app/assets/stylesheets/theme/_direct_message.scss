@@ -58,7 +58,7 @@ body.direct-message .title-container {
 
 body.direct-message .title-container {
   a {
-    font-size: 18px;
+    font-size: $font-size-h3;
     font-weight: 800;
     line-height: 28px;
     color: map-get($brand-gray, 'dark');
