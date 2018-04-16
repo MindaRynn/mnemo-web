@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import CapsuleForm from '../../components/capsuleForm'
-import TimeCapsuleItem from '../../components/timeCapsuleItem'
-import WaitingTimeCapsuleItem from '../../components/timeCapsuleItem/waitingTimeCapsule';
+import ContainerSwtichCapsule from '../../components/timeCapsuleItem/containerSwitchCapsule';
 
 class CapsuleList extends React.Component {
 
@@ -85,23 +84,18 @@ class CapsuleList extends React.Component {
           let currentTime = new moment();
           let diffTime1 = wrapDate.diff(currentTime)
           let diffTime2 = openDate.diff(currentTime)
-          let isNotWaiting = diffTime1 > 0 || diffTime2 < 0
-          
+          let isNotWaiting = diffTime1 > 0 || diffTime2 < 0;
+          let status = ""
           if(isNotWaiting) {
-            return (
-              <TimeCapsuleItem key={index}
-                       avatar={this.context.currentUser.image}
-                       name={this.context.currentUser.name}
-                       timeCapsule={timeCapsule}/>
-              );
+            status = "isNotWaiting"
           } else {
-            return (
-              <WaitingTimeCapsuleItem key={index}
+            status = "isWaiting"
+          }
+          
+          return (<ContainerSwtichCapsule status={status} key={index}
                        avatar={this.context.currentUser.image}
                        name={this.context.currentUser.name}
-                       timeCapsule={timeCapsule}/>
-            );
-          }
+                       timeCapsule={timeCapsule} />);
         })}
       </div>
     );
