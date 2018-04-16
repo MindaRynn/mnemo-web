@@ -17,7 +17,10 @@ body.feed .comment-field-container .profile {
 
 body.feed .comment-field-container .half-field {
   width: 50%;
-
+  margin-bottom: 10px;
+  .padding {
+    padding: 10px;
+  }
 }
 
 body.feed .comment-field-container .button-container {

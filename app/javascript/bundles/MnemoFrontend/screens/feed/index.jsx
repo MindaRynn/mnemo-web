@@ -51,7 +51,7 @@ class Feed extends React.Component {
     return (
       <div className="row">
         {fetchedTag ? <CategoryList tags={feed.tag.tags} /> : null }
-        {fetchedCapsule ? <CapsuleList actions={actions} medium={medium} timeCapsule={feed.timeCapsule} /> : null }
+        {fetchedCapsule ? <CapsuleList actions={actions} medium={medium} timeCapsule={feed.timeCapsule} tags={feed.tag.tags} /> : null }
       </div>
     );
   }

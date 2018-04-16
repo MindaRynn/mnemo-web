@@ -17,9 +17,11 @@ const initialState = {
   directTo: 'everyone',
   capsuleName: '',
   capsuleDetail: '',
-  capsuleTag:'',
+  capsuleTag:'General',
   friendName: ''
 };
+
+
 
 class CapsuleForm extends React.Component {
 
@@ -27,6 +29,7 @@ class CapsuleForm extends React.Component {
     super(props);
 
     this.state = initialState
+
 
     this.inputOnChangeHandler = this.inputOnChangeHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
@@ -106,7 +109,7 @@ class CapsuleForm extends React.Component {
     e.preventDefault();
 
     this.setState({
-      capsuleTag: e.target.value
+      capsuleTag: e.target.innerHTML
     });
   }
 
@@ -159,7 +162,7 @@ class CapsuleForm extends React.Component {
   }
 
   render() {
-    let {typeEdit, wrapDate, openDate, wrapDateChangeHandler, openDateChangeHandler, sendTextHandler, buttonText, medium} = this.props;
+    let {typeEdit, wrapDate, openDate, wrapDateChangeHandler, openDateChangeHandler, sendTextHandler, buttonText, medium, tags} = this.props;
     let {currentUser} = this.context;
     let {directTo} = this.state;
     const dummyAvatar = "https://storage.googleapis.com/mnemo-storage/placeHolderAvatar/tempAvatar.jpg";
@@ -174,8 +177,33 @@ class CapsuleForm extends React.Component {
         }
         <div className="form-group">
           <div className="textfield-group">
-            <input className="half-field" placeholder="Capsule's Name"  onChange={this._capsuleNameHandler} value={this.state.capsuleName} />
-            <input className="half-field" placeholder="Tag"  onChange={this._capsuleTagHandler} value={this.state.capsuleTag} />
+            <div className="timing-container">
+              <input className="half-field" placeholder="Capsule's Name"  onChange={this._capsuleNameHandler} value={this.state.capsuleName} />
+              <div className="button-container half-field">
+                <div className="padding">
+                  <label>Tag : </label>
+                  <div className="dropdown show">
+                    <a className="btn dropdown-toggle"
+                       id="dropdownMenuLink"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false"
+                       placeholder="Tag"
+                       onChange={this._capsuleTagHandler}
+                       value={this.state.capsuleTag}>
+                       {this.state.capsuleTag}
+                    </a>
+                    <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      {tags.map((tag, index) => {
+                        return (
+                          <a key={index} onClick={e => this._capsuleTagHandler(e)} className={`dropdown-item`} href="#">{tag.tag}</a>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <textarea placeholder="Tell about these Memories" onChange={this._capsuleDetailHandler}  value={this.state.capsuleDetail} />
           </div>
 
@@ -271,7 +299,6 @@ class CapsuleForm extends React.Component {
                    aria-expanded="false">
                   {directType[directTo]}
                 </a>
-
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   <a onClick={e => this._setDirectTo(e, 'me')} className={`dropdown-item ${ this._checkIfSelected('me', directTo)}`} href="#">{directType['me']}</a>
                   <a onClick={e => this._setDirectTo(e, 'everyone')} className={`dropdown-item ${ this._checkIfSelected('everyone', directTo)}`} href="#">{directType['everyone']}</a>
