@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from '../../components/image/';
-import StatusCircle from './statusCircle';
+import StatusCircle from '../../screens/profile/statusCircle';
 
 export default class Capsule extends React.Component {
   constructor(props) {

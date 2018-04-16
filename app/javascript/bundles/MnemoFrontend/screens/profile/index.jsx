@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Image from '../../components/image/';
 import PrimaryButton from '../../components/buttons/primaryButton';
-import Capsule from './capsule';
+import Capsule from '../../components/timeCapsuleItem/capsule';
 import CapsuleForm from '../../components/capsuleForm'
 import moment from 'moment';
 
@@ -11,9 +11,6 @@ class Profile extends React.Component {
     super(props, context);
 
     this.state = {
-      avatar: this.context.currentUser.image,
-      bio: this.context.currentUser.bio,
-      name: this.context.currentUser.name,
       wrapDate: moment(),
       openDate: moment(),
       fetchedCapsule: false
@@ -83,14 +80,21 @@ class Profile extends React.Component {
     }
   }
 
-  createCapsule = () => {
-    let capsules = [];
-    this.props.profile.timeCapsule.timeCapsules.map((timeCapsule) => {
-      capsules.push(
-        <Capsule key={timeCapsule.id} avatar={this.state.avatar} name={this.state.name} capsule={timeCapsule}/>
-      );
-    });
-    return capsules;
+  _rederTimeCapsule(){
+    let {timeCapsules} = this.props.profile.timeCapsule;
+
+    return (
+      <div>
+        {timeCapsules.map((timeCapsule, index) => {
+          return (
+            <Capsule key={index}
+                     avatar={this.context.currentUser.image}
+                     name={this.context.currentUser.name}
+                     capsule={timeCapsule}/>
+          );
+        })}
+      </div>
+    );
   }
 
   render() {
@@ -104,11 +108,11 @@ class Profile extends React.Component {
         <div className="profile-container">
           <div className="row">
             <div className="col-4" >
-              <center><Image size="lx" src={this.state.avatar}/></center>
+              <center><Image size="lx" src={this.context.currentUser.image}/></center>
             </div>
             <div className="col-5">
-              <div className="row"><h2>{this.state.name}</h2></div>
-              <div className="row"><p>{this.state.bio}</p></div>
+              <div className="row"><h2>{this.context.currentUser.name}</h2></div>
+              <div className="row"><p>{this.context.currentUser.bio}</p></div>
             </div>
             <div className="col-3 text-center">
               <PrimaryButton text="Add friends"/>
@@ -143,7 +147,7 @@ class Profile extends React.Component {
             </div>
           </div>
           
-          {fetchedCapsule ? this.createCapsule() : null}
+          {fetchedCapsule ? this._rederTimeCapsule() : null}
           
         </div>
       </div>
