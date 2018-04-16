@@ -9,9 +9,9 @@ export default class WaitingTimeCapsule extends React.Component {
 
     this.state = {
       open_date: moment(this.props.timeCapsule.open_date.toLocaleString()).format('LLL'),
-      first_label: 'hours',
-      second_label: 'minutes',
-      third_label: 'seconds',
+      first_label: 'Hours',
+      second_label: 'Minutes',
+      third_label: 'Seconds',
       first_time: 0,
       second_time: 0,
       third_time: 0

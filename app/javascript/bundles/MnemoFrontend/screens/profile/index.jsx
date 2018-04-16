@@ -4,6 +4,7 @@ import Image from '../../components/image/';
 import PrimaryButton from '../../components/buttons/primaryButton';
 import TimeCapsuleItem from '../../components/timeCapsuleItem';
 import CapsuleForm from '../../components/capsuleForm'
+import WaitingTimeCapsuleItem from '../../components/timeCapsuleItem/waitingTimeCapsule';
 import moment from 'moment';
 
 class Profile extends React.Component {
@@ -85,9 +86,28 @@ class Profile extends React.Component {
     return (
       <div>
         {timeCapsules.map((timeCapsule, index) => {
-          return (
-            <TimeCapsuleItem key={index} timeCapsule={timeCapsule}/>
-          );
+          let wrapDate = new moment(timeCapsule.wrap_date.toLocaleString());
+          let openDate = new moment(timeCapsule.open_date.toLocaleString());
+          let currentTime = new moment();
+          let diffTime1 = wrapDate.diff(currentTime)
+          let diffTime2 = openDate.diff(currentTime)
+          let isNotWaiting = diffTime1 > 0 || diffTime2 < 0
+          
+          if(isNotWaiting) {
+            return (
+              <TimeCapsuleItem key={index}
+                       avatar={this.context.currentUser.image}
+                       name={this.context.currentUser.name}
+                       timeCapsule={timeCapsule}/>
+              );
+          } else {
+            return (
+              <WaitingTimeCapsuleItem key={index}
+                       avatar={this.context.currentUser.image}
+                       name={this.context.currentUser.name}
+                       timeCapsule={timeCapsule}/>
+            );
+          }
         })}
       </div>
     );
