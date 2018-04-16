@@ -49,6 +49,7 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
       });
 
     case actionTypes.TIME_CAPSULE_CREATE_SUCCESS:
+    case actionTypes.TIME_CAPSULE_CREATE_SUCCESS:
       return objectAssign({}, state, {
         creatingTimeCapsule: false,
         createTimeCapsuleSuccess: true,
