@@ -3,13 +3,17 @@
   border: none;
   box-shadow: 2px 0 5px 0 rgba(56,56,56,0.2);
   outline: none;
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
+  margin: 1rem 0;
   border-radius: 0.4rem;
-  padding-bottom: 0.6rem;
-  padding-top: 0.6rem;
-  padding-left: 0.6rem;
-  padding-right: 0.6rem;
+  padding: 0.6rem;
+
+  .font-status-size {
+    font-size: $font-size-h5;
+    color: #454550;
+    line-height: 18px;
+  }
+
+  .topic-box-color {
+    color: map-get($brand-orange, 'primary');
+  }
 }

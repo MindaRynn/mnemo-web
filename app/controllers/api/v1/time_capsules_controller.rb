@@ -41,6 +41,7 @@ module Api
 
       def time_capsules_queried
         return User.find(params[:user_id]).time_capsules if params[:user_id].present?
+        return TimeCapsule.find(params[:time_capsule_id]) if params[:time_capsule_id].present?
         return TimeCapsule.all
       end
 

@@ -47,18 +47,8 @@ body.profile .profile-container {
     border-top-right-radius: 0px;
   }
 
-  .topic-box-color {
-    color: map-get($brand-orange, 'primary');
-  }
-
   .form-control {
     border-radius: 0.625rem 0rem 0rem 0.625rem;
-  }
-
-  .font-status-size {
-    font-size: $font-size-h5;
-    color: #454550;
-    line-height: 18px;
   }
 }
 
