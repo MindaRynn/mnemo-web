@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416094211) do
+ActiveRecord::Schema.define(version: 20180416161922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20180416094211) do
   end
 
   create_table "memory_boxes", force: :cascade do |t|
-    t.text "subject"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -67,6 +66,7 @@ ActiveRecord::Schema.define(version: 20180416094211) do
     t.text "open_date"
     t.integer "direct_type", default: 0, null: false
     t.integer "status", default: 0, null: false
+    t.text "subject"
     t.index ["user_id"], name: "index_time_capsules_on_user_id"
   end
 

@@ -7,6 +7,38 @@ body.time-capsule .time-capsule-section {
 }
 
 body.time-capsule .time-capsule-section .time-capsule-container {
+  @include flexbox();
+
+  padding: 20px 30px;
+
+  .profile {
+    width: 80px;
+  }
+
+  .capsule-detail-group {
+    @include flex-grow(1);
+
+    > div + div {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px map-get($brand-orange, "primary") solid;
+    }
+  }
+
+  .capsule-detail-group .media-container {
+    @include flexbox();
+
+    .img + .img {
+      margin-left: 10px;
+    }
+  }
+
   height: 300px;
   background-color: #fff;
+}
+
+body.time-capsule .time-capsule-section .time-capsule-container .capsule-box {
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
 }

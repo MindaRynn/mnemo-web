@@ -14,11 +14,11 @@ module Api
           user_id: current_user.id,
           wrap_date: time_capsule_params[:time_capsule_detail][:wrap_date],
           open_date: time_capsule_params[:time_capsule_detail][:open_date],
-          direct_type: time_capsule_params[:time_capsule_detail][:direct_to].to_sym
+          direct_type: time_capsule_params[:time_capsule_detail][:direct_to].to_sym,
+          subject: time_capsule_params[:time_capsule_detail][:capsule_name]
         )
 
-        memory_box = MemoryBox.create(subject: time_capsule_params[:time_capsule_detail][:capsule_name],
-                                      description: time_capsule_params[:time_capsule_detail][:capsule_detail],
+        memory_box = MemoryBox.create(description: time_capsule_params[:time_capsule_detail][:capsule_detail],
                                       user_id: current_user.id,
                                       time_capsule_id: time_capsule.id)
 

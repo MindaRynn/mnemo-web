@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import CategoryList from '../feed/categoryList'
+import DetailSection from './detail';
+import MediaSection from './media';
 
 const initialState = {
   fetchedCapsule: false
@@ -31,21 +34,24 @@ class TimeCapsule extends React.Component {
 
   render() {
     let {fetchedCapsule} = this.state;
+    let {timeCapsule} = this.props.timeCapsule.timeCapsule;
 
     return (
       <div className="row">
         <CategoryList />
-        { fetchedCapsule ?
-          <div className="time-capsule-section list col-9">
-            <div className="time-capsule-container">
-              <div className="profile"></div>
-              <div className="capsule-detail-group">
+        <div className="time-capsule-section list col-9">
+          <div className="time-capsule-container">
+            <div className="profile">Pro</div>
+              { fetchedCapsule ?
+                <div className="capsule-detail-group">
+                  <DetailSection timeCapsule={timeCapsule} />
+                  <MediaSection timeCapsule={timeCapsule} />
+                </div>
+                : null
 
-              </div>
-            </div>
+              }
           </div>
-           : null
-        }
+        </div>
       </div>
     );
   }

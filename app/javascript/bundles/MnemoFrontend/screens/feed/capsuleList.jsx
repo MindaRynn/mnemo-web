@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import CapsuleForm from '../../components/capsuleForm'
-import Capsule from '../../components/timeCapsuleItem/capsule'
+import TimeCapsuleItem from '../../components/timeCapsuleItem'
 
 class CapsuleList extends React.Component {
 
@@ -80,10 +80,10 @@ class CapsuleList extends React.Component {
       <div>
         {timeCapsules.map((timeCapsule, index) => {
           return (
-            <Capsule key={index}
+            <TimeCapsuleItem key={index}
                      avatar={this.context.currentUser.image}
                      name={this.context.currentUser.name}
-                     capsule={timeCapsule}/>
+                     timeCapsule={timeCapsule}/>
           );
         })}
       </div>

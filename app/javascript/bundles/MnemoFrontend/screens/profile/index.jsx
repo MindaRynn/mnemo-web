@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Image from '../../components/image/';
 import PrimaryButton from '../../components/buttons/primaryButton';
-import Capsule from '../../components/timeCapsuleItem/capsule';
+import TimeCapsuleItem from '../../components/timeCapsuleItem';
 import CapsuleForm from '../../components/capsuleForm'
 import moment from 'moment';
 
@@ -87,10 +87,10 @@ class Profile extends React.Component {
       <div>
         {timeCapsules.map((timeCapsule, index) => {
           return (
-            <Capsule key={index}
+            <TimeCapsuleItem key={index}
                      avatar={this.context.currentUser.image}
                      name={this.context.currentUser.name}
-                     capsule={timeCapsule}/>
+                     timeCapsule={timeCapsule}/>
           );
         })}
       </div>

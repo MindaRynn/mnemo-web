@@ -1,4 +1,6 @@
 .capsule-box {
+  @include flexbox();
+
   background-color: #fff;
   border: none;
   box-shadow: 2px 0 5px 0 rgba(56,56,56,0.2);
@@ -7,13 +9,37 @@
   border-radius: 0.4rem;
   padding: 0.6rem;
 
-  .font-status-size {
+  .avatar-container {
+    margin-right: 20px;
+  }
+}
+
+.capsule-box .capsule-detail-container {
+  @include flex-grow(1);
+
+  > h3 {
+    color: map-get($brand-orange, 'primary');
+  }
+}
+
+.capsule-box .capsule-detail-container .header-container {
+  @include flexbox();
+
+  div {
     font-size: $font-size-h5;
-    color: #454550;
     line-height: 18px;
   }
 
-  .topic-box-color {
-    color: map-get($brand-orange, 'primary');
+  > div {
+    @include flexbox();
+    @include flex-grow(1);
+
+    div:last-of-type {
+      margin-left: 20px;
+    }
+  }
+
+  .right-section {
+    @include justify-content(flex-end);
   }
 }
