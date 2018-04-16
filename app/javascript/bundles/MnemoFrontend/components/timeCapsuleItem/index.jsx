@@ -10,7 +10,7 @@ export default class TimeCapsuleItem extends React.Component {
   }
 
   render() {
-    let {name,avatar,timeCapsule} = this.props
+    let {timeCapsule} = this.props
     let status = this.props.timeCapsule.status == 0 ? "AVAILABLE" : "JOINED";
     let created_at = moment(this.props.timeCapsule.created_at.toLocaleString()).format('LLL')
     let wrap_date = moment(this.props.timeCapsule.wrap_date.toLocaleString()).format('LLL')
@@ -18,14 +18,14 @@ export default class TimeCapsuleItem extends React.Component {
     return (
       <div>
         <div className="capsule-box">
-          <div className="avatar-container"><Image size="s" src={avatar}/></div>
+          <div className="avatar-container"><Image size="s" src={timeCapsule.user.image}/></div>
           <div className="capsule-detail-container">
             <div className="header-container">
-              <div className="left-section">
-                <h3>{name}</h3>
+              <div>
+                <h3>{timeCapsule.user.name}</h3>
                 <div className="font-status-size">{created_at}</div>
               </div>
-              <div className="right-section">
+              <div>
                 <div>{status}<StatusCircle status={status}/></div>
                 <div>Wrapped {wrap_date}</div>
               </div>

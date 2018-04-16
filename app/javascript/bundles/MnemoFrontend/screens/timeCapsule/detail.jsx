@@ -24,7 +24,7 @@ class TimeCapsuleDetail extends React.Component {
               <h3>{currentUser.name}</h3>
               <div>{created_at}</div>
             </div>
-            <div className="right-section">
+            <div>
               <div>Wrapped {wrap_date}</div>
             </div>
           </div>

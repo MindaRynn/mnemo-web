@@ -1,0 +1,26 @@
+.memory-boxes-container {
+  .memory-box-item-container + .memory-box-item-container {
+    margin-top: 20px;
+  }
+}
+
+.memory-boxes-container .memory-box-item-container {
+  @include flexbox();
+  @include justify-content(space-between);
+  @include align-items(center);
+
+  span {
+    font-size: $font-size-h5;
+  }
+
+  > div {
+    @include flexbox();
+  }
+
+  .memory-box-detail {
+    @include flexbox();
+    @include flex-direction(column);
+
+    margin-left: 20px;
+  }
+}

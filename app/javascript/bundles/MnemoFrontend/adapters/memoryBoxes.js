@@ -9,11 +9,11 @@ class MemoryBoxesAdapter extends BaseAdapter {
    * @param {Object} [travelogue] - the travelogue to which the comment belongs
    * @return {Promise} - a promise which will resolve to comment create response
    */
-  static create(user_id, memoryBoxDetail) {
+  static create(timeCapsuleId, memoryBoxDetail) {
     let requestParams = {
       data: {
         attributes: {
-          user_id: user_id,
+          time_capsule_id: timeCapsuleId,
           memory_box_detail: memoryBoxDetail
         },
       }

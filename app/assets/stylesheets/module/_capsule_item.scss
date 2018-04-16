@@ -14,7 +14,7 @@
   }
 }
 
-.capsule-box .capsule-detail-container, {
+.capsule-box .capsule-detail-container {
   @include flex-grow(1);
 
   > h3 {
@@ -24,6 +24,7 @@
 
 .capsule-box .capsule-detail-container .header-container {
   @include flexbox();
+  @include justify-content(space-between);
 
   div {
     font-size: $font-size-h5;
@@ -32,15 +33,10 @@
 
   > div {
     @include flexbox();
-    @include flex-grow(1);
 
     div:last-of-type {
       margin-left: 20px;
     }
-  }
-
-  .right-section {
-    @include justify-content(flex-end);
   }
 }
 

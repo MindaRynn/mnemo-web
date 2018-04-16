@@ -61,7 +61,6 @@ class Profile extends React.Component {
       wrapDate: moment(),
       openDate: moment()
     });
-
   }
 
   componentDidMount() {
@@ -80,17 +79,14 @@ class Profile extends React.Component {
     }
   }
 
-  _rederTimeCapsule(){
+  _renderTimeCapsule(){
     let {timeCapsules} = this.props.profile.timeCapsule;
 
     return (
       <div>
         {timeCapsules.map((timeCapsule, index) => {
           return (
-            <TimeCapsuleItem key={index}
-                     avatar={this.context.currentUser.image}
-                     name={this.context.currentUser.name}
-                     timeCapsule={timeCapsule}/>
+            <TimeCapsuleItem key={index} timeCapsule={timeCapsule}/>
           );
         })}
       </div>
@@ -147,7 +143,7 @@ class Profile extends React.Component {
             </div>
           </div>
           
-          {fetchedCapsule ? this._rederTimeCapsule() : null}
+          {fetchedCapsule ? this._renderTimeCapsule() : null}
           
         </div>
       </div>

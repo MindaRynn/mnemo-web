@@ -14,19 +14,19 @@ function memoryBoxCreateFailure() {
   return {type: types.MEMORY_BOX_CREATE_FAILURE};
 }
 
-function create(userId, memoryBoxDetail) {
+function create(timeCapsuleId, memoryBoxDetail) {
   return MemoryBoxesAdapter
-    .create(userId, memoryBoxDetail)
+    .create(timeCapsuleId, memoryBoxDetail)
     .then((response) => {
       return response;
     })
 }
 
-export function createMemoryBox(userId, memoryBoxDetail) {
+export function createMemoryBox(timeCapsuleId, memoryBoxDetail) {
   return function (dispatch) {
 
     dispatch(creatingMemoryBox());
-    create(userId, memoryBoxDetail)
+    create(timeCapsuleId, memoryBoxDetail)
       .then((response) => {
         dispatch(memoryBoxCreateSuccess(response));
       })

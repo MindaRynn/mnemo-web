@@ -20,13 +20,13 @@ class MemoryBoxForm extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    // let {createTimeCapsuleSuccess} = this.props.timeCapsule;
-    // let {resetFormHandler} = this.props;
-    //
-    // if(!prevProps.timeCapsule.createTimeCapsuleSuccess && createTimeCapsuleSuccess) {
-    //   this.setState(initialState)
-    //   resetFormHandler();
-    // }
+    let {memoryBoxCreateSuccess} = this.props.timeCapsule;
+    let {resetFormHandler} = this.props;
+
+    if(!prevProps.timeCapsule.memoryBoxCreateSuccess && memoryBoxCreateSuccess) {
+      this.setState(initialState)
+      resetFormHandler();
+    }
   }
 
   _openUploadWindow(){
@@ -42,7 +42,7 @@ class MemoryBoxForm extends React.Component {
     e.preventDefault();
 
     this.setState({
-      capsuleDetail: e.target.value
+      memoryBoxDetail: e.target.value
     });
   }
 
@@ -70,54 +70,56 @@ class MemoryBoxForm extends React.Component {
 
     return (
       <div className='comment-field-container capsule-form'>
-        <div className="profile col-1">
+        <div className="profile">
           <Image classNames="circle" src={currentUser.image} size="s" />
         </div>
         <div className="form-group col-11">
           <div className="textfield-group">
-            <textarea placeholder="Tell about these Memories" onChange={this._memoryBoxDetailHandler}  value={this.state.capsuleDetail} />
+            <textarea placeholder="Tell about these Memories" onChange={this._memoryBoxDetailHandler}  value={this.state.memoryBoxDetail} />
           </div>
 
           <div className="media-form">
-            {medium.map((media, index) => {
+            <div className="media-container">
+              {medium.map((media, index) => {
 
-              return (
-                <Image key={index} src={media} size="l" />
-              );
-            })}
-            { medium.length >= 4 ?
-              null :
-              <div className="upload-container">
-                <form
-                  onSubmit={this.submitHandler}
-                  encType="multipart/form-data">
-                  <div className="upload-button" onClick={this._openUploadWindow}>
-                    <Image type="standard" classNames='add-icon' size="l"/>
-                  </div>
+                return (
+                  <Image key={index} src={media} size="s" />
+                );
+              })}
+              { medium.length >= 4 ?
+                null :
+                <div className="upload-container">
+                  <form
+                    onSubmit={this.submitHandler}
+                    encType="multipart/form-data">
+                    <div className="upload-button" onClick={this._openUploadWindow}>
+                      <Image type="standard" classNames='add-icon' size="s"/>
+                    </div>
 
-                  <input
-                    id="submitButton"
-                    style={{ display: "none" }}
-                    type="submit"
-                    value="Upload"/>
+                    <input
+                      id="submitButton"
+                      style={{ display: "none" }}
+                      type="submit"
+                      value="Upload"/>
 
-                  <input
-                    type="hidden"
-                    name="authenticity_token"
-                    value={currentUser.csrfToken}/>
+                    <input
+                      type="hidden"
+                      name="authenticity_token"
+                      value={currentUser.csrfToken}/>
 
-                  <input
-                    onChange={this.inputOnChangeHandler}
-                    style={{ display: "none" }}
-                    id="uploader"
-                    type="file"
-                    name="file"/>
-                </form>
+                    <input
+                      onChange={this.inputOnChangeHandler}
+                      style={{ display: "none" }}
+                      id="uploader"
+                      type="file"
+                      name="file"/>
+                  </form>
+                </div>
+              }
               </div>
-            }
-          </div>
-          <div className="button-container">
-            <button className="submit-button" onClick={e => sendTextHandler(e, this.state)}>{buttonText}</button>
+            <div className="button-container">
+              <button className="submit-button" onClick={e => sendTextHandler(e, this.state)}>{buttonText}</button>
+            </div>
           </div>
         </div>
       </div>
