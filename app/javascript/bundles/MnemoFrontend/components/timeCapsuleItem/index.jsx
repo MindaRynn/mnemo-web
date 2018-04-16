@@ -9,11 +9,29 @@ export default class TimeCapsuleItem extends React.Component {
   constructor(props) {
     super(props)
     this._clickHandler = this._clickHandler.bind(this);
+    this.updateState = this.updateState.bind(this);
   }
 
   _clickHandler(e) {
     let {timeCapsule} = this.props;
     window.location = `/timeCapsule/${timeCapsule.id}`;
+  }
+
+  updateState() { 
+    let wrapDate = new moment(this.props.timeCapsule.wrap_date.toLocaleString());
+    let currentTime = new moment()
+    let diffSecond = wrapDate.diff(currentTime, "seconds")
+    if(diffSecond == 0) {
+      this.props.switchComponent("isWaiting")
+    }
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.updateState, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {

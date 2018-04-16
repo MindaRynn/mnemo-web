@@ -8,10 +8,9 @@ export default class WaitingTimeCapsule extends React.Component {
     this.updateState = this.updateState.bind(this);
 
     this.state = {
-      open_date: moment(this.props.timeCapsule.open_date.toLocaleString()).format('LLL'),
-      first_label: 'hours',
-      second_label: 'minutes',
-      third_label: 'seconds',
+      first_label: 'Hours',
+      second_label: 'Minutes',
+      third_label: 'Seconds',
       first_time: 0,
       second_time: 0,
       third_time: 0
@@ -55,7 +54,8 @@ export default class WaitingTimeCapsule extends React.Component {
         second_label: 'Hours',
         third_label: 'Minutes'
       }))
-    } else if(diffHour > 0 || diffMinute > 0 || diffSecond >= 0) {
+    } else if(diffHour > 0 || diffMinute > 0 || diffSecond > 0) {
+
        return (this.setState({
         first_time: diffHour%24,
         second_time: diffMinute%60,
@@ -64,6 +64,8 @@ export default class WaitingTimeCapsule extends React.Component {
         second_label: 'Minutes',
         third_label: 'Seconds'
         }))
+    } else {
+      this.props.switchComponent("isNotWaiting")
     }
   }
   
