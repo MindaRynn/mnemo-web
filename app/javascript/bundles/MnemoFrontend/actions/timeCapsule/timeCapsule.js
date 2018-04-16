@@ -14,7 +14,6 @@ function timeCapsuleGetFailure() {
   return {type: types.GET_TIME_CAPSULE_FAILURE};
 }
 
-
 function get(timeCapsuleId) {
   return TimeCapsulesAdapter
     .get(timeCapsuleId)

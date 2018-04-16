@@ -8,7 +8,7 @@ module Api
       end
 
       def create
-
+        binding.pry
       end
 
       private
