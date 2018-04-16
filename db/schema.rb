@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180415163303) do
+ActiveRecord::Schema.define(version: 20180416094211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20180415163303) do
     t.text "wrap_date"
     t.text "open_date"
     t.integer "direct_type", default: 0, null: false
+    t.integer "status", default: 0, null: false
     t.index ["user_id"], name: "index_time_capsules_on_user_id"
   end
 
@@ -87,11 +88,7 @@ ActiveRecord::Schema.define(version: 20180415163303) do
     t.string "name"
     t.text "image"
     t.text "bio"
-<<<<<<< HEAD
     t.bigint "time_capsule_id"
-=======
-    t.integer "time_capsule_id"
->>>>>>> edit new capsule box
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["time_capsule_id"], name: "index_users_on_time_capsule_id"

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import CategoryList from './categoryList'
 import CapsuleList from './capsuleList'
 
+import Capsule from '../../components/timeCapsuleItem/capsule'
+
 const initialState = {
   fetchedCapsule: false
 };
