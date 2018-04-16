@@ -1,6 +1,7 @@
 .capsule-box {
   @include flexbox();
 
+  cursor: pointer;
   background-color: #fff;
   border: none;
   box-shadow: 2px 0 5px 0 rgba(56,56,56,0.2);
