@@ -83,7 +83,7 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
         creatingMemoryBox: false,
         memoryBoxCreateSuccess: true,
         memoryBoxCreateFailure: false,
-        memoryBoxes: state.memoryBoxes.concat(memoryBox)
+        memoryBoxes: [memoryBox].concat(state.memoryBoxes)
       });
 
     case memoryBoxActionTypes.MEMORY_BOX_CREATE_FAILURE:

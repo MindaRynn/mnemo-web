@@ -53,7 +53,7 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
         creatingTimeCapsule: false,
         createTimeCapsuleSuccess: true,
         createTimeCapsuleFailure: false,
-        timeCapsules: state.timeCapsules.concat(timeCapsule)
+        timeCapsules: [timeCapsule].concat(state.timeCapsules)
       });
 
     case actionTypes.TIME_CAPSULE_CREATE_FAILURE:
