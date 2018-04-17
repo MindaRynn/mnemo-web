@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import moment from 'moment';
+
 import CategoryList from '../feed/categoryList'
 import DetailSection from './detail';
 import MediaSection from './media';
 import MemoryBoxForm from '../../components/memoryBoxForm';
+import CapsuleForm from '../../components/capsuleForm'
 import MemoryBoxesSection from './memoryBox';
 import Image from '../../components/image'
 
@@ -16,9 +19,19 @@ class TimeCapsule extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this._sendText = this._sendText.bind(this);
-    this._resetForm = this._resetForm.bind(this);
+    this.state = {
+      wrapDate : moment(),
+      openDate: moment(),
+      isEditing: false
+    };
 
+    this._sendText = this._sendText.bind(this);
+    this._updateTimeCapsule = this._updateTimeCapsule.bind(this);
+    this._resetForm = this._resetForm.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.wrapDateChangeHandler = this.wrapDateChangeHandler.bind(this);
+    this.openDateChangeHandler = this.openDateChangeHandler.bind(this);
+    this._editOnClickHandler = this._editOnClickHandler.bind(this);
     this.state = initialState;
   }
 
@@ -27,15 +40,39 @@ class TimeCapsule extends React.Component {
     actions.getTimeCapsule(params.id);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     let {getTimeCapsuleSuccess} = this.props.timeCapsule.timeCapsule
+    let {fetchedCapsule} = this.state
+    let {timeCapsule} = this.props.timeCapsule.timeCapsule;
 
     if(getTimeCapsuleSuccess && !prevProps.timeCapsule.timeCapsule.getTimeCapsuleSuccess) {
       this.setState({
         fetchedCapsule: true,
       });
     }
+
+    if(fetchedCapsule && !prevState.fetchedCapsule) {
+      this.setState({
+        wrapDate : moment(timeCapsule.wrap_date),
+        openDate: moment(timeCapsule.open_date)
+      });
+    }
   }
+
+  handleChange ({ wrapDate, openDate }){
+    wrapDate = wrapDate || this.state.wrapDate;
+    openDate = openDate || this.state.openDate;
+
+    if (wrapDate.isAfter(openDate)) {
+      openDate = wrapDate;
+    }
+
+    this.setState({ wrapDate, openDate });
+  }
+
+  wrapDateChangeHandler (wrapDate) { this.handleChange({ wrapDate }); }
+
+  openDateChangeHandler (openDate) { this.handleChange({ openDate }); }
 
   _sendText(e, memoryBoxDetail) {
     e.preventDefault();
@@ -48,6 +85,16 @@ class TimeCapsule extends React.Component {
     actions.createMemoryBox(timeCapsule.id, memoryBoxDetail)
   }
 
+  _updateTimeCapsule(e, timeCapsuleDetail) {
+    debugger
+  }
+
+  _editOnClickHandler(e){
+    this.setState({
+      isEditing: true
+    })
+  }
+
   _resetForm() {
     let {actions} = this.props;
 
@@ -55,10 +102,12 @@ class TimeCapsule extends React.Component {
   }
 
   render() {
-    let {fetchedCapsule} = this.state;
+    let {currentUser} = this.context;
+    let {fetchedCapsule, isEditing} = this.state;
     let {actions} = this.props
     let {timeCapsule} = this.props.timeCapsule.timeCapsule;
     let {medium} = this.props.timeCapsule.media
+    let memoryBoxes = this.props.timeCapsule.timeCapsule.memoryBoxes;
 
     return (
       <div className="row">
@@ -70,14 +119,46 @@ class TimeCapsule extends React.Component {
               <Image src={timeCapsule.user.image} size="xs" classNames="circle"/>
             </div>
                 <div className="capsule-detail-group">
-                  <DetailSection timeCapsule={timeCapsule} />
-                  <MediaSection timeCapsule={timeCapsule} />
-                  <MemoryBoxForm sendTextHandler={this._sendText}
-                                 buttonText={"Add Memory Box"}
-                                 medium={medium}
-                                 actions={actions}
-                                 timeCapsule={this.props.timeCapsule.timeCapsule} resetFormHandler={this._resetForm} />
-                  <MemoryBoxesSection memoryBoxes={this.props.timeCapsule.timeCapsule.memoryBoxes} />
+                  {
+                    isEditing ? null :
+                      <DetailSection timeCapsule={timeCapsule}
+                                     isEditing={isEditing}
+                                     editOnClickHandler={this._editOnClickHandler}/>
+                  }
+
+                  {
+                    medium.length <= 0 ?
+                      null : <MediaSection timeCapsule={timeCapsule} />
+                  }
+
+                  {
+                    isEditing ?
+                      <CapsuleForm wrapDateChangeHandler={this.wrapDateChangeHandler}
+                                   openDateChangeHandler={this.openDateChangeHandler}
+                                   openDate={this.state.openDate}
+                                   wrapDate={this.state.wrapDate}
+                                   buttonText="Update Time Capsule"
+                                   actions={actions}
+                                   resetFormHandler={this._resetForm}
+                                   medium={medium}
+                                   sendTextHandler={this._updateTimeCapsule}
+                                   timeCapsule={timeCapsule}
+                                   memoryBoxes={memoryBoxes}
+                                   typeEdit={true}/> : null
+                  }
+
+                  { currentUser.id == timeCapsule.user.id ?
+                    null :
+                    <MemoryBoxForm sendTextHandler={this._sendText}
+                                   buttonText={"Add Memory Box"}
+                                   medium={medium}
+                                   actions={actions}
+                                   timeCapsule={this.props.timeCapsule.timeCapsule} resetFormHandler={this._resetForm} />
+                  }
+                  {
+                    memoryBoxes.length <= 0 ?
+                      null :  <MemoryBoxesSection memoryBoxes={memoryBoxes} />
+                  }
                 </div>
           </div>
             : null

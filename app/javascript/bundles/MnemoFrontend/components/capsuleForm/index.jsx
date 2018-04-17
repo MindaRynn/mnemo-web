@@ -35,6 +35,18 @@ class CapsuleForm extends React.Component {
     this._friendNameHandler = this._friendNameHandler.bind(this);
   }
 
+  componentWillMount(){
+    let {typeEdit, timeCapsule} = this.props;
+
+    if(typeEdit) {
+      this.setState({
+        directTo: timeCapsule.direct_type,
+        capsuleName: timeCapsule.subject,
+        capsuleDetail: timeCapsule.memory_boxes[0].description,
+      })
+    }
+  }
+
   componentDidUpdate(prevProps) {
     let {createTimeCapsuleSuccess} = this.props.timeCapsule;
     let {resetFormHandler} = this.props;
@@ -46,12 +58,12 @@ class CapsuleForm extends React.Component {
   }
 
   _openUploadWindow(){
-    document.getElementById('uploader').click()
+    document.getElementById('capsule-form-uploader').click()
   }
 
 
   inputOnChangeHandler(e) {
-    document.getElementById("submitButton").click();
+    document.getElementById("capsule-form-submit-button").click();
   }
 
   _capsuleNameHandler(e){
@@ -113,16 +125,18 @@ class CapsuleForm extends React.Component {
   }
 
   render() {
-    let {wrapDate, openDate, wrapDateChangeHandler, openDateChangeHandler, sendTextHandler, buttonText, medium} = this.props;
+    let {typeEdit, wrapDate, openDate, wrapDateChangeHandler, openDateChangeHandler, sendTextHandler, buttonText, medium} = this.props;
     let {currentUser} = this.context;
     let {directTo} = this.state;
 
     return (
       <div className='comment-field-container capsule-form'>
-        <div className="profile col-1">
-          <Image classNames="circle" src={currentUser.image} size="s" />
-        </div>
-        <div className="form-group col-11">
+        {!typeEdit ?
+          <div className="profile">
+            <Image classNames="circle" src={currentUser.image} size="s" />
+          </div> : null
+        }
+        <div className="form-group">
           <div className="textfield-group">
             <input placeholder="Capsule's Name"  onChange={this._capsuleNameHandler} value={this.state.capsuleName} />
             <textarea placeholder="Tell about these Memories" onChange={this._capsuleDetailHandler}  value={this.state.capsuleDetail} />
@@ -146,7 +160,7 @@ class CapsuleForm extends React.Component {
                   </div>
 
                   <input
-                    id="submitButton"
+                    id="capsule-form-submit-button"
                     style={{ display: "none" }}
                     type="submit"
                     value="Upload"/>
@@ -159,7 +173,7 @@ class CapsuleForm extends React.Component {
                   <input
                     onChange={this.inputOnChangeHandler}
                     style={{ display: "none" }}
-                    id="uploader"
+                    id="capsule-form-uploader"
                     type="file"
                     name="file"/>
                 </form>

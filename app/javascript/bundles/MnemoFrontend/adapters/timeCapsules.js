@@ -9,7 +9,7 @@ class TimeCapsulesAdapter extends BaseAdapter {
    *
    * @return {Promise} - a promise which will resolve to the response from server
    */
-  static fetch(requestParams) {
+  static fetch(requestParams = {}) {
 
     return this.prototype.getRequest(config['api']['time_capsules'], requestParams);
   }
