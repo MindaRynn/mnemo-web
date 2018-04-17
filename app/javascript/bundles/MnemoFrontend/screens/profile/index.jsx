@@ -13,7 +13,8 @@ class Profile extends React.Component {
     this.state = {
       wrapDate: moment(),
       openDate: moment(),
-      fetchedCapsule: false,
+      fetchedUserCapsule: false,
+      fetchedParticipatedCapsule: false,
       currentShowCapsule: "yours"
     }
 
@@ -67,41 +68,32 @@ class Profile extends React.Component {
 
   componentDidMount() {
     let {actions} = this.props;
+    let {currentUser} = this.context;
 
-    actions.fetchTimeCapsule();
+    actions.fetchUserTimeCapsule(currentUser.id);
+    actions.fetchParticipatedTimeCapsule();
   }
 
   componentDidUpdate(prevProps) {
-    let {fetchTimeCapsuleSuccess} = this.props.profile.userTimeCapsule
+    let {fetchTimeCapsuleSuccess, fetchParticipatedTimeCapsuleSuccess} = this.props.profile.timeCapsule
 
-    if(fetchTimeCapsuleSuccess && !prevProps.profile.userTimeCapsule.fetchTimeCapsuleSuccess) {
+    if(fetchTimeCapsuleSuccess && !prevProps.profile.timeCapsule.fetchTimeCapsuleSuccess) {
       this.setState({
-        fetchedCapsule: true,
+        fetchedUserCapsule: true,
+      });
+    }
+    if(fetchParticipatedTimeCapsuleSuccess && !prevProps.profile.participatedTimeCapsule.fetchParticipatedTimeCapsuleSuccess) {
+      this.setState({
+        fetchedParticipatedCapsule: true,
       });
     }
   }
 
   _renderTimeCapsule() {
-    let {userTimeCapsules} = this.props.profile.userTimeCapsule;
-    // let participatedTimeCapsules = [{}];
+    let {userTimeCapsules} = this.props.profile.timeCapsule;
+    let {participatedTimeCapsules} = this.props.profile.timeCapsule;
     let {currentUser} = this.context;
     let timeCapsules = this.state.currentShowCapsule == "yours" ? userTimeCapsules : participatedTimeCapsules
-    // let yoursData = []
-    // let joinedData = []
-    // userTimeCapsules.forEach((timeCapsule) => {
-    //   if(timeCapsule.user.name == currentUser.name) {
-    //     yoursData.push(timeCapsule)
-    //   } else {
-    //     joinedData.push(timeCapsule)
-    //   }
-    // })
-    // console.log(userTimeCapsules)
-    // console.log(joinedData)
-    // if(this.state.currentShowCapsule == "yours") {
-    //   userTimeCapsules = yoursData
-    // } else {
-    //   userTimeCapsules = joinedData
-    // }
     return (
       <div>
         {timeCapsules.map((timeCapsule, index) => {
@@ -119,8 +111,8 @@ class Profile extends React.Component {
           }
           
           return (<ContainerSwtichCapsule status={status} key={index}
-                       avatar={this.context.currentUser.image}
-                       name={this.context.currentUser.name}
+                       avatar={timeCapsule.user.image}
+                       name={timeCapsule.user.name}
                        timeCapsule={timeCapsule} />);
         })}
       </div>
@@ -136,9 +128,9 @@ class Profile extends React.Component {
 
   render() {
     let {actions, profile} = this.props;
-    let {userTimeCapsule} = profile;
+    let {timeCapsule} = profile;
     let {medium} = profile.media;
-    let {fetchedCapsule} = this.state
+    let {fetchedUserCapsule} = this.state
 
     return (
       <div>
@@ -174,7 +166,7 @@ class Profile extends React.Component {
                        medium={medium}
                        resetFormHandler={this._resetForm}
                        sendTextHandler={this._sendText}
-                       timeCapsule={userTimeCapsule} />
+                       timeCapsule={timeCapsule} />
           <div className="row">
             <div className="col-8">
               <ul className="nav">
@@ -182,9 +174,8 @@ class Profile extends React.Component {
                 <li className="space-item"><a data-toggle="tab" onClick={e => this.setShowCapsule(e,"joined")} href="#menu2" className="space-toggle">Joined</a></li>
               </ul>
             </div>
-
-            {fetchedCapsule ? this._renderTimeCapsule() : null}
-          </div>
+          </div>        
+          {fetchedUserCapsule ? this._renderTimeCapsule() : null}
         </div>
       </div>
     );

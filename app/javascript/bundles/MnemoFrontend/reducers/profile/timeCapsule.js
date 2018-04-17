@@ -6,42 +6,65 @@ const initialState = {
   fetchTimeCapsuleSuccess: false,
   fetchTimeCapsuleFailure: false,
 
+  fetchingParticipatedTimeCapsule: false,
+  ParticipatedTimeCapsuleFetchSuccess: false,
+  ParticipatedTimeCapsuleFetchFailure: false,
+
   creatingTimeCapsule: false,
   createTimeCapsuleSuccess: false,
   createTimeCapsuleFailure: false,
 
-  // timeCapsules: [],
   userTimeCapsules: [],
-  // participatedTimeCapsules: []
+  participatedTimeCapsules: []
 };
 
 export default function timeCapsuleReducer(state = initialState, action = {}) {
-  let { type, timeCapsules, timeCapsule, userTimeCapsules, userTimeCapsule, participatedTimeCapsules, participatedTimeCapsule } = action;
+  let { type, userTimeCapsules, userTimeCapsule, participatedTimeCapsules } = action;
 
   switch(type) {
-    case actionTypes.TIME_CAPSULE_IS_FETCHING:
+    case actionTypes.USER_TIME_CAPSULE_IS_FETCHING:
       return objectAssign({}, state, {
         fetchingTimeCapsule: true,
         fetchTimeCapsuleSuccess: false,
         fetchTimeCapsuleFailure: false
       });
 
-    case actionTypes.TIME_CAPSULE_FETCH_SUCCESS:
+    case actionTypes.USER_TIME_CAPSULE_FETCH_SUCCESS:
       return objectAssign({}, state, {
         fetchingTimeCapsule: false,
         fetchTimeCapsuleSuccess: true,
         fetchTimeCapsuleFailure: false,
-        // participatedTimeCapsules: state.participatedTimeCapsules.concat(participatedTimeCapsules),
-        userTimeCapsules: state.userTimeCapsules.concat(userTimeCapsules),
-        // timeCapsules: state.timeCapsules.concat(timeCapsules)
+        userTimeCapsules: state.userTimeCapsules.concat(userTimeCapsules)
       });
 
-    case actionTypes.TIME_CAPSULE_FETCH_FAILURE:
+    case actionTypes.USER_TIME_CAPSULE_FETCH_FAILURE:
       return objectAssign({}, state, {
         fetchingTimeCapsule: false,
         fetchTimeCapsuleSuccess: false,
         fetchTimeCapsuleFailure: true
       });
+
+    case actionTypes.PATICIPATED_TIME_CAPSULE_IS_FETCHING:
+      return objectAssign({}, state, {
+        fetchingParticipatedTimeCapsule: true,
+        ParticipatedTimeCapsuleFetchSuccess: false,
+        ParticipatedTimeCapsuleFetchFailure: false
+    });
+
+    case actionTypes.PATICIPATED_TIME_CAPSULE_FETCH_SUCCESS:
+      return objectAssign({}, state, {
+        fetchingParticipatedTimeCapsule: false,
+        ParticipatedTimeCapsuleFetchSuccess: true,
+        ParticipatedTimeCapsuleFetchFailure: false,
+        participatedTimeCapsules: state.participatedTimeCapsules.concat(participatedTimeCapsules)
+    });
+
+    case actionTypes.PATICIPATED_TIME_CAPSULE_FETCH_FAILURE:
+      return objectAssign({}, state, {
+        fetchingParticipatedTimeCapsule: false,
+        ParticipatedTimeCapsuleFetchSuccess: false,
+        ParticipatedTimeCapsuleFetchFailure: true,
+    });
 
 // ------------------------------------------------------------
 
@@ -49,7 +72,7 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
       return objectAssign({}, state, {
         creatingTimeCapsule: true,
         createTimeCapsuleSuccess: false,
-        createTimeCapsuleFailure: false
+        createTimeCapsuleFailure: false,
       });
 
     case actionTypes.TIME_CAPSULE_CREATE_SUCCESS:
@@ -57,16 +80,14 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
         creatingTimeCapsule: false,
         createTimeCapsuleSuccess: true,
         createTimeCapsuleFailure: false,
-        // participatedTimeCapsules: state.participatedTimeCapsules.concat(participatedTimeCapsule),
-        userTimeCapsules: state.userTimeCapsules.concat(userTimeCapsule),
-        // timeCapsules: state.timeCapsules.concat(timeCapsule)
+        userTimeCapsules: state.userTimeCapsules.concat(userTimeCapsule)
       });
 
     case actionTypes.TIME_CAPSULE_CREATE_FAILURE:
       return objectAssign({}, state, {
         creatingTimeCapsule: false,
         createTimeCapsuleSuccess: false,
-        createTimeCapsuleFailure: true
+        createTimeCapsuleFailure: true,
       });
 
     default:
