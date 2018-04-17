@@ -3,18 +3,23 @@ import BaseAdapter from './base';
 
 class MemoryBoxesAdapter extends BaseAdapter {
   /**
-   * Get memory boxes of a user identified by `userId`
+   * Create a memory box for a user
    *
-   * @param userId {String} - id of the user whose friends are to be fetched
-   *
-   * @return {Promise} - a promise which will resolve to the response from server
+   * @param {String} [comment] - the actual comment
+   * @param {Object} [travelogue] - the travelogue to which the comment belongs
+   * @return {Promise} - a promise which will resolve to comment create response
    */
-  static fetch(userId) {
+  static create(timeCapsuleId, memoryBoxDetail) {
     let requestParams = {
-      user_id: userId
+      data: {
+        attributes: {
+          time_capsule_id: timeCapsuleId,
+          memory_box_detail: memoryBoxDetail
+        },
+      }
     };
 
-    return this.prototype.getRequest(config['api']['memory_boxes'], requestParams);
+    return this.prototype.postRequest(`${config['api']['memory_boxes']}`, requestParams);
   }
 }
 

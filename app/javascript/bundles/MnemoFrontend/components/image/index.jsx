@@ -1,6 +1,7 @@
 import React from "react";
 
 const types = {
+  xs:50,
   s: 60,
   m: 95,
   l: 120,

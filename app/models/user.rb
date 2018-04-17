@@ -11,8 +11,12 @@ class User < ApplicationRecord
          omniauth_providers: [:facebook, :google_oauth2]
 
   has_and_belongs_to_many :rooms, dependent: :destroy
+
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
+
+  has_many :participations, dependent: :destroy
+
   has_many :time_capsules, dependent: :destroy
   has_many :medium, dependent: :destroy
   has_many :memory_boxes, dependent: :destroy

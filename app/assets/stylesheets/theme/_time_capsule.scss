@@ -1,0 +1,61 @@
+body.time-capsule .app-container {
+  padding: 1.875rem 12rem 0 12rem;
+}
+
+body.time-capsule .time-capsule-section {
+
+}
+
+body.time-capsule .time-capsule-section .time-capsule-container {
+  @include flexbox();
+
+  padding: 20px 30px;
+  background-color: #fff;
+
+  .profile {
+    margin-right: 20px;
+  }
+
+  .capsule-detail-group {
+    @include flex-grow(1);
+
+    > div + div {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px map-get($brand-orange, "primary") solid;
+    }
+
+    .capsule-form {
+      padding: 20px 0 0 0;
+
+      .form-group {
+        @include flex-grow(1);
+        margin: 0;
+      }
+    }
+  }
+
+  .capsule-detail-group .media-container {
+    @include flexbox();
+
+    .img + .img {
+      margin-left: 10px;
+    }
+  }
+}
+
+body.time-capsule .time-capsule-section .time-capsule-container .capsule-box {
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+}
+
+body.time-capsule .time-capsule-section .time-capsule-container .comment-field-container {
+  box-shadow: none;
+
+  .media-form {
+    @include flexbox();
+    @include justify-content(space-between);
+    @include align-items(end);
+  }
+}

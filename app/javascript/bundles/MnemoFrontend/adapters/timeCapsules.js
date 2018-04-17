@@ -18,6 +18,21 @@ class TimeCapsulesAdapter extends BaseAdapter {
   }
 
   /**
+   * Get capsule identified by `timeCapsuleId`
+   *
+   * @param userId {String} - id of the user whose friends are to be fetched
+   *
+   * @return {Promise} - a promise which will resolve to the response from server
+   */
+  static get(timeCapsuleId) {
+    let requestParams = {
+      time_capsule_id: timeCapsuleId
+    };
+
+    return this.prototype.getRequest(config['api']['time_capsules'], requestParams);
+  }
+
+  /**
    * Create a time capsule for a user
    *
    * @param {String} [comment] - the actual comment
