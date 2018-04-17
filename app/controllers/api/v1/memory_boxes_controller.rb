@@ -25,6 +25,8 @@ module Api
           )
         end
 
+        Participation.create(user: current_user, time_capsule: time_capsule);
+
         render json: memory_box,
                current_user: current_user,
                status: :ok

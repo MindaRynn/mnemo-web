@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 import CategoryList from '../feed/categoryList'
 import DetailSection from './detail';
 import MediaSection from './media';
 import MemoryBoxForm from '../../components/memoryBoxForm';
 import MemoryBoxesSection from './memoryBox';
+import Image from '../../components/image'
 
 const initialState = {
   fetchedCapsule: false
@@ -64,9 +64,11 @@ class TimeCapsule extends React.Component {
       <div className="row">
         <CategoryList />
         <div className="time-capsule-section list col-9">
+          { fetchedCapsule ?
           <div className="time-capsule-container">
-            <div className="profile">Pro</div>
-              { fetchedCapsule ?
+            <div className="profile">
+              <Image src={timeCapsule.user.image} size="xs" classNames="circle"/>
+            </div>
                 <div className="capsule-detail-group">
                   <DetailSection timeCapsule={timeCapsule} />
                   <MediaSection timeCapsule={timeCapsule} />
@@ -77,10 +79,10 @@ class TimeCapsule extends React.Component {
                                  timeCapsule={this.props.timeCapsule.timeCapsule} resetFormHandler={this._resetForm} />
                   <MemoryBoxesSection memoryBoxes={this.props.timeCapsule.timeCapsule.memoryBoxes} />
                 </div>
-                : null
-
-              }
           </div>
+            : null
+
+          }
         </div>
       </div>
     );

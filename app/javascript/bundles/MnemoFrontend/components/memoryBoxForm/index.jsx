@@ -71,9 +71,9 @@ class MemoryBoxForm extends React.Component {
     return (
       <div className='comment-field-container capsule-form'>
         <div className="profile">
-          <Image classNames="circle" src={currentUser.image} size="s" />
+          <Image classNames="circle" src={currentUser.image} size="xs" />
         </div>
-        <div className="form-group col-11">
+        <div className="form-group">
           <div className="textfield-group">
             <textarea placeholder="Tell about these Memories" onChange={this._memoryBoxDetailHandler}  value={this.state.memoryBoxDetail} />
           </div>

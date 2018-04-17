@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416161922) do
+ActiveRecord::Schema.define(version: 20180417165909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(version: 20180416161922) do
     t.bigint "time_capsule_id"
     t.index ["time_capsule_id"], name: "index_memory_boxes_on_time_capsule_id"
     t.index ["user_id"], name: "index_memory_boxes_on_user_id"
+  end
+
+  create_table "participations", force: :cascade do |t|
+    t.integer "time_capsule_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "rooms", force: :cascade do |t|

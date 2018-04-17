@@ -17,11 +17,12 @@ module Api
           direct_type: time_capsule_params[:time_capsule_detail][:direct_to].to_sym,
           subject: time_capsule_params[:time_capsule_detail][:capsule_name]
         )
+        binding.pry
 
         memory_box = MemoryBox.create(description: time_capsule_params[:time_capsule_detail][:capsule_detail],
                                       user_id: current_user.id,
                                       time_capsule_id: time_capsule.id)
-
+        binding.pry
         time_capsule_params[:time_capsule_detail][:medium].each do |mediaUrl|
           memory_box.medium << Medium.create(
             media_type: :image,
@@ -29,7 +30,7 @@ module Api
             user_id: current_user.id
           )
         end
-
+        binding.pry
         time_capsule.memory_boxes << memory_box
 
         render json: time_capsule,
@@ -42,6 +43,7 @@ module Api
       def time_capsules_queried
         return User.find(params[:user_id]).time_capsules if params[:user_id].present?
         return TimeCapsule.find(params[:time_capsule_id]) if params[:time_capsule_id].present?
+        return TimeCapsule.where(id: Participation.where(user: current_user).pluck(:time_capsule_id)) if params[:participated].present?
         return TimeCapsule.all
       end
 

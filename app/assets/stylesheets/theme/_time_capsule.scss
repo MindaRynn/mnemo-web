@@ -13,7 +13,7 @@ body.time-capsule .time-capsule-section .time-capsule-container {
   background-color: #fff;
 
   .profile {
-    width: 80px;
+    margin-right: 20px;
   }
 
   .capsule-detail-group {
@@ -23,6 +23,15 @@ body.time-capsule .time-capsule-section .time-capsule-container {
       margin-top: 20px;
       padding-top: 20px;
       border-top: 1px map-get($brand-orange, "primary") solid;
+    }
+
+    .capsule-form {
+      padding: 20px 0 0 0;
+
+      .form-group {
+        @include flex-grow(1);
+        margin: 0;
+      }
     }
   }
 

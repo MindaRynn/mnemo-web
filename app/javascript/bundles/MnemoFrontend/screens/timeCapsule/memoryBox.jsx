@@ -18,7 +18,7 @@ class TimeCapsuleMemoryBox extends React.Component {
           return (
             <div className="memory-box-item-container" key={index}>
               <div>
-                <Image classNames="circle" src={memoryBox.user.image} size="s" />
+                <Image classNames="circle" src={memoryBox.user.image} size="xs" />
                 <div className="memory-box-detail">
                   <h3>{memoryBox.user.name}</h3>
                   <span>
