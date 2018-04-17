@@ -16,11 +16,11 @@
       <div class="dropdown-container">
         <div class="dropdown">
           <div class="avatar-container" data-toggle="dropdown">
-            <span> @Makhamwan |</span>
-            <%=image_tag("placeholder.png", size: "45x45")%>
+            <span> <%= current_user.name %> |</span>
+            <%=image_tag(current_user.image)%>
           </div>
           <ul class="dropdown-menu dropdown-menu-right">
-            <li><a href="#">@Makhamwan</a></li>
+            <li><a href="#"><%= current_user.name %></a></li>
             <li class="hidden-list"><a href="#">New Feed</a></li>
             <li class="hidden-list"><a href="#">Pinned</a></li>
             <li class="hidden-list"><a href="#">Notification</a></li>
