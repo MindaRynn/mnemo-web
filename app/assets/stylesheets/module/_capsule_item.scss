@@ -43,7 +43,7 @@
 
 .capsule-box.waiting {
   @include flexbox();
-  background-image:url("wrapped-box.png");
+  background-image:url("https://storage.googleapis.com/mnemo-storage/image_project/wrapped-box.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   height: 200px;
