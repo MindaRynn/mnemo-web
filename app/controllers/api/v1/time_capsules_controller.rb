@@ -58,7 +58,7 @@ module Api
           wrap_date: time_capsule_params[:time_capsule_detail][:wrap_date],
           open_date: time_capsule_params[:time_capsule_detail][:open_date],
           direct_type: time_capsule_params[:time_capsule_detail][:direct_to].to_sym,
-          subject: time_capsule_params[:time_capsule_detail][:capsule_name]
+          subject: time_capsule_params[:time_capsule_detail][:capsule_name],
           tag_id: tag.id
         )
 
