@@ -10,11 +10,13 @@ const initialState = {
   createTimeCapsuleSuccess: false,
   createTimeCapsuleFailure: false,
 
-  timeCapsules: []
+  // timeCapsules: [],
+  userTimeCapsules: [],
+  // participatedTimeCapsules: []
 };
 
 export default function timeCapsuleReducer(state = initialState, action = {}) {
-  let { type, timeCapsules, timeCapsule } = action;
+  let { type, timeCapsules, timeCapsule, userTimeCapsules, userTimeCapsule, participatedTimeCapsules, participatedTimeCapsule } = action;
 
   switch(type) {
     case actionTypes.TIME_CAPSULE_IS_FETCHING:
@@ -29,7 +31,9 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
         fetchingTimeCapsule: false,
         fetchTimeCapsuleSuccess: true,
         fetchTimeCapsuleFailure: false,
-        timeCapsules: state.timeCapsules.concat(timeCapsules)
+        // participatedTimeCapsules: state.participatedTimeCapsules.concat(participatedTimeCapsules),
+        userTimeCapsules: state.userTimeCapsules.concat(userTimeCapsules),
+        // timeCapsules: state.timeCapsules.concat(timeCapsules)
       });
 
     case actionTypes.TIME_CAPSULE_FETCH_FAILURE:
@@ -49,12 +53,13 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
       });
 
     case actionTypes.TIME_CAPSULE_CREATE_SUCCESS:
-    case actionTypes.TIME_CAPSULE_CREATE_SUCCESS:
       return objectAssign({}, state, {
         creatingTimeCapsule: false,
         createTimeCapsuleSuccess: true,
         createTimeCapsuleFailure: false,
-        timeCapsules: state.timeCapsules.concat(timeCapsule)
+        // participatedTimeCapsules: state.participatedTimeCapsules.concat(participatedTimeCapsule),
+        userTimeCapsules: state.userTimeCapsules.concat(userTimeCapsule),
+        // timeCapsules: state.timeCapsules.concat(timeCapsule)
       });
 
     case actionTypes.TIME_CAPSULE_CREATE_FAILURE:

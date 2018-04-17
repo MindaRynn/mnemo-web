@@ -4,7 +4,7 @@ import capsuleReducer from './timeCapsule';
 import mediaReducer from './media';
 
 const profileRootReducer = combineReducers({
-  timeCapsule: capsuleReducer,
+  userTimeCapsule: capsuleReducer,
   media: mediaReducer
 });
 

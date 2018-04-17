@@ -2,15 +2,15 @@ import * as types from '../../constants/profile/timeCapsule';
 import TimeCapsulesAdapter from '../../adapters/timeCapsules';
 import {appErrorHandler} from '../app';
 
-export function fetchingTimeCapsule() {
+export function fetchingUserTimeCapsule() {
   return {type: types.TIME_CAPSULE_IS_FETCHING};
 }
 
-export function timeCapsuleFetchSuccess(timeCapsules) {
-  return {type: types.TIME_CAPSULE_FETCH_SUCCESS, timeCapsules: timeCapsules};
+export function UsertimeCapsuleFetchSuccess(userTimeCapsules) {
+  return {type: types.TIME_CAPSULE_FETCH_SUCCESS, userTimeCapsules: userTimeCapsules};
 }
 
-export function timeCapsuleFetchFailure() {
+export function UsertimeCapsuleFetchFailure() {
   return {type: types.TIME_CAPSULE_FETCH_FAILURE};
 }
 
@@ -20,8 +20,8 @@ function creatingTimeCapsule() {
   return {type: types.TIME_CAPSULE_IS_CREATING};
 }
 
-function timeCapsuleCreateSuccess(timeCapsule) {
-  return {type: types.TIME_CAPSULE_CREATE_SUCCESS, timeCapsule: timeCapsule};
+function timeCapsuleCreateSuccess(userTimeCapsule) {
+  return {type: types.TIME_CAPSULE_CREATE_SUCCESS, userTimeCapsule: userTimeCapsule};
 }
 
 function timeCapsuleCreateFailure() {
@@ -51,14 +51,14 @@ function create(userId, timeCapsuleDetail) {
 export function fetchTimeCapsule(userId) {
   return function (dispatch) {
 
-    dispatch(fetchingTimeCapsule());
+    dispatch(fetchingUserTimeCapsule());
     fetch(userId)
       .then((response) => {
-        dispatch(timeCapsuleFetchSuccess(response));
+        dispatch(UsertimeCapsuleFetchSuccess(response));
       })
       .catch(errors => {
         dispatch(appErrorHandler(errors));
-        dispatch(timeCapsuleFetchFailure());
+        dispatch(UsertimeCapsuleFetchFailure());
       });
   };
 }
