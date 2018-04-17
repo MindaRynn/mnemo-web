@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   namespace :api do
     namespace :v1 do
@@ -18,8 +22,4 @@ Rails.application.routes.draw do
 
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
-  end
 end
