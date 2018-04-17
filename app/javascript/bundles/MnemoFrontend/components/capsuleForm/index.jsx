@@ -143,42 +143,44 @@ class CapsuleForm extends React.Component {
           </div>
 
           <div className="media-form">
-            {medium.map((media, index) => {
+            <div className="media-wrapper">
+              {medium.map((media, index) => {
 
-              return (
-                <Image key={index} src={media} size="l" />
-              );
-            })}
-            { medium.length >= 4 ?
-              null :
-              <div className="upload-container">
-                <form
-                  onSubmit={this.submitHandler}
-                  encType="multipart/form-data">
-                  <div className="upload-button" onClick={this._openUploadWindow}>
-                    <Image type="standard" classNames='add-icon' size="l"/>
-                  </div>
+                return (
+                  <Image key={index} src={media} size="l" />
+                );
+              })}
+              { medium.length >= 4 ?
+                null :
+                <div className="upload-container">
+                  <form
+                    onSubmit={this.submitHandler}
+                    encType="multipart/form-data">
+                    <div className="upload-button" onClick={this._openUploadWindow}>
+                      <Image type="standard" classNames='add-icon' size="l"/>
+                    </div>
 
-                  <input
-                    id="capsule-form-submit-button"
-                    style={{ display: "none" }}
-                    type="submit"
-                    value="Upload"/>
+                    <input
+                      id="capsule-form-submit-button"
+                      style={{ display: "none" }}
+                      type="submit"
+                      value="Upload"/>
 
-                  <input
-                    type="hidden"
-                    name="authenticity_token"
-                    value={currentUser.csrfToken}/>
+                    <input
+                      type="hidden"
+                      name="authenticity_token"
+                      value={currentUser.csrfToken}/>
 
-                  <input
-                    onChange={this.inputOnChangeHandler}
-                    style={{ display: "none" }}
-                    id="capsule-form-uploader"
-                    type="file"
-                    name="file"/>
-                </form>
-              </div>
-            }
+                    <input
+                      onChange={this.inputOnChangeHandler}
+                      style={{ display: "none" }}
+                      id="capsule-form-uploader"
+                      type="file"
+                      name="file"/>
+                  </form>
+                </div>
+              }
+            </div>
           </div>
 
           <div className="timing-container">

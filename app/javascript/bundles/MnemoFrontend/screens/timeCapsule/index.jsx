@@ -41,8 +41,9 @@ class TimeCapsule extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let {getTimeCapsuleSuccess} = this.props.timeCapsule.timeCapsule
-    let {fetchedCapsule} = this.state
+    let {getTimeCapsuleSuccess, updateTimeCapsuleSuccess} = this.props.timeCapsule.timeCapsule;
+    let {fetchedCapsule} = this.state;
+    let {actions} = this.props;
     let {timeCapsule} = this.props.timeCapsule.timeCapsule;
 
     if(getTimeCapsuleSuccess && !prevProps.timeCapsule.timeCapsule.getTimeCapsuleSuccess) {
@@ -52,9 +53,21 @@ class TimeCapsule extends React.Component {
     }
 
     if(fetchedCapsule && !prevState.fetchedCapsule) {
+      timeCapsule.memory_boxes[0].medium.forEach(function (media) {
+        actions.addMedia(media.media_url)
+      });
+
       this.setState({
         wrapDate : moment(timeCapsule.wrap_date),
         openDate: moment(timeCapsule.open_date)
+      });
+    }
+
+    if(updateTimeCapsuleSuccess && !prevProps.timeCapsule.timeCapsule.updateTimeCapsuleSuccess) {
+      actions.resetMedium();
+
+      timeCapsule.memory_boxes[0].medium.forEach(function (media) {
+        actions.addMedia(media.media_url)
       });
     }
   }
@@ -86,7 +99,19 @@ class TimeCapsule extends React.Component {
   }
 
   _updateTimeCapsule(e, timeCapsuleDetail) {
-    debugger
+    let {actions} = this.props
+    let {timeCapsule} = this.props.timeCapsule.timeCapsule;
+    let {medium} = this.props.timeCapsule.media
+
+    timeCapsuleDetail['wrapDate'] = this.state.wrapDate.toDate();
+    timeCapsuleDetail['openDate'] = this.state.openDate.toDate();
+    timeCapsuleDetail['medium'] = medium;
+
+    actions.updateTimeCapsule(timeCapsule.id, timeCapsuleDetail)
+
+    this.setState({
+      isEditing: false
+    })
   }
 
   _editOnClickHandler(e){
@@ -127,7 +152,7 @@ class TimeCapsule extends React.Component {
                   }
 
                   {
-                    medium.length <= 0 ?
+                    this.props.timeCapsule.timeCapsule.timeCapsule.memory_boxes[0].medium.length <= 0 || isEditing ?
                       null : <MediaSection timeCapsule={timeCapsule} />
                   }
 
