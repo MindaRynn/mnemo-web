@@ -28,7 +28,7 @@ function timeCapsuleCreateFailure() {
 
 function fetch(userId) {
   return TimeCapsulesAdapter
-    .fetch(userId)
+    .fetch({user_id: userId})
     .then((response) => {
       return response;
     })
