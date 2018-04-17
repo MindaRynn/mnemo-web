@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from '../../components/image/'
 
 export default class ContactList extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ export default class ContactList extends React.Component {
             return (
               <li key={index} className="contact-item" onClick={e => itemClickHandler(e, friend.id)}>
                 <div className={ `item-group ${friend.room_key == currentRoomKey ? 'selected' : ''}` }>
-                  <div className="avatar"></div>
+                  <Image size="s" src={friend.image}/>
                   <div className="profile-container">
                     {friend.name}
                   </div>
