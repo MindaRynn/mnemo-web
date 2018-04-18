@@ -155,7 +155,7 @@ class CapsuleForm extends React.Component {
 
                 return (
                 <div className="image-wrapper" key={index} onClick={e => this._deleteMedia(e, index)}>
-                  <Image src={media} size="l" />
+                  <Image src={media} size="m" />
                 </div>
                 );
               })}
@@ -166,7 +166,7 @@ class CapsuleForm extends React.Component {
                     onSubmit={this.submitHandler}
                     encType="multipart/form-data">
                     <div className="upload-button" onClick={this._openUploadWindow}>
-                      <Image type="standard" classNames='add-icon' size="l"/>
+                      <Image type="standard" classNames='add-icon' size="m"/>
                     </div>
 
                     <input
