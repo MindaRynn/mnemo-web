@@ -17,6 +17,7 @@ class MemoryBoxForm extends React.Component {
     this.inputOnChangeHandler = this.inputOnChangeHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
     this._memoryBoxDetailHandler = this._memoryBoxDetailHandler.bind(this);
+    this._deleteMedia = this._deleteMedia.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -44,6 +45,12 @@ class MemoryBoxForm extends React.Component {
     this.setState({
       memoryBoxDetail: e.target.value
     });
+  }
+
+  _deleteMedia(e, index) {
+    let {actions} = this.props
+
+    actions.deleteMedia(index);
   }
 
   submitHandler(e) {
@@ -78,12 +85,14 @@ class MemoryBoxForm extends React.Component {
             <textarea placeholder="Tell about these Memories" onChange={this._memoryBoxDetailHandler}  value={this.state.memoryBoxDetail} />
           </div>
 
-          <div className="media-form">
+          <div className="media-form memory-box-form">
             <div className="media-container">
               {medium.map((media, index) => {
 
                 return (
-                  <Image key={index} src={media} size="s" />
+                  <div key={index} className="image-wrapper" onClick={e => this._deleteMedia(e, index)} >
+                    <Image key={index} src={media} size="s" />
+                  </div>
                 );
               })}
               { medium.length >= 4 ?

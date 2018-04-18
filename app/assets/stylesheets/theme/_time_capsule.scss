@@ -76,5 +76,9 @@ body.time-capsule .time-capsule-section .time-capsule-container .comment-field-c
     @include flexbox();
     @include justify-content(space-between);
     @include align-items(end);
+
+    &.memory-box-form.image-wrapper:before {
+      font-size: $font-size-h5;
+    }
   }
 }

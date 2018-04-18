@@ -33,6 +33,7 @@ class CapsuleForm extends React.Component {
     this._capsuleNameHandler = this._capsuleNameHandler.bind(this);
     this._capsuleDetailHandler = this._capsuleDetailHandler.bind(this);
     this._friendNameHandler = this._friendNameHandler.bind(this);
+    this._deleteMedia = this._deleteMedia.bind(this);
   }
 
   componentWillMount(){
@@ -124,6 +125,12 @@ class CapsuleForm extends React.Component {
     })
   }
 
+  _deleteMedia(e, index) {
+    let {actions} = this.props
+
+    actions.deleteMedia(index);
+  }
+
   render() {
     let {typeEdit, wrapDate, openDate, wrapDateChangeHandler, openDateChangeHandler, sendTextHandler, buttonText, medium} = this.props;
     let {currentUser} = this.context;
@@ -147,7 +154,9 @@ class CapsuleForm extends React.Component {
               {medium.map((media, index) => {
 
                 return (
-                  <Image key={index} src={media} size="l" />
+                <div className="image-wrapper" key={index} onClick={e => this._deleteMedia(e, index)}>
+                  <Image src={media} size="l" />
+                </div>
                 );
               })}
               { medium.length >= 4 ?
