@@ -1,3 +1,5 @@
 export const MEDIA_ADDED = 'FEED_MEDIA_ADDED';
 
 export const RESET_MEDIUM = 'FEED_RESET_MEDIUM';
+
+export const DELETE_MEDIA = 'FEED_DELETE_MEDIA';

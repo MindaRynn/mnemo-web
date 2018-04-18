@@ -108,7 +108,7 @@
 
   padding-top: 30px;
 
-  .img + .upload-container {
+  .img + .upload-container, .image-wrapper + .upload-container {
     margin-left: 10px;
   }
 }
@@ -145,6 +145,25 @@
   }
 }
 
+.comment-field-container .media-form {
+  .image-wrapper {
+    position: relative;
+    cursor: pointer;
+
+    &:before {
+      content: 'Delete';
+      position: absolute;
+      color: white;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      text-align: center;
+      background-color: rgba(0,0,0,0.5);
+      font-size: $font-size-h3;
+    }
+  }
+}
 
 .comment-field-container.capsule-form .media-form {
   @include flexbox();
@@ -152,6 +171,10 @@
   padding-top: 6px;
 
   .img + .img {
+    margin-left: 10px;
+  }
+
+  .image-wrapper + .image-wrapper {
     margin-left: 10px;
   }
 

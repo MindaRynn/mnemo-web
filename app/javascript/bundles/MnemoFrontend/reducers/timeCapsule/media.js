@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export default function mediaReducer(state = initialState, action = {}) {
-  let { type, media } = action;
+  let { type, media, deletedMediaIndex } = action;
 
   switch(type) {
     case actionTypes.MEDIA_ADDED:
@@ -17,6 +17,11 @@ export default function mediaReducer(state = initialState, action = {}) {
     case actionTypes.RESET_MEDIUM:
       return objectAssign({}, state, {
         medium: []
+      });
+
+    case actionTypes.DELETE_MEDIA:
+      return objectAssign({}, state, {
+        medium: state.medium.filter(function(value, arrIndex) {return deletedMediaIndex !== arrIndex})
       });
 
     default:
