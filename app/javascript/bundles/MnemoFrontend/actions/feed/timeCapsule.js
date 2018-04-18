@@ -26,9 +26,9 @@ function timeCapsuleCreateFailure() {
   return {type: types.TIME_CAPSULE_CREATE_FAILURE};
 }
 
-function fetch(userId) {
+function fetch() {
   return TimeCapsulesAdapter
-    .fetch({user_id: userId})
+    .fetch()
     .then((response) => {
       return response;
     })
@@ -42,11 +42,11 @@ function create(userId, timeCapsuleDetail) {
     })
 }
 
-export function fetchTimeCapsule(userId) {
+export function fetchTimeCapsule() {
   return function (dispatch) {
 
     dispatch(fetchingTimeCapsule());
-    fetch(userId)
+    fetch()
       .then((response) => {
         dispatch(timeCapsuleFetchSuccess(response));
       })

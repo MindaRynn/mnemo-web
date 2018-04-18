@@ -33,6 +33,25 @@ body.time-capsule .time-capsule-section .time-capsule-container {
         margin: 0;
       }
     }
+
+    .detail-section {
+      @include flexbox();
+      @include align-items(center);
+    }
+
+    .detail-section .text-container {
+      @include flex-grow(1);
+    }
+
+    .edit-button {
+      height: 1.875rem;
+      padding: 0 20px;
+      color: white;
+      font-weight: 800;
+      background-color: map-get($brand-orange, "primary");
+      border-radius: 1rem;
+      border: none;
+    }
   }
 
   .capsule-detail-group .media-container {

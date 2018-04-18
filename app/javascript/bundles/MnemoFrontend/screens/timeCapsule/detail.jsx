@@ -8,7 +8,7 @@ class TimeCapsuleDetail extends React.Component {
   }
 
   render() {
-    let {timeCapsule} = this.props;
+    let {timeCapsule, editOnClickHandler, isEditing} = this.props;
     let {currentUser} = this.context;
 
     let topicBox = timeCapsule.memory_boxes[0];
@@ -20,7 +20,7 @@ class TimeCapsuleDetail extends React.Component {
       <div className="capsule-box">
         <div className="capsule-detail-container">
           <div className="header-container">
-            <div className="left-section">
+            <div>
               <h3>{currentUser.name}</h3>
               <div>{created_at}</div>
             </div>
@@ -28,9 +28,16 @@ class TimeCapsuleDetail extends React.Component {
               <div>Wrapped {wrap_date}</div>
             </div>
           </div>
-          <h3>{timeCapsule.subject}</h3>
-          <div className="">
-            {topicBox.description}
+          <div className="detail-section">
+            <div className="text-container">
+              <h3>{timeCapsule.subject}</h3>
+              <div className="">
+                {topicBox.description}
+              </div>
+            </div>
+            { currentUser.id == timeCapsule.user.id && !isEditing ?
+              <button onClick={e => editOnClickHandler(e)} className="edit-button">Edit</button> : null
+            }
           </div>
         </div>
       </div>

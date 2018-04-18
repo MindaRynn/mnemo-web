@@ -9,6 +9,33 @@ module Api
                status: :ok
       end
 
+      def update
+        time_capsule = TimeCapsule.find(params[:id])
+
+        time_capsule.update!(
+          wrap_date: time_capsule_params[:time_capsule_detail][:wrap_date],
+          open_date: time_capsule_params[:time_capsule_detail][:open_date],
+          direct_type: time_capsule_params[:time_capsule_detail][:direct_to].to_sym,
+          subject: time_capsule_params[:time_capsule_detail][:capsule_name]
+        )
+
+        time_capsule.memory_boxes.first.update!(description: time_capsule_params[:time_capsule_detail][:capsule_detail])
+
+        time_capsule.memory_boxes.first.medium.delete_all
+
+        time_capsule_params[:time_capsule_detail][:medium].each do |mediaUrl|
+          time_capsule.memory_boxes.first.medium << Medium.create(
+            media_type: :image,
+            media_url: mediaUrl,
+            user_id: current_user.id
+          )
+        end
+
+        render json: time_capsule,
+               current_user: current_user,
+               status: :ok
+      end
+
       def create
         time_capsule = TimeCapsule.create(
           user_id: current_user.id,

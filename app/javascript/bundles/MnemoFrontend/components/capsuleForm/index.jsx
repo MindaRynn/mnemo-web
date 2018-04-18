@@ -35,6 +35,18 @@ class CapsuleForm extends React.Component {
     this._friendNameHandler = this._friendNameHandler.bind(this);
   }
 
+  componentWillMount(){
+    let {typeEdit, timeCapsule} = this.props;
+
+    if(typeEdit) {
+      this.setState({
+        directTo: timeCapsule.direct_type,
+        capsuleName: timeCapsule.subject,
+        capsuleDetail: timeCapsule.memory_boxes[0].description,
+      })
+    }
+  }
+
   componentDidUpdate(prevProps) {
     let {createTimeCapsuleSuccess} = this.props.timeCapsule;
     let {resetFormHandler} = this.props;
@@ -46,12 +58,12 @@ class CapsuleForm extends React.Component {
   }
 
   _openUploadWindow(){
-    document.getElementById('uploader').click()
+    document.getElementById('capsule-form-uploader').click()
   }
 
 
   inputOnChangeHandler(e) {
-    document.getElementById("submitButton").click();
+    document.getElementById("capsule-form-submit-button").click();
   }
 
   _capsuleNameHandler(e){
@@ -113,58 +125,62 @@ class CapsuleForm extends React.Component {
   }
 
   render() {
-    let {wrapDate, openDate, wrapDateChangeHandler, openDateChangeHandler, sendTextHandler, buttonText, medium} = this.props;
+    let {typeEdit, wrapDate, openDate, wrapDateChangeHandler, openDateChangeHandler, sendTextHandler, buttonText, medium} = this.props;
     let {currentUser} = this.context;
     let {directTo} = this.state;
 
     return (
       <div className='comment-field-container capsule-form'>
-        <div className="profile col-1">
-          <Image classNames="circle" src={currentUser.image} size="s" />
-        </div>
-        <div className="form-group col-11">
+        {!typeEdit ?
+          <div className="profile">
+            <Image classNames="circle" src={currentUser.image} size="s" />
+          </div> : null
+        }
+        <div className="form-group">
           <div className="textfield-group">
             <input placeholder="Capsule's Name"  onChange={this._capsuleNameHandler} value={this.state.capsuleName} />
             <textarea placeholder="Tell about these Memories" onChange={this._capsuleDetailHandler}  value={this.state.capsuleDetail} />
           </div>
 
           <div className="media-form">
-            {medium.map((media, index) => {
+            <div className="media-wrapper">
+              {medium.map((media, index) => {
 
-              return (
-                <Image key={index} src={media} size="l" />
-              );
-            })}
-            { medium.length >= 4 ?
-              null :
-              <div className="upload-container">
-                <form
-                  onSubmit={this.submitHandler}
-                  encType="multipart/form-data">
-                  <div className="upload-button" onClick={this._openUploadWindow}>
-                    <Image type="standard" classNames='add-icon' size="l"/>
-                  </div>
+                return (
+                  <Image key={index} src={media} size="l" />
+                );
+              })}
+              { medium.length >= 4 ?
+                null :
+                <div className="upload-container">
+                  <form
+                    onSubmit={this.submitHandler}
+                    encType="multipart/form-data">
+                    <div className="upload-button" onClick={this._openUploadWindow}>
+                      <Image type="standard" classNames='add-icon' size="l"/>
+                    </div>
 
-                  <input
-                    id="submitButton"
-                    style={{ display: "none" }}
-                    type="submit"
-                    value="Upload"/>
+                    <input
+                      id="capsule-form-submit-button"
+                      style={{ display: "none" }}
+                      type="submit"
+                      value="Upload"/>
 
-                  <input
-                    type="hidden"
-                    name="authenticity_token"
-                    value={currentUser.csrfToken}/>
+                    <input
+                      type="hidden"
+                      name="authenticity_token"
+                      value={currentUser.csrfToken}/>
 
-                  <input
-                    onChange={this.inputOnChangeHandler}
-                    style={{ display: "none" }}
-                    id="uploader"
-                    type="file"
-                    name="file"/>
-                </form>
-              </div>
-            }
+                    <input
+                      onChange={this.inputOnChangeHandler}
+                      style={{ display: "none" }}
+                      id="capsule-form-uploader"
+                      type="file"
+                      name="file"/>
+                  </form>
+                </div>
+              }
+            </div>
           </div>
 
           <div className="timing-container">

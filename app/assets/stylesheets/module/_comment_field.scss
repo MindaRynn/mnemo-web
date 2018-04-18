@@ -154,6 +154,10 @@
   .img + .img {
     margin-left: 10px;
   }
+
+  .media-wrapper {
+    @include flexbox();
+  }
 }
 
 .comment-field-container.capsule-form .friend-seach-container {

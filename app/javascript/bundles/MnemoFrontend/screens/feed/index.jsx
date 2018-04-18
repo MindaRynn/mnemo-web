@@ -18,10 +18,9 @@ class Feed extends React.Component {
   }
 
   componentDidMount() {
-    let {currentUser} = this.context;
     let {actions} = this.props;
 
-    actions.fetchTimeCapsule(currentUser.id);
+    actions.fetchTimeCapsule();
   }
 
   componentDidUpdate(prevProps) {

@@ -103,13 +103,10 @@ class CapsuleList extends React.Component {
 
   render() {
     let {actions, medium, timeCapsule} = this.props;
-    let {fetchedCapsule} = this.state
 
     return (
       <div className="list col-9">
-        <CapsuleForm hasOpenTime={true}
-                     hasWrapTime={true}
-                     wrapDateChangeHandler={this.wrapDateChangeHandler}
+        <CapsuleForm wrapDateChangeHandler={this.wrapDateChangeHandler}
                      openDateChangeHandler={this.openDateChangeHandler}
                      openDate={this.state.openDate}
                      wrapDate={this.state.wrapDate}
