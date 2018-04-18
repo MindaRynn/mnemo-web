@@ -34,48 +34,53 @@
     border-radius: 1rem;
     border: none;
   }
+
+  .timing-container, .button-container {
+    margin-top: 10px;
+  }
 }
 
 .comment-field-container .timing-container {
-  @include inline-flex();
-  @include justify-content(space-between);
+  @include flexbox();
 
-  width: 100%;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  > div {
+    @include flexbox();
+    @include flex-grow(1);
+  }
 
-  .react-datepicker-wrapper {
-    text-align: center;
-    display: inline-block;
+  > div + div {
+    @include justify-content(flex-end)
+  }
 
-    input {
-      padding: 0;
-    }
+  input {
+    padding: 0;
   }
 
   .small-field {
-    display: inline-block;
-    padding-right: 10px;
-
-    .react-datepicker-wrapper {
-      input {
-        width: 5rem;
-      }
+    input {
+      width: 4rem;
     }
 
-    ul {
+    .react-datepicker__time-list {
       padding: 0;
     }
   }
 
   .large-field {
-    display: inline-block;
+    input {
+      width: 6rem;
+    }
+  }
+}
+
+.comment-field-container .timing-container > div {
+  > div {
+    margin-left: 10px;
   }
 }
 
 .comment-field-container {
   label {
-    padding-right: 2.125rem;
     color: map-get($brand-orange, "primary");
   }
 
@@ -84,10 +89,13 @@
   .dropdown > a {
     text-align: center;
     font-size: $font-size-h5;
-    width: 10rem;
     height: 1.875rem;
     border-radius: 1rem;
     border-color: map-get($brand-orange, "light");
+  }
+
+  .dropdown > a {
+    margin-left: 10px;
   }
 }
 
@@ -190,9 +198,12 @@
 
 
   input {
-    width: 100%;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-left: 0;
   }
+}
+
+.comment-field-container.capsule-form .form-group {
+  width: 100%;
 }

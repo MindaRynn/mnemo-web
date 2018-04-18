@@ -118,7 +118,7 @@ class Profile extends React.Component {
         <div className="profile-container">
           <div className="row">
             <div className="col-4" >
-              <center><Image size="lx" src={this.context.currentUser.image}/></center>
+              <center><Image size="l" src={this.context.currentUser.image}/></center>
             </div>
             <div className="col-5">
               <div className="row"><h2>{this.context.currentUser.name}</h2></div>
@@ -136,29 +136,30 @@ class Profile extends React.Component {
             <div className="col-2"></div>
           </div>
           <hr/>
-          <CapsuleForm hasOpenTime={true}
-                       hasWrapTime={true}
-                       wrapDateChangeHandler={this.wrapDateChangeHandler}
-                       openDateChangeHandler={this.openDateChangeHandler}
-                       openDate={this.state.openDate}
-                       wrapDate={this.state.wrapDate}
-                       buttonText="Create Time Capsule"
-                       actions={actions}
-                       medium={medium}
-                       resetFormHandler={this._resetForm}
-                       sendTextHandler={this._sendText}
-                       timeCapsule={timeCapsule} />
-          <div className="row">
-            <div className="col-8">
-              <ul className="nav">
-                <li className="space-item"><a data-toggle="tab" href="#menu1" className="space-toggle active show">All</a></li>
-                <li className="space-item"><a data-toggle="tab" href="#menu2" className="space-toggle">Opened</a></li>
-              </ul>
+          <div className="profile-detail-container">
+            <CapsuleForm hasOpenTime={true}
+                         hasWrapTime={true}
+                         wrapDateChangeHandler={this.wrapDateChangeHandler}
+                         openDateChangeHandler={this.openDateChangeHandler}
+                         openDate={this.state.openDate}
+                         wrapDate={this.state.wrapDate}
+                         buttonText="Create Time Capsule"
+                         actions={actions}
+                         medium={medium}
+                         resetFormHandler={this._resetForm}
+                         sendTextHandler={this._sendText}
+                         timeCapsule={timeCapsule} />
+            <div className="row">
+              <div className="col-8">
+                <ul className="nav">
+                  <li className="space-item"><a data-toggle="tab" href="#menu1" className="space-toggle active show">All</a></li>
+                  <li className="space-item"><a data-toggle="tab" href="#menu2" className="space-toggle">Opened</a></li>
+                </ul>
+              </div>
             </div>
+
+            {fetchedCapsule ? this._renderTimeCapsule() : null}
           </div>
-          
-          {fetchedCapsule ? this._renderTimeCapsule() : null}
-          
         </div>
       </div>
     );
