@@ -2,16 +2,28 @@ import * as types from '../../constants/profile/timeCapsule';
 import TimeCapsulesAdapter from '../../adapters/timeCapsules';
 import {appErrorHandler} from '../app';
 
-export function fetchingTimeCapsule() {
-  return {type: types.TIME_CAPSULE_IS_FETCHING};
+export function fetchingUserTimeCapsule() {
+  return {type: types.USER_TIME_CAPSULE_IS_FETCHING};
 }
 
-export function timeCapsuleFetchSuccess(timeCapsules) {
-  return {type: types.TIME_CAPSULE_FETCH_SUCCESS, timeCapsules: timeCapsules};
+export function UsertimeCapsuleFetchSuccess(userTimeCapsules) {
+  return {type: types.USER_TIME_CAPSULE_FETCH_SUCCESS, userTimeCapsules: userTimeCapsules};
 }
 
-export function timeCapsuleFetchFailure() {
-  return {type: types.TIME_CAPSULE_FETCH_FAILURE};
+export function UsertimeCapsuleFetchFailure() {
+  return {type: types.USER_TIME_CAPSULE_FETCH_FAILURE};
+}
+
+export function fetchingParticipatedTimeCapsule() {
+  return {type: types.PATICIPATED_TIME_CAPSULE_IS_FETCHING};
+}
+
+export function ParticipatedTimeCapsuleFetchSuccess(participatedTimeCapsules) {
+  return {type: types.PATICIPATED_TIME_CAPSULE_FETCH_SUCCESS, participatedTimeCapsules: participatedTimeCapsules};
+}
+
+export function ParticipatedTimeCapsuleFetchFailure() {
+  return {type: types.PATICIPATED_TIME_CAPSULE_FETCH_FAILURE};
 }
 
 //-------------------------------------------------------
@@ -30,17 +42,25 @@ function timeCapsuleCreateFailure() {
 
 //-------------------------------------------------------
 
-function fetch(userId) {
+function fetch(currentId) {
   return TimeCapsulesAdapter
-    .fetch({user_id: userId})
+    .fetch({user_id: currentId})
     .then((response) => {
       return response;
     })
 }
 
-function create(userId, timeCapsuleDetail) {
+function create(userId, timeCapsuleDetail, participated) {
   return TimeCapsulesAdapter
-    .create(userId, timeCapsuleDetail)
+    .create(userId, timeCapsuleDetail, participated)
+    .then((response) => {
+      return response;
+    })
+}
+
+function fetchParticipated() {
+  return TimeCapsulesAdapter
+    .fetch({participated: 1})
     .then((response) => {
       return response;
     })
@@ -48,26 +68,41 @@ function create(userId, timeCapsuleDetail) {
 
 //-------------------------------------------------------
 
-export function fetchTimeCapsule(userId) {
+export function fetchUserTimeCapsule(currentId) {
   return function (dispatch) {
 
-    dispatch(fetchingTimeCapsule());
-    fetch(userId)
+    dispatch(fetchingUserTimeCapsule());
+    fetch(currentId)
       .then((response) => {
-        dispatch(timeCapsuleFetchSuccess(response));
+        dispatch(UsertimeCapsuleFetchSuccess(response));
       })
       .catch(errors => {
         dispatch(appErrorHandler(errors));
-        dispatch(timeCapsuleFetchFailure());
+        dispatch(UsertimeCapsuleFetchFailure());
       });
   };
 }
 
-export function createTimeCapsule(userId, timeCapsuleDetail) {
+export function fetchParticipatedTimeCapsule() {
+  return function (dispatch) {
+
+    dispatch(fetchingParticipatedTimeCapsule());
+    fetchParticipated()
+      .then((response) => {
+        dispatch(ParticipatedTimeCapsuleFetchSuccess(response));
+      })
+      .catch(errors => {
+        dispatch(appErrorHandler(errors));
+        dispatch(ParticipatedTimeCapsuleFetchFailure());
+      });
+  };
+}
+
+export function createTimeCapsule(userId, timeCapsuleDetail, participated) {
   return function (dispatch) {
 
     dispatch(creatingTimeCapsule());
-    create(userId, timeCapsuleDetail)
+    create(userId, timeCapsuleDetail, participated)
       .then((response) => {
         dispatch(timeCapsuleCreateSuccess(response));
       })

@@ -13,7 +13,9 @@ class Profile extends React.Component {
     this.state = {
       wrapDate: moment(),
       openDate: moment(),
-      fetchedCapsule: false
+      fetchedUserCapsule: false,
+      fetchedParticipatedCapsule: false,
+      currentShowCapsule: "yours"
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -22,6 +24,7 @@ class Profile extends React.Component {
     this._sendText = this._sendText.bind(this);
     this._resetForm = this._resetForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.setShowCapsule = this.setShowCapsule.bind(this);
   }
 
   handleChange ({ wrapDate, openDate }){
@@ -65,23 +68,32 @@ class Profile extends React.Component {
 
   componentDidMount() {
     let {actions} = this.props;
+    let {currentUser} = this.context;
 
-    actions.fetchTimeCapsule();
+    actions.fetchUserTimeCapsule(currentUser.id);
+    actions.fetchParticipatedTimeCapsule();
   }
 
   componentDidUpdate(prevProps) {
-    let {fetchTimeCapsuleSuccess} = this.props.profile.timeCapsule
+    let {fetchTimeCapsuleSuccess, fetchParticipatedTimeCapsuleSuccess} = this.props.profile.timeCapsule
 
     if(fetchTimeCapsuleSuccess && !prevProps.profile.timeCapsule.fetchTimeCapsuleSuccess) {
       this.setState({
-        fetchedCapsule: true,
+        fetchedUserCapsule: true,
+      });
+    }
+    if(fetchParticipatedTimeCapsuleSuccess && !prevProps.profile.participatedTimeCapsule.fetchParticipatedTimeCapsuleSuccess) {
+      this.setState({
+        fetchedParticipatedCapsule: true,
       });
     }
   }
 
-  _renderTimeCapsule(){
-    let {timeCapsules} = this.props.profile.timeCapsule;
-
+  _renderTimeCapsule() {
+    let {userTimeCapsules} = this.props.profile.timeCapsule;
+    let {participatedTimeCapsules} = this.props.profile.timeCapsule;
+    let {currentUser} = this.context;
+    let timeCapsules = this.state.currentShowCapsule == "yours" ? userTimeCapsules : participatedTimeCapsules
     return (
       <div>
         {timeCapsules.map((timeCapsule, index) => {
@@ -99,19 +111,26 @@ class Profile extends React.Component {
           }
           
           return (<ContainerSwtichCapsule status={status} key={index}
-                       avatar={this.context.currentUser.image}
-                       name={this.context.currentUser.name}
+                       avatar={timeCapsule.user.image}
+                       name={timeCapsule.user.name}
                        timeCapsule={timeCapsule} />);
         })}
       </div>
     );
   }
 
+  setShowCapsule(e,state) {
+    e.preventDefault()
+    this.setState({
+      currentShowCapsule: state
+    })
+  }
+
   render() {
     let {actions, profile} = this.props;
     let {timeCapsule} = profile;
     let {medium} = profile.media;
-    let {fetchedCapsule} = this.state
+    let {fetchedUserCapsule} = this.state
 
     return (
       <div>
@@ -136,30 +155,27 @@ class Profile extends React.Component {
             <div className="col-2"></div>
           </div>
           <hr/>
-          <div className="profile-detail-container">
-            <CapsuleForm hasOpenTime={true}
-                         hasWrapTime={true}
-                         wrapDateChangeHandler={this.wrapDateChangeHandler}
-                         openDateChangeHandler={this.openDateChangeHandler}
-                         openDate={this.state.openDate}
-                         wrapDate={this.state.wrapDate}
-                         buttonText="Create Time Capsule"
-                         actions={actions}
-                         medium={medium}
-                         resetFormHandler={this._resetForm}
-                         sendTextHandler={this._sendText}
-                         timeCapsule={timeCapsule} />
-            <div className="row">
-              <div className="col-8">
-                <ul className="nav">
-                  <li className="space-item"><a data-toggle="tab" href="#menu1" className="space-toggle active show">All</a></li>
-                  <li className="space-item"><a data-toggle="tab" href="#menu2" className="space-toggle">Opened</a></li>
-                </ul>
-              </div>
+          <CapsuleForm hasOpenTime={true}
+                       hasWrapTime={true}
+                       wrapDateChangeHandler={this.wrapDateChangeHandler}
+                       openDateChangeHandler={this.openDateChangeHandler}
+                       openDate={this.state.openDate}
+                       wrapDate={this.state.wrapDate}
+                       buttonText="Create Time Capsule"
+                       actions={actions}
+                       medium={medium}
+                       resetFormHandler={this._resetForm}
+                       sendTextHandler={this._sendText}
+                       timeCapsule={timeCapsule} />
+          <div className="row">
+            <div className="col-8">
+              <ul className="nav">
+                <li className="space-item"><a data-toggle="tab" onClick={e => this.setShowCapsule(e,"yours")} href="#menu1" className="space-toggle active show">Yours</a></li>
+                <li className="space-item"><a data-toggle="tab" onClick={e => this.setShowCapsule(e,"joined")} href="#menu2" className="space-toggle">Joined</a></li>
+              </ul>
             </div>
-
-            {fetchedCapsule ? this._renderTimeCapsule() : null}
-          </div>
+          </div>        
+          {fetchedUserCapsule ? this._renderTimeCapsule() : null}
         </div>
       </div>
     );

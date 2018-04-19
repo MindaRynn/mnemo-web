@@ -78,7 +78,7 @@ module Api
       end
 
       def permitted_attributes
-        [:user_id, :time_capsule_detail]
+        [:user_id, :time_capsule_detail, :participated]
       end
     end
   end
