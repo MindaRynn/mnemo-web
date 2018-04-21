@@ -21,6 +21,8 @@ class CapsuleList extends React.Component {
     this.openDateChangeHandler = this.openDateChangeHandler.bind(this);
     this._sendText = this._sendText.bind(this);
     this._resetForm = this._resetForm.bind(this);
+    this._checkTimeOver = this._checkTimeOver.bind(this);
+    this._refreshPage = this._refreshPage.bind(this)
   }
 
   componentDidUpdate(prevProps) {
@@ -63,14 +65,28 @@ class CapsuleList extends React.Component {
   _sendText(e, capsuleDetail) {
     e.preventDefault();
 
-    let {actions} = this.props;
-    let {currentUser} = this.context;
+    if(this._checkTimeOver()) {
+      document.getElementById("timeOverButton").click();
+    } else {
+      let {actions} = this.props;
+      let {currentUser} = this.context;
 
-    capsuleDetail['wrapDate'] = this.state.wrapDate.toDate();
-    capsuleDetail['openDate'] = this.state.openDate.toDate();
-    capsuleDetail['medium'] = this.props.medium;
+      capsuleDetail['wrapDate'] = this.state.wrapDate.toDate();
+      capsuleDetail['openDate'] = this.state.openDate.toDate();
+      capsuleDetail['medium'] = this.props.medium;
 
-    actions.createTimeCapsule(currentUser.id, capsuleDetail)
+      actions.createTimeCapsule(currentUser.id, capsuleDetail)
+    }
+  }
+
+  _refreshPage() {
+    $("#timeover").on('hidden.bs.modal', function () {
+      window.location.reload();
+    });
+  }
+
+  _checkTimeOver() {
+    return moment().diff(this.state.wrapDate) > 0 || moment().diff(this.state.openDate) > 0;
   }
 
   _rederTimeCapsule(){
@@ -116,6 +132,20 @@ class CapsuleList extends React.Component {
                      medium={medium}
                      sendTextHandler={this._sendText}
                      timeCapsule={timeCapsule} />
+        
+        <div className="add-data">
+          <input id="timeOverButton" style={{ display: "none" }} data-toggle="modal" data-target="#timeover"/>
+        </div>
+        <div className="modal fade" id="timeover" tabIndex="-1" role="dialog" aria-labelledby="timeover" aria-hidden="true">
+            <div id="timeOverModal" className="modal-dialog modal-sm">
+              <div className="modal-content">
+                <div className="modal-body text-center">
+                  <h2>Time invalid</h2>
+                  <button type="button" onClick={this._refreshPage} className="btn btn-primary" data-dismiss="modal">try again</button>
+                </div>
+              </div>
+            </div>
+        </div>
 
         {this._rederTimeCapsule()}
       </div>
