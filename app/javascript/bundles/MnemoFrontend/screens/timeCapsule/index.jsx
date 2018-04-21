@@ -182,7 +182,7 @@ class TimeCapsule extends React.Component {
                   }
                   {
                     memoryBoxes.length <= 0 ?
-                      null :  <MemoryBoxesSection memoryBoxes={memoryBoxes} />
+                      null :  <MemoryBoxesSection openDate={moment(this.state.openDate)} memoryBoxes={memoryBoxes} />
                   }
                 </div>
           </div>
