@@ -93,8 +93,8 @@ class CapsuleList extends React.Component {
           }
           
           return (<ContainerSwtichCapsule status={status} key={index}
-                       avatar={this.context.currentUser.image}
-                       name={this.context.currentUser.name}
+                       avatar={timeCapsule.user.image}
+                       name={timeCapsule.user.name}
                        timeCapsule={timeCapsule} />);
         })}
       </div>
