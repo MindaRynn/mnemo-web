@@ -5,6 +5,7 @@ import DetailSection from './detail';
 import MediaSection from './media';
 
 import Image from '../../components/image'
+import ImageModal from '../../components/image/imageModal'
 
 class TimeCapsuleMemoryBox extends React.Component {
   constructor(props, context) {
@@ -33,9 +34,8 @@ class TimeCapsuleMemoryBox extends React.Component {
                       <div>{memoryBox.description}</div>
                       <div className="media-container">
                         {memoryBox.medium.map((media, index) => {
-  
                           return (
-                            <Image key={index} src={media.media_url} size="m" />
+                            <ImageModal key={index} size="m" src={media.media_url} />
                           );
                         })}
                       </div>
