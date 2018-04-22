@@ -25,6 +25,8 @@ class Profile extends React.Component {
     this._resetForm = this._resetForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.setShowCapsule = this.setShowCapsule.bind(this);
+    this._checkTimeOver = this._checkTimeOver.bind(this);
+    this._refreshPage = this._refreshPage.bind(this)
   }
 
   handleChange ({ wrapDate, openDate }){
@@ -45,14 +47,18 @@ class Profile extends React.Component {
   _sendText(e, capsuleDetail) {
     e.preventDefault();
 
-    let {actions} = this.props;
-    let {currentUser} = this.context;
+    if(this._checkTimeOver()) {
+      document.getElementById("timeOverButton").click();
+    } else {
+      let {actions} = this.props;
+      let {currentUser} = this.context;
 
-    capsuleDetail['wrapDate'] = this.state.wrapDate.toDate();
-    capsuleDetail['openDate'] = this.state.openDate.toDate();
-    capsuleDetail['medium'] = this.props.profile.media.medium;
+      capsuleDetail['wrapDate'] = this.state.wrapDate.toDate();
+      capsuleDetail['openDate'] = this.state.openDate.toDate();
+      capsuleDetail['medium'] = this.props.profile.media.medium;
 
-    actions.createTimeCapsule(currentUser.id, capsuleDetail)
+      actions.createTimeCapsule(currentUser.id, capsuleDetail)
+    }
   }
 
   _resetForm() {
@@ -64,6 +70,16 @@ class Profile extends React.Component {
       wrapDate: moment(),
       openDate: moment()
     });
+  }
+
+  _refreshPage() {
+    $("#timeover").on('hidden.bs.modal', function () {
+      window.location.reload();
+    });
+  }
+
+  _checkTimeOver() {
+    return moment().diff(this.state.wrapDate) > 0 || moment().diff(this.state.openDate) > 0;
   }
 
   componentDidMount() {
@@ -174,7 +190,22 @@ class Profile extends React.Component {
                 <li className="space-item"><a data-toggle="tab" onClick={e => this.setShowCapsule(e,"joined")} href="#menu2" className="space-toggle">Joined</a></li>
               </ul>
             </div>
-          </div>        
+          </div>      
+
+          <div className="add-data">
+            <input id="timeOverButton" style={{ display: "none" }} data-toggle="modal" data-target="#timeover"/>
+          </div>
+          <div className="modal fade" id="timeover" tabIndex="-1" role="dialog" aria-labelledby="timeover" aria-hidden="true">
+              <div id="timeOverModal" className="modal-dialog modal-sm">
+                <div className="modal-content">
+                  <div className="modal-body text-center">
+                    <h2>Time invalid</h2>
+                    <button type="button" onClick={this._refreshPage} className="btn btn-primary" data-dismiss="modal">try again</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+
           {fetchedUserCapsule ? this._renderTimeCapsule() : null}
         </div>
       </div>
