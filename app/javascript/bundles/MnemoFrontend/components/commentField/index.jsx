@@ -47,8 +47,9 @@ class CommentField extends React.Component {
     let {sendTextHandler} = this.props;
 
     let code = (e.keyCode ? e.keyCode : e.which);
+    let eventId = e.target.id
 
-    if (code == 13) {
+    if (code == 13 || eventId == "postCapsuleDirectMessage") {
       sendTextHandler(e, image);
       this.setState({
         image: ''
@@ -119,7 +120,7 @@ class CommentField extends React.Component {
                 />
               </div>
             </div>
-            <button className="submit-button" onClick={e => this.sendTextAndResetImage(e, this.state.image)}>{buttonText}</button>
+            <button id="postCapsuleDirectMessage" className="submit-button" onClick={e => this.sendTextAndResetImage(e, this.state.image)}>{buttonText}</button>
           </div>
         </div>
       </div>
