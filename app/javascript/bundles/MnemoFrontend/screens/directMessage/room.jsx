@@ -57,7 +57,6 @@ class Room extends React.Component {
 
       firebaseRef.child(currentRoom.room_key).on('child_added',function(snapshot){
         let className =  snapshot.val().user_id == currentUser.id ? 'mine' : null
-        console.log(snapshot.val())
         if(snapshot.val().hasOwnProperty('image') && snapshot.val().message != ""){
           appendReactDOM(ContainerSwitchCapsule, el, {
             src: snapshot.val().image.url,
