@@ -48,10 +48,6 @@ class Room extends React.Component {
 
           var childData = childSnapshot.val();
           var className =  childData.user_id == currentUser.id ? 'mine' : null
-          // appendReactDOM(Message, el, {
-          //   text: childData.message,
-          //   className: className
-          // });
           if(itemsProcessed === length) {
             el.scrollTo(0, el.scrollHeight - el.clientHeight);
           }
@@ -94,8 +90,9 @@ class Room extends React.Component {
   _sendText(e, imageLink) {
     let code = (e.keyCode ? e.keyCode : e.which);
     let el = document.getElementsByClassName('message-container')[0]
+    let eventId = e.target.id
 
-    if (code == 13) {
+    if (code == 13 || eventId == "postCapsuleDirectMessage") {
       e.preventDefault();
 
       let {currentUser} = this.context;
@@ -111,7 +108,7 @@ class Room extends React.Component {
       if(imageLink.length){
         messageObjet['image'] = {url: imageLink}
       }
-
+      console.log(messageObjet)
       firebaseRef.child(currentRoom.room_key).push(messageObjet);
 
       messageField.value = ''
