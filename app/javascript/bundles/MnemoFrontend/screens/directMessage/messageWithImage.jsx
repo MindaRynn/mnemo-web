@@ -15,8 +15,8 @@ class MessageWithImage extends React.Component {
     return (
 
       <div className={`message-group ${className ? className : ''}`}>
-        <div className="message text-right">
-          <span>{text}</span><br/>
+        <div className="message">
+          <div className={className == "mine" ? "text-right" : ''}><span>{text}</span></div>
           <div className="add-data">
               <a href="" data-toggle="modal" data-target={(`#`+src).toString()}>
                   <img style={sizeStyle} className="img-fluid" src={src} alt=""/>
