@@ -7,6 +7,7 @@ import Message from './message'
 import Image from './image'
 import CommentField from '../../components/commentField'
 import MessageWithImage from './messageWithImage'
+import ContainerSwitchCapsule from './containerSwitchCapsule'
 
 class Room extends React.Component {
 
@@ -56,21 +57,27 @@ class Room extends React.Component {
 
       firebaseRef.child(currentRoom.room_key).on('child_added',function(snapshot){
         let className =  snapshot.val().user_id == currentUser.id ? 'mine' : null
+        console.log(snapshot.val())
         if(snapshot.val().hasOwnProperty('image') && snapshot.val().message != ""){
-          appendReactDOM(MessageWithImage, el, {
+          appendReactDOM(ContainerSwitchCapsule, el, {
             src: snapshot.val().image.url,
             text: snapshot.val().message,
-            className: className
+            className: className,
+            openDate: snapshot.val().openDate
           });
         } else if(snapshot.val().hasOwnProperty('image')){
-          appendReactDOM(Image, el, {
+          appendReactDOM(ContainerSwitchCapsule, el, {
             src: snapshot.val().image.url,
-            className: className
+            text: '',
+            className: className,
+            openDate: snapshot.val().openDate
           });
         } else {
-          appendReactDOM(Message, el, {
+          appendReactDOM(ContainerSwitchCapsule, el, {
+            src: '',
             text: snapshot.val().message,
-            className: className
+            className: className,
+            openDate: snapshot.val().openDate
           });
         }
 
@@ -102,13 +109,13 @@ class Room extends React.Component {
 
       let messageObjet = {
         user_id: currentUser.id,
-        message: messageField.value
+        message: messageField.value,
+        openDate: this.state.openDate.toISOString()
       }
 
       if(imageLink.length){
         messageObjet['image'] = {url: imageLink}
       }
-      console.log(messageObjet)
       firebaseRef.child(currentRoom.room_key).push(messageObjet);
 
       messageField.value = ''
