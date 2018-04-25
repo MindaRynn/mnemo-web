@@ -11,9 +11,12 @@ class CommentField extends React.Component {
     this.inputOnChangeHandler = this.inputOnChangeHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
     this.sendTextAndResetImage = this.sendTextAndResetImage.bind(this);
+    this._setCapsuleMode = this._setCapsuleMode.bind(this);
+    this._isCapsuleMode = this._isCapsuleMode.bind(this);
 
     this.state = {
-      image: ''
+      image: '',
+      capsuleMode: false
     };
   }
 
@@ -41,6 +44,16 @@ class CommentField extends React.Component {
     };
 
     xhr.send(data);
+  }
+
+  _setCapsuleMode() {
+    this.setState({
+      capsuleMode: !this.state.capsuleMode
+    })
+  }
+
+  _isCapsuleMode() {
+    return this.state.capsuleMode
   }
 
   sendTextAndResetImage(e, image) {
@@ -118,6 +131,15 @@ class CommentField extends React.Component {
                   selectsStart
                   onChange={openDateChangeHandler}
                 />
+              </div>
+              <div>
+                <label>Capsule mode: </label>
+              </div>
+              <div className="toggle-field">
+                <label className="switch">
+                  <input onClick={this._setCapsuleMode} type="checkbox" />
+                  <span className="slider round">{this.state.capsuleMode ? <div className="on-mode">On</div> : <div className="off-mode">Off</div>}</span>
+                </label>
               </div>
             </div>
             <button id="postCapsuleDirectMessage" className="submit-button" onClick={e => this.sendTextAndResetImage(e, this.state.image)}>{buttonText}</button>
