@@ -12,7 +12,6 @@ class CommentField extends React.Component {
     this.submitHandler = this.submitHandler.bind(this);
     this.sendTextAndResetImage = this.sendTextAndResetImage.bind(this);
     this._setCapsuleMode = this._setCapsuleMode.bind(this);
-    this._isCapsuleMode = this._isCapsuleMode.bind(this);
 
     this.state = {
       image: '',
@@ -52,10 +51,6 @@ class CommentField extends React.Component {
     })
   }
 
-  _isCapsuleMode() {
-    return this.state.capsuleMode
-  }
-
   sendTextAndResetImage(e, image) {
     let {sendTextHandler} = this.props;
 
@@ -63,7 +58,7 @@ class CommentField extends React.Component {
     let eventId = e.target.id
 
     if (code == 13 || eventId == "postCapsuleDirectMessage") {
-      sendTextHandler(e, image);
+      sendTextHandler(e, image, this.state.capsuleMode);
       this.setState({
         image: ''
       })
@@ -112,26 +107,6 @@ class CommentField extends React.Component {
           <textarea placeholder="Type messages" onKeyPress={e => this.sendTextAndResetImage(e, this.state.image)}/>
           <div className="timing-container">
             <div>
-              <label>Open time: </label>
-              <div className="small-field">
-                <DatePicker
-                  selected={openDate}
-                  selectsStart
-                  onChange={openDateChangeHandler}
-                  showTimeSelect
-                  showTimeSelectOnly
-                  timeIntervals={15}
-                  dateFormat="LT"
-                  timeCaption="Time"
-                />
-              </div>
-              <div className="large-field">
-                <DatePicker
-                  selected={openDate}
-                  selectsStart
-                  onChange={openDateChangeHandler}
-                />
-              </div>
               <div>
                 <label>Capsule mode: </label>
               </div>
@@ -141,6 +116,29 @@ class CommentField extends React.Component {
                   <span className="slider round">{this.state.capsuleMode ? <div className="on-mode">On</div> : <div className="off-mode">Off</div>}</span>
                 </label>
               </div>
+              {this.state.capsuleMode && 
+                <div className="timing-container" style={{marginTop: "0px"}}>
+                  <label>Open time: </label>
+                  <div className="small-field">
+                    <DatePicker
+                      selected={openDate}
+                      selectsStart
+                      onChange={openDateChangeHandler}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      dateFormat="LT"
+                      timeCaption="Time"
+                    />
+                  </div>
+                  <div className="large-field">
+                    <DatePicker
+                      selected={openDate}
+                      selectsStart
+                      onChange={openDateChangeHandler}
+                    />
+                  </div>
+                </div>}
             </div>
             <button id="postCapsuleDirectMessage" className="submit-button" onClick={e => this.sendTextAndResetImage(e, this.state.image)}>{buttonText}</button>
           </div>

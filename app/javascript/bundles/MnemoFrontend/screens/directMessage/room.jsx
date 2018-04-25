@@ -93,7 +93,7 @@ class Room extends React.Component {
     return room.users.filter(user => user.id != currentUser.id)[0].name;
   }
 
-  _sendText(e, imageLink) {
+  _sendText(e, imageLink, capsuleMode) {
     let code = (e.keyCode ? e.keyCode : e.which);
     let el = document.getElementsByClassName('message-container')[0]
     let eventId = e.target.id
@@ -109,7 +109,7 @@ class Room extends React.Component {
       let messageObjet = {
         user_id: currentUser.id,
         message: messageField.value,
-        openDate: this.state.openDate.toISOString()
+        openDate: capsuleMode ? this.state.openDate.toISOString() : moment().toISOString()
       }
 
       if(imageLink.length){
