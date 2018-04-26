@@ -84,6 +84,10 @@ body.time-capsule .time-capsule-section .time-capsule-container {
       @include justify-content(center);
       @include align-items(center);
       height: 80vh;
+      .full-img {
+        max-width: 100%;
+        max-height: 100%;
+      }
     }
   }
 }

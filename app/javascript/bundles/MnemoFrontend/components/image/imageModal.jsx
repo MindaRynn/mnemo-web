@@ -18,7 +18,7 @@ export default class ImageModal extends React.Component {
                     <div className="modal-body">
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button><br/>
                         <div className="container-fluid text-center">
-                          <img src={src} className="img-fluid" alt=""/>
+                          <img src={src} className="full-img" alt=""/>
                         </div>
                     </div>
                 </div>
