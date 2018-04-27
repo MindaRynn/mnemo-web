@@ -45,6 +45,7 @@ class TimeCapsule extends React.Component {
     let {fetchedCapsule} = this.state;
     let {actions} = this.props;
     let {timeCapsule} = this.props.timeCapsule.timeCapsule;
+    let {currentUser} = this.context;
 
     if(getTimeCapsuleSuccess && !prevProps.timeCapsule.timeCapsule.getTimeCapsuleSuccess) {
       this.setState({
@@ -52,7 +53,7 @@ class TimeCapsule extends React.Component {
       });
     }
 
-    if(fetchedCapsule && !prevState.fetchedCapsule) {
+    if(fetchedCapsule && !prevState.fetchedCapsule && currentUser.id == timeCapsule.user.id) {
       timeCapsule.memory_boxes[0].medium.forEach(function (media) {
         actions.addMedia(media.media_url)
       });

@@ -65,6 +65,12 @@ ActiveRecord::Schema.define(version: 20180417165909) do
     t.index ["user_id", "room_id"], name: "index_rooms_users_on_user_id_and_room_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.text "tag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "time_capsules", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -74,6 +80,8 @@ ActiveRecord::Schema.define(version: 20180417165909) do
     t.integer "direct_type", default: 0, null: false
     t.integer "status", default: 0, null: false
     t.text "subject"
+    t.bigint "tag_id"
+    t.index ["tag_id"], name: "index_time_capsules_on_tag_id"
     t.index ["user_id"], name: "index_time_capsules_on_user_id"
   end
 
