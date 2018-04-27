@@ -26,7 +26,6 @@ class Profile extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.setShowCapsule = this.setShowCapsule.bind(this);
     this._checkTimeOver = this._checkTimeOver.bind(this);
-    this._refreshPage = this._refreshPage.bind(this)
   }
 
   handleChange ({ wrapDate, openDate }){
@@ -47,17 +46,31 @@ class Profile extends React.Component {
   _sendText(e, capsuleDetail) {
     e.preventDefault();
 
-    if(this._checkTimeOver()) {
+    if(this._checkTimeOver(capsuleDetail)) {
       document.getElementById("timeOverButton").click();
     } else {
       let {actions} = this.props;
       let {currentUser} = this.context;
 
+      if(capsuleDetail.currentTime.isAfter(this.state.wrapDate)) {
+        this.setState({
+          wrapDate: capsuleDetail.currentTime
+        }, () => {
       capsuleDetail['wrapDate'] = this.state.wrapDate.toDate();
       capsuleDetail['openDate'] = this.state.openDate.toDate();
       capsuleDetail['medium'] = this.props.profile.media.medium;
 
       actions.createTimeCapsule(currentUser.id, capsuleDetail)
+      window.location.reload();
+        })
+      } else {
+        capsuleDetail['wrapDate'] = (this.state.wrapDate.add(1, 'seconds')).toDate();
+        capsuleDetail['openDate'] = this.state.openDate.toDate();
+        capsuleDetail['medium'] = this.props.medium;
+
+        actions.createTimeCapsule(currentUser.id, capsuleDetail)
+        window.location.reload();
+      }
     }
   }
 
@@ -72,14 +85,8 @@ class Profile extends React.Component {
     });
   }
 
-  _refreshPage() {
-    $("#timeover").on('hidden.bs.modal', function () {
-      window.location.reload();
-    });
-  }
-
-  _checkTimeOver() {
-    return moment().diff(this.state.wrapDate) > 0 || moment().diff(this.state.openDate) > 0;
+  _checkTimeOver(capsuleDetail) {
+    return capsuleDetail.currentTime.diff(this.state.openDate) >= 0;
   }
 
   componentDidMount() {
@@ -113,8 +120,8 @@ class Profile extends React.Component {
     return (
       <div>
         {timeCapsules.map((timeCapsule, index) => {
-          let wrapDate = new moment(timeCapsule.wrap_date.toLocaleString());
-          let openDate = new moment(timeCapsule.open_date.toLocaleString());
+          let wrapDate = new moment(timeCapsule.wrap_date);
+          let openDate = new moment(timeCapsule.open_date);
           let currentTime = new moment();
           let diffTime1 = wrapDate.diff(currentTime)
           let diffTime2 = openDate.diff(currentTime)
@@ -199,8 +206,8 @@ class Profile extends React.Component {
               <div id="timeOverModal" className="modal-dialog modal-sm">
                 <div className="modal-content">
                   <div className="modal-body text-center">
-                    <h2>Time invalid</h2>
-                    <button type="button" onClick={this._refreshPage} className="btn btn-primary" data-dismiss="modal">try again</button>
+                    <h2>Open time invalid</h2>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal">Close</button>
                   </div>
                 </div>
               </div>
