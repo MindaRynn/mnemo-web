@@ -11,6 +11,8 @@ import ProfileForm from '../bundles/MnemoFrontend/components/devise/registration
 import PasswordForm from '../bundles/MnemoFrontend/components/devise/registrations/PasswordForm';
 import App from '../bundles/MnemoFrontend/App';
 import Profile from '../bundles/MnemoFrontend/containers/Profile';
+import Notification from '../bundles/MnemoFrontend/components/notification/index'
+import FirebaseInitialize from '../bundles/MnemoFrontend/helpers/firebaseHelper'
 
 // This is how react_on_rails can see the MnemoFrontend in the browser.
 ReactOnRails.register({
@@ -24,5 +26,7 @@ ReactOnRails.register({
   ProfileForm,
   PasswordForm,
   Profile,
+  Notification,
+  FirebaseInitialize,
   App
 });

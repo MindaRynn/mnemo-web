@@ -10,10 +10,6 @@ import ImageModal from '../../components/image/imageModal'
 class TimeCapsuleMemoryBox extends React.Component {
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      currentTime: moment()
-    }
   }
 
   render() {
@@ -28,7 +24,7 @@ class TimeCapsuleMemoryBox extends React.Component {
                 <Image classNames="circle" src={memoryBox.user.image} size="xs" />
                 <div className="memory-box-detail">
                   <h3>{memoryBox.user.name}</h3>
-                  { this.state.currentTime.diff(openDate) < 0 ? 
+                  { moment().diff(openDate) < 0 ?
                      <span>Put some message in this capsule</span> :
                      <span>
                       <div>{memoryBox.description}</div>

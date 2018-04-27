@@ -6,7 +6,7 @@ export default class ImageModal extends React.Component {
     let {src, size} = this.props
 
     return (
-      <div>
+      <div className="image-modal">
         <div className="add-data">
           <a href="" data-toggle="modal" data-target={`#`+src}>
               <Image src={src} size={size} />

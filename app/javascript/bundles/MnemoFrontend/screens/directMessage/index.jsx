@@ -5,7 +5,6 @@ import * as firebase from 'firebase';
 import ContactList from './contactList'
 import RoomList from './roomList'
 import Room from './room'
-import config from '../../config/';
 
 const initialState = {
   fetchedFriend: false,
@@ -16,8 +15,6 @@ const initialState = {
 class DirectMessage extends React.Component {
   constructor(props, context) {
     super(props, context);
-
-    firebase.initializeApp(config['firebase']);
 
     this.state = initialState;
 

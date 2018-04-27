@@ -72,6 +72,7 @@ a:hover {
   }
   .dropdown-menu {
     right: 0;
+
     .hidden-list {
       display: none;
       @include media-breakpoint-down(sm) {

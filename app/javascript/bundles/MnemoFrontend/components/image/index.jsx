@@ -1,6 +1,7 @@
 import React from "react";
 
 const types = {
+  xxs: 40,
   xs:50,
   s: 60,
   m: 95,
@@ -21,7 +22,6 @@ class Image extends React.Component {
 
     return (
       <div className={`img img-border img-fluid ${classNames ? classNames : ''}`} style={imageStyle} ></div>
-
     );
   }
 }

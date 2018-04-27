@@ -1,0 +1,62 @@
+.dropdown.notification {
+  position: relative;
+
+  .dropdown-menu {
+    border-radius: 0;
+    padding: 0;
+    width: 30rem;
+  }
+
+  .notification-number {
+    @include flexbox();
+    @include align-items(center);
+    @include justify-content(center);
+
+    background-color: red;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: -15px;
+    right: -25px;
+    border-radius: 50%;
+  }
+}
+
+.dropdown.notification .dropdown-menu {
+  .notification-item {
+    @include flexbox();
+    @include align-items(center);
+    @include justify-content(space-between);
+
+    padding: 10px;
+
+    border-top: 1px map-get($brand-orange, 'primary') solid;
+
+    &:first-of-type {
+      border-top: none;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    background-color: map-get($brand-orange, "lightest");
+
+    &.seen {
+      background-color: #fff;
+    }
+
+    > div {
+      @include flexbox();
+      @include align-items(center);
+
+      .detail {
+        padding-left: 10px;
+      }
+    }
+
+    .datetime {
+      font-size: $font-size-h5;
+    }
+  }
+}
