@@ -14,12 +14,16 @@ const initialState = {
   createTimeCapsuleSuccess: false,
   createTimeCapsuleFailure: false,
 
+  deletingTimeCapsule: false,
+  deleteTimeCapsuleSuccess: false,
+  deleteTimeCapsuleFailure: false,
+
   userTimeCapsules: [],
   participatedTimeCapsules: []
 };
 
 export default function timeCapsuleReducer(state = initialState, action = {}) {
-  let { type, userTimeCapsules, userTimeCapsule, participatedTimeCapsules } = action;
+  let { type, userTimeCapsules, userTimeCapsule, participatedTimeCapsules, deleted_timeCapsule_id } = action;
 
   switch(type) {
     case actionTypes.USER_TIME_CAPSULE_IS_FETCHING:
@@ -89,6 +93,32 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
         createTimeCapsuleSuccess: false,
         createTimeCapsuleFailure: true,
       });
+//----------------------------------------------
+
+    case actionTypes.DELETING_TIME_CAPSULE:
+      return objectAssign({}, state, {
+        deletingTimeCapsule: true,
+        deleteTimeCapsuleSuccess: false,
+        deleteTimeCapsuleFailure: false
+      });
+
+    case actionTypes.DELETE_TIME_CAPSULE_SUCCESS:
+      return objectAssign({}, state, {
+        deletingTimeCapsule: false,
+        deleteTimeCapsuleSuccess: true,
+        deleteTimeCapsuleFailure: false,
+        userTimeCapsules: state.userTimeCapsules.filter(userTimeCapsule => userTimeCapsule.id != parseInt(deleted_timeCapsule_id)),
+        participatedTimeCapsules: state.participatedTimeCapsules.filter(participatedTimeCapsule => participatedTimeCapsule.id != parseInt(deleted_timeCapsule_id))
+      });
+
+    case actionTypes.DELETE_TIME_CAPSULE_FAILURE:
+      return objectAssign({}, state, {
+        deletingTimeCapsule: false,
+        deleteTimeCapsuleSuccess: false,
+        deleteTimeCapsuleFailure: true
+      });
+
+//----------------------------------------------
 
     default:
       return state;

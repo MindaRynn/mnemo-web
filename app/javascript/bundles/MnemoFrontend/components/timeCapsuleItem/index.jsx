@@ -10,7 +10,9 @@ export default class TimeCapsuleItem extends React.Component {
   constructor(props) {
     super(props)
     this._clickHandler = this._clickHandler.bind(this);
+
     this.statusManager = this.statusManager.bind(this);
+    this._deleteTimeCapsule = this._deleteTimeCapsule.bind(this);
   }
 
   _clickHandler(e) {
@@ -19,8 +21,10 @@ export default class TimeCapsuleItem extends React.Component {
     window.location = `/timeCapsule/${timeCapsule.id}`;
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
+  _deleteTimeCapsule() {
+    let {actions, timeCapsule} = this.props
+
+    actions.deleteTimeCapsule(timeCapsule.id);
   }
 
   statusManager() {
@@ -61,24 +65,27 @@ export default class TimeCapsuleItem extends React.Component {
     let wrap_date = moment(this.props.timeCapsule.wrap_date.toLocaleString()).format('LLL')
 
     return (
-      <div onClick={e => this._clickHandler(e)} className="capsule-box">
-        <div className="avatar-container"><Image size="s" src={timeCapsule.user.image}/></div>
-        <div className="capsule-detail-container">
-          <div className="header-container">
-            <div>
-              <h3>{timeCapsule.user.name}</h3>
-              <div className="font-status-size">{created_at}</div>
+      <div>
+          <div onClick={e => this._clickHandler(e)} className="capsule-box">
+          <div className="avatar-container"><Image size="s" src={timeCapsule.user.image}/></div>
+          <div className="capsule-detail-container">
+            <div className="header-container">
+              <div>
+                <h3>{timeCapsule.user.name}</h3>
+                <div className="font-status-size">{created_at}</div>
+              </div>
+              <div>
+                <div>{this.statusManager()}<StatusCircle status={this.statusManager()}/></div>
+                <div>Wrapped {wrap_date}</div>
+              </div>
             </div>
-            <div>
-              <div>{this.statusManager()}<StatusCircle status={this.statusManager()}/></div>
-              <div>Wrapped {wrap_date}</div>
+            <h3>{timeCapsule.subject}</h3>
+            <div className="">
+              {timeCapsule.memory_boxes[0].description}
             </div>
-          </div>
-          <h3>{timeCapsule.subject}</h3>
-          <div className="">
-            {timeCapsule.memory_boxes[0].description}
           </div>
         </div>
+        <input type="button" onClick={this._deleteTimeCapsule} value="Click me!"/>
       </div>
     );
   }
