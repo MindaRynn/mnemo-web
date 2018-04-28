@@ -103,8 +103,8 @@ class CapsuleList extends React.Component {
     return (
       <div>
         {timeCapsules.map((timeCapsule, index) => {
-          
-          return (<ContainerSwtichCapsule key={index}
+          return (<ContainerSwtichCapsule status={status} key={index}
+                      currentUser={this.context.currentUser}
                        avatar={timeCapsule.user.image}
                        name={timeCapsule.user.name}
                        timeCapsule={timeCapsule}

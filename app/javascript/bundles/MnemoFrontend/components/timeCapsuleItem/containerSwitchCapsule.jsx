@@ -55,7 +55,7 @@ export default class ContainerSwitch extends React.Component {
   }
 
   render() {
-    let {avatar,name,timeCapsule, actions} = this.props
+    let {avatar,name,timeCapsule, actions, currentUser} = this.props
 
     return (
       <div>

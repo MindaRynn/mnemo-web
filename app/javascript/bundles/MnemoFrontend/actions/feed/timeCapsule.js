@@ -26,6 +26,18 @@ function timeCapsuleCreateFailure() {
   return {type: types.TIME_CAPSULE_CREATE_FAILURE};
 }
 
+function deletingTimeCapsule() {
+  return {type: types.DELETING_TIME_CAPSULE};
+}
+
+function timeCapsuleDeleteSuccess(timeCapsule_id) {
+  return {type: types.DELETE_TIME_CAPSULE_SUCCESS, deleted_timeCapsule_id: timeCapsule_id};
+}
+
+function timeCapsuleDeleteFailure() {
+  return {type: types.DELETE_TIME_CAPSULE_FAILURE};
+}
+
 function fetch() {
   return TimeCapsulesAdapter
     .fetch()
@@ -37,6 +49,14 @@ function fetch() {
 function create(userId, timeCapsuleDetail) {
   return TimeCapsulesAdapter
     .create(userId, timeCapsuleDetail)
+    .then((response) => {
+      return response;
+    })
+}
+
+function deleting(timeCapsuleId) {
+  return TimeCapsulesAdapter
+    .delete(timeCapsuleId)
     .then((response) => {
       return response;
     })
@@ -80,5 +100,18 @@ export function openTimeCapsule(timeCapsuleId) {
       .then((response) => {
         return response;
       })
+
+export function deleteTimeCapsule(timeCapsuleId) {
+  return function (dispatch) {
+
+    dispatch(deletingTimeCapsule());
+    deleting(timeCapsuleId)
+      .then((response) => {
+        dispatch(timeCapsuleDeleteSuccess(response.time_capsule_id));
+      })
+      .catch(errors => {
+        dispatch(appErrorHandler(errors));
+        dispatch(timeCapsuleDeleteFailure());
+      });
   };
 }

@@ -26,7 +26,6 @@ class Profile extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.setShowCapsule = this.setShowCapsule.bind(this);
     this._checkTimeOver = this._checkTimeOver.bind(this);
-    this._deleteTimeCapsule = this._deleteTimeCapsule.bind(this);
   }
 
   handleChange ({ wrapDate, openDate }){
@@ -43,12 +42,6 @@ class Profile extends React.Component {
   wrapDateChangeHandler (wrapDate) { this.handleChange({ wrapDate }); }
 
   openDateChangeHandler (openDate) { this.handleChange({ openDate }); }
-
-  _deleteTimeCapsule(e, timeCapsuleId) {
-    let {actions} = this.props
-
-    actions.deleteTimeCapsule(timeCapsuleId);
-  }
 
   _sendText(e, capsuleDetail) {
     e.preventDefault();
@@ -141,8 +134,8 @@ class Profile extends React.Component {
           }
           
           return (<ContainerSwtichCapsule status={status} key={index}
-                      onClick={e => this._deleteTimeCapsule(e, timeCapsule.id)}
                       actions={this.props.actions}
+                      currentUser={this.context.currentUser}
                        avatar={timeCapsule.user.image}
                        name={timeCapsule.user.name}
                        timeCapsule={timeCapsule}
