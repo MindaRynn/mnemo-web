@@ -2,6 +2,7 @@ import React from 'react';
 import TimeCapsuleItem from './';
 import WaitingTimeCapsuleItem from './waitingTimeCapsule';
 import moment from 'moment';
+import * as firebase from 'firebase';
 
 export default class ContainerSwitch extends React.Component {
   constructor(props) {
@@ -16,8 +17,23 @@ export default class ContainerSwitch extends React.Component {
   }
 
   componentDidMount() {
-    let _this = this;
     this.interval = setInterval(this.updateState, 1000);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    let {isWaiting} = this.state;
+    let {timeCapsule} = this.props
+    let {currentUser} = this.context;
+
+    if(!isWaiting && prevState.isWaiting) {
+      firebase.database().ref().child('notification').child(this.props.currentUser.notification_key).push({
+        type: 'capsule',
+        url: `timeCapsule/${timeCapsule.id}`,
+        seen: false,
+        notiTime: moment().toDate().toLocaleDateString(),
+        user: currentUser
+      })
+    }
   }
 
   updateState() {
@@ -53,3 +69,10 @@ export default class ContainerSwitch extends React.Component {
     );
   }
 }
+
+ContainerSwitch.contextTypes = {
+  /**
+   * Holds the current logged in user
+   * */
+  currentUser: PropTypes.object.isRequired
+};

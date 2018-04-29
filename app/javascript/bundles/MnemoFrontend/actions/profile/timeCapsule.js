@@ -113,3 +113,13 @@ export function createTimeCapsule(userId, timeCapsuleDetail, participated) {
   };
 }
 
+export function openTimeCapsule(timeCapsuleId) {
+  return function (dispatch) {
+
+    TimeCapsulesAdapter
+      .open(timeCapsuleId)
+      .then((response) => {
+        return response;
+      })
+  };
+}

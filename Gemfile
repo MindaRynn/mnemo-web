@@ -56,6 +56,8 @@ gem "sinatra"
 
 gem "google-cloud-storage"
 
+gem 'firebase', '~> 0.2.6'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 end

@@ -115,7 +115,7 @@ class Profile extends React.Component {
   _renderTimeCapsule() {
     let {userTimeCapsules} = this.props.profile.timeCapsule;
     let {participatedTimeCapsules} = this.props.profile.timeCapsule;
-    let {currentUser} = this.context;
+    let {actions} = this.props;
     let timeCapsules = this.state.currentShowCapsule == "yours" ? userTimeCapsules : participatedTimeCapsules
     return (
       <div>
@@ -136,7 +136,8 @@ class Profile extends React.Component {
           return (<ContainerSwtichCapsule status={status} key={index}
                        avatar={timeCapsule.user.image}
                        name={timeCapsule.user.name}
-                       timeCapsule={timeCapsule} />);
+                       timeCapsule={timeCapsule}
+                       actions={actions} />);
         })}
       </div>
     );

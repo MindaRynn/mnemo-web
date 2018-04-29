@@ -38,6 +38,7 @@ class TimeCapsule extends React.Component {
   componentDidMount() {
     let {actions, params} = this.props;
     actions.getTimeCapsule(params.id);
+    actions.openTimeCapsule(params.id);
   }
 
   componentDidUpdate(prevProps, prevState) {
