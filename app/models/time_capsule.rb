@@ -6,4 +6,12 @@ class TimeCapsule < ApplicationRecord
   has_many :participations, dependent: :destroy
 
   has_many :memory_boxes, dependent: :destroy
+
+  def ready?
+    Date.current <= open_date_format
+  end
+
+  def open_date_format
+    DateTime.strptime(open_date, '%Y-%m-%dT%H:%M:%S.%L')
+  end
 end

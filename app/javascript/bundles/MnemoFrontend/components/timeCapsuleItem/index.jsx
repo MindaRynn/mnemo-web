@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types';
+
 import Image from '../../components/image/';
 import moment from 'moment';
-import Link from 'react-router';
 
 import StatusCircle from '../../screens/profile/statusCircle';
 
@@ -9,34 +10,53 @@ export default class TimeCapsuleItem extends React.Component {
   constructor(props) {
     super(props)
     this._clickHandler = this._clickHandler.bind(this);
-    this.updateState = this.updateState.bind(this);
+    this.statusManager = this.statusManager.bind(this);
   }
 
   _clickHandler(e) {
-    let {timeCapsule} = this.props;
+    let {timeCapsule, actions} = this.props;
+    actions.openTimeCapsule(timeCapsule.id)
     window.location = `/timeCapsule/${timeCapsule.id}`;
-  }
-
-  updateState() { 
-    let wrapDate = new moment(this.props.timeCapsule.wrap_date.toLocaleString());
-    let currentTime = new moment()
-    let diffSecond = wrapDate.diff(currentTime, "seconds")
-    if(diffSecond == 0) {
-      this.props.switchComponent("isWaiting")
-    }
-  }
-
-  componentDidMount() {
-    this.interval = setInterval(this.updateState, 1000);
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
   }
 
+  statusManager() {
+    let {timeCapsule} = this.props
+    let {currentUser} = this.context;
+    let wrap_date = moment(this.props.timeCapsule.wrap_date)
+    let open_date = moment(this.props.timeCapsule.open_date)
+
+    let isOpened = currentUser.participation_ids.includes(timeCapsule.id) &&
+      currentUser.opened_time_capsule_ids.includes(timeCapsule.id) &&
+      moment().isAfter(open_date)
+
+    if (isOpened) return "OPENNED"
+
+    let isReady = currentUser.participation_ids.includes(timeCapsule.id) &&
+      !currentUser.opened_time_capsule_ids.includes(timeCapsule.id) &&
+      moment().isAfter(open_date)
+
+    if (isReady) return "READY"
+
+    let isJoined = currentUser.participation_ids.includes(timeCapsule.id) &&
+      !currentUser.opened_time_capsule_ids.includes(timeCapsule.id) &&
+      moment().isBefore(open_date) && moment().isAfter(wrap_date)
+
+    if (isJoined) return "JOINED"
+
+    let isAvailable = !currentUser.participation_ids.includes(timeCapsule.id) &&
+                   !currentUser.opened_time_capsule_ids.includes(timeCapsule.id) &&
+                   moment().isBefore(open_date) && moment().isAfter(wrap_date)
+
+    if (isAvailable) return "AVAILABLE"
+  }
+
   render() {
     let {timeCapsule} = this.props
-    let status = this.props.timeCapsule.status == 0 ? "AVAILABLE" : "JOINED";
+
     let created_at = moment(this.props.timeCapsule.created_at.toLocaleString()).format('LLL')
     let wrap_date = moment(this.props.timeCapsule.wrap_date.toLocaleString()).format('LLL')
 
@@ -50,7 +70,7 @@ export default class TimeCapsuleItem extends React.Component {
               <div className="font-status-size">{created_at}</div>
             </div>
             <div>
-              <div>{status}<StatusCircle status={status}/></div>
+              <div>{this.statusManager()}<StatusCircle status={this.statusManager()}/></div>
               <div>Wrapped {wrap_date}</div>
             </div>
           </div>
@@ -63,3 +83,10 @@ export default class TimeCapsuleItem extends React.Component {
     );
   }
 }
+
+TimeCapsuleItem.contextTypes = {
+  /**
+   * Holds the current logged in user
+   * */
+  currentUser: PropTypes.object.isRequired
+};

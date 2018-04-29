@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180427123959) do
+ActiveRecord::Schema.define(version: 20180428092446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,13 @@ ActiveRecord::Schema.define(version: 20180427123959) do
     t.bigint "room_id", null: false
     t.index ["room_id", "user_id"], name: "index_rooms_users_on_room_id_and_user_id"
     t.index ["user_id", "room_id"], name: "index_rooms_users_on_user_id_and_room_id"
+  end
+
+  create_table "seen_relationships", force: :cascade do |t|
+    t.integer "time_capsule_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tags", force: :cascade do |t|

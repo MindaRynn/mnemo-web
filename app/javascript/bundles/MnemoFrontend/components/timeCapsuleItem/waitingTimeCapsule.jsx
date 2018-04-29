@@ -64,8 +64,6 @@ export default class WaitingTimeCapsule extends React.Component {
         second_label: 'Minutes',
         third_label: 'Seconds'
         }))
-    } else {
-      this.props.switchComponent("isNotWaiting")
     }
   }
   
