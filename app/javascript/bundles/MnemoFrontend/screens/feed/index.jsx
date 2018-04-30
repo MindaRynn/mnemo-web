@@ -23,7 +23,6 @@ class Feed extends React.Component {
     let {currentUser} = this.context;
 
     actions.fetchTimeCapsule();
-    actions.fetchTimeCapsule(currentUser.id);
     actions.fetchTags();
   }
 
