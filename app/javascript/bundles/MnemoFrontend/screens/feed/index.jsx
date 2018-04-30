@@ -20,7 +20,8 @@ class Feed extends React.Component {
 
   componentDidMount() {
     let {actions} = this.props;
-    
+    let {currentUser} = this.context;
+
     actions.fetchTimeCapsule();
     actions.fetchTimeCapsule(currentUser.id);
     actions.fetchTags();

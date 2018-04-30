@@ -15,14 +15,6 @@ body.feed .comment-field-container .profile {
   padding: 0;
 }
 
-body.feed .comment-field-container .half-field {
-  width: 50%;
-  margin-bottom: 10px;
-  .padding {
-    padding: 10px;
-  }
-}
-
 body.feed .comment-field-container .button-container {
   @include flexbox();
   @include justify-content(space-between)

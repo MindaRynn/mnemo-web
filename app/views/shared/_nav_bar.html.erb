@@ -6,9 +6,6 @@
           <a class="nav-link" href="/">New Feed</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Pinned</a>
-        </li>
-        <li class="nav-item">
           <%= react_component('Notification', props: {
               currentUser: current_user,
               csrfToken: csrf_token
@@ -30,8 +27,7 @@
           <ul class="dropdown-menu dropdown-menu-right">
             <li><a href="/profile"><%= current_user.name %></a></li>
             <li class="hidden-list"><a href="">New Feed</a></li>
-            <li class="hidden-list"><a href="#">Pinned</a></li>
-            <li class="hidden-list"><a href="#">Notification</a></li>
+            <li class="hidden-list"><a>Notification</a></li>
             <li><a href="/users/edit">Setting</a></li>
             <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %></li>
           </ul>

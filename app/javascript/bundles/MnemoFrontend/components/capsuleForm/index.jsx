@@ -179,7 +179,7 @@ class CapsuleForm extends React.Component {
           <div className="textfield-group">
             <div className="timing-container">
               <input className="half-field" placeholder="Capsule's Name"  onChange={this._capsuleNameHandler} value={this.state.capsuleName} />
-              <div className="button-container half-field">
+              <div className="half-field">
                 <div className="padding">
                   <label>Tag : </label>
                   <div className="dropdown show">

@@ -69,7 +69,8 @@ class Notification extends React.Component {
           Notification
         </a>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          {notifications.map((notification, index) => {
+          {notifications.length > 0 ?
+            notifications.map((notification, index) => {
 
             return (
               <div key={index} className={`notification-item ${notification.seen ? 'seen' : ''}`} onClick={e => this._clickHandler(e, notification.url)}>
@@ -80,7 +81,10 @@ class Notification extends React.Component {
                 <div className="datetime">{notification.notiTime}</div>
               </div>
             );
-          })}
+          }) :
+            <div className="no-notification">
+              You don't have any Notification
+            </div>}
         </div>
       </div>
     );

@@ -95,6 +95,7 @@ class Profile extends React.Component {
 
     actions.fetchUserTimeCapsule(currentUser.id);
     actions.fetchParticipatedTimeCapsule();
+    actions.fetchTags();
   }
 
   componentDidUpdate(prevProps) {
@@ -168,9 +169,6 @@ class Profile extends React.Component {
               <div className="row"><h2>{this.context.currentUser.name}</h2></div>
               <div className="row"><p>{this.context.currentUser.bio}</p></div>
             </div>
-            <div className="col-3 text-center">
-              <PrimaryButton text="Add friends"/>
-            </div>
           </div>
           <hr/>
           <div className="row text-center">
@@ -191,7 +189,9 @@ class Profile extends React.Component {
                        medium={medium}
                        resetFormHandler={this._resetForm}
                        sendTextHandler={this._sendText}
-                       timeCapsule={timeCapsule} />
+                       timeCapsule={timeCapsule}
+                       tags={profile.tag.tags}
+          />
           <div className="row">
             <div className="col-8">
               <ul className="nav">
