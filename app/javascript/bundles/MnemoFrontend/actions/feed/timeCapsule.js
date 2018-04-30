@@ -100,6 +100,8 @@ export function openTimeCapsule(timeCapsuleId) {
       .then((response) => {
         return response;
       })
+  }
+}
 
 export function deleteTimeCapsule(timeCapsuleId) {
   return function (dispatch) {
@@ -113,5 +115,5 @@ export function deleteTimeCapsule(timeCapsuleId) {
         dispatch(appErrorHandler(errors));
         dispatch(timeCapsuleDeleteFailure());
       });
-  };
+  }
 }

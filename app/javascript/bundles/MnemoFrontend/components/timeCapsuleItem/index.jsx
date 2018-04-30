@@ -63,6 +63,7 @@ export default class TimeCapsuleItem extends React.Component {
 
   render() {
     let {timeCapsule} = this.props
+    let {currentUser} = this.context;
     let created_at = moment(this.props.timeCapsule.created_at.toLocaleString()).format('LLL')
     let wrap_date = moment(this.props.timeCapsule.wrap_date.toLocaleString()).format('LLL')
 
