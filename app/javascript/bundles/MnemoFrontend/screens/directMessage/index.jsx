@@ -36,7 +36,7 @@ class DirectMessage extends React.Component {
     if(fetchFriendSuccess && !prevProps.directMessage.friend.fetchFriendSuccess) {
       this.setState({
         fetchedFriend: true,
-        currentRoomKey: friends[0].room_key
+        currentRoomKey: friends[0] ? friends[0].room_key : null
       });
     }
 
