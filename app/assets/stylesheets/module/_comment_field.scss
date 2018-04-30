@@ -40,6 +40,14 @@
   }
 }
 
+.comment-field-container .half-field {
+  width: 50%;
+  margin-bottom: 10px;
+  .padding {
+    padding: 10px;
+  }
+}
+
 .comment-field-container .timing-container {
   @include flexbox();
 
@@ -53,7 +61,7 @@
   }
 
   input {
-    padding: 0;
+    padding: 1.25rem;
   }
 
   .small-field {

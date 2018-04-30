@@ -5,46 +5,46 @@ class CategoryList extends React.Component {
 
   constructor(props) {
     super(props)
+
+    this.state = {checkedList: []}
+
+    this._checkboxChangeHandler = this._checkboxChangeHandler.bind(this);
+  }
+
+  _checkboxChangeHandler(e) {
+    let {checkedList} = this.state;
+    let {actions} = this.props;
+
+    if(e.target.checked) {
+      this.setState({
+        checkedList: checkedList.concat(e.target.value)
+      })
+
+      actions.filterByTag(checkedList.concat(e.target.value))
+    } else {
+
+      let newCheckedList = checkedList.filter(function(value, arrIndex) {return value !== e.target.value})
+
+      this.setState({checkedList: newCheckedList})
+
+      actions.filterByTag(newCheckedList)
+    }
   }
 
   render() {
+    let {tags} = this.props;
+
+    // debugger
     return (
-      <div className="list col-3 filter-container">
-        Category
-        <div className="filter-list">
-          <input type="checkbox" className="form-check-input" id=""/>
-          <label> Event </label>
-        </div>
-        <div className="filter-list">
-          <input type="checkbox" className="form-check-input" id=""/>
-          <label> Life style </label>
-        </div>
-        <div className="filter-list">
-          <input type="checkbox" className="form-check-input" id=""/>
-          <label> People </label>
-        </div>
-        <div className="filter-list" data-toggle="collapse" href="#sub-filter-list">
-          <input type="checkbox" className="form-check-input" id=""/>
-          <label> Emotion </label>
-        </div>
-        <div id="sub-filter-list" className="collapse">
-          <div className="sub-filter-list">
-            <input type="checkbox" className="form-check-input" id=""/>
-            <label> Happy </label>
-          </div>
-          <div className="sub-filter-list">
-            <input type="checkbox" className="form-check-input" id=""/>
-            <label> Love </label>
-          </div>
-          <div className="sub-filter-list">
-            <input type="checkbox" className="form-check-input" id=""/>
-            <label> Funny </label>
-          </div>
-          <div className="sub-filter-list">
-            <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-            <label> Sad </label>
-          </div>
-        </div>
+      <div className="list col-3 filter-container">Category
+        {tags.map((tag, index) => {
+          return (
+            <div className="filter-list" key={index}>
+              <input type="checkbox" className="form-check-input" onChange={e => this._checkboxChangeHandler(e)} value={tag.tag} />
+              <label> {tag.tag} </label>
+            </div>
+          );
+        })}
       </div>
     );
   }

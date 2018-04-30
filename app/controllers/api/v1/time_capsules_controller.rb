@@ -52,12 +52,14 @@ module Api
       end
 
       def create
+        tag = Tag.where(tag:time_capsule_params[:time_capsule_detail][:capsule_tag]).first
         time_capsule = TimeCapsule.create(
           user_id: current_user.id,
           wrap_date: time_capsule_params[:time_capsule_detail][:wrap_date],
           open_date: time_capsule_params[:time_capsule_detail][:open_date],
           direct_type: time_capsule_params[:time_capsule_detail][:direct_to].to_sym,
-          subject: time_capsule_params[:time_capsule_detail][:capsule_name]
+          subject: time_capsule_params[:time_capsule_detail][:capsule_name],
+          tag_id: tag.id
         )
 
         memory_box = MemoryBox.create(description: time_capsule_params[:time_capsule_detail][:capsule_detail],
@@ -72,6 +74,7 @@ module Api
         end
 
         time_capsule.memory_boxes << memory_box
+        tag.time_capsules << time_capsule
 
         Participation.create(user: current_user, time_capsule: time_capsule);
 

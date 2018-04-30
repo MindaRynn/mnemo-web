@@ -38,6 +38,10 @@ function timeCapsuleDeleteFailure() {
   return {type: types.DELETE_TIME_CAPSULE_FAILURE};
 }
 
+function filterTimeCapsule(tags) {
+  return {type: types.FILETER_BY_TAGS, tags: tags};
+}
+
 function fetch() {
   return TimeCapsulesAdapter
     .fetch()
@@ -115,5 +119,12 @@ export function deleteTimeCapsule(timeCapsuleId) {
         dispatch(appErrorHandler(errors));
         dispatch(timeCapsuleDeleteFailure());
       });
+  }
+}
+
+export function filterByTag(filterList) {
+  return function (dispatch) {
+
+    dispatch(filterTimeCapsule(filterList));
   }
 }
