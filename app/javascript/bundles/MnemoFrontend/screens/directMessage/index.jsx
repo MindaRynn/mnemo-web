@@ -71,7 +71,7 @@ class DirectMessage extends React.Component {
 
           <div className="content-group">
             <ContactList directMessage={directMessage} currentRoomKey={currentRoomKey} itemClickHandler={this._setRoom} firebase={firebase} />
-            <RoomList rooms={rooms}/>
+            <RoomList currentRoomKey={currentRoomKey} itemClickHandler={this._setRoom} rooms={rooms}/>
           </div>
         </div> : null }
         <Room currentRoom={room} firebaseRef={firebase.database().ref().child('rooms')} />
