@@ -57,7 +57,7 @@ class Profile extends React.Component {
           wrapDate: capsuleDetail.currentTime
         }, () => {
       capsuleDetail['wrapDate'] = this.state.wrapDate.toDate();
-      capsuleDetail['openDate'] = this.state.openDate.toDate();
+      capsuleDetail['openDate'] = this.state.openDate.toDate();w
       capsuleDetail['medium'] = this.props.profile.media.medium;
 
       actions.createTimeCapsule(currentUser.id, capsuleDetail)
@@ -134,7 +134,6 @@ class Profile extends React.Component {
           }
           
           return (<ContainerSwtichCapsule status={status} key={index}
-                      actions={this.props.actions}
                       currentUser={this.context.currentUser}
                        avatar={timeCapsule.user.image}
                        name={timeCapsule.user.name}
@@ -157,14 +156,13 @@ class Profile extends React.Component {
     let {timeCapsule} = profile;
     let {medium} = profile.media;
     let {fetchedUserCapsule} = this.state
-    const dummyAvatar = "https://storage.googleapis.com/mnemo-storage/placeHolderAvatar/tempAvatar.jpg";
 
     return (
       <div>
         <div className="profile-container">
           <div className="row">
             <div className="col-4" >
-              <center><Image size="l" src={this.context.currentUser.image || dummyAvatar}/></center>
+              <center><Image size="l" src={this.context.currentUser.image}/></center>
             </div>
             <div className="col-5">
               <div className="row"><h2>{this.context.currentUser.name}</h2></div>
