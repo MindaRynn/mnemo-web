@@ -57,7 +57,7 @@ class Profile extends React.Component {
           wrapDate: capsuleDetail.currentTime
         }, () => {
       capsuleDetail['wrapDate'] = this.state.wrapDate.toDate();
-      capsuleDetail['openDate'] = this.state.openDate.toDate();w
+      capsuleDetail['openDate'] = this.state.openDate.toDate();
       capsuleDetail['medium'] = this.props.profile.media.medium;
 
       actions.createTimeCapsule(currentUser.id, capsuleDetail)
