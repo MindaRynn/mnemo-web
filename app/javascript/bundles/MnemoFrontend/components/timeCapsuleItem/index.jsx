@@ -11,20 +11,14 @@ export default class TimeCapsuleItem extends React.Component {
     super(props)
     this._clickHandler = this._clickHandler.bind(this);
     this.statusManager = this.statusManager.bind(this);
-    this._deleteTimeCapsule = this._deleteTimeCapsule.bind(this);
-  }
-
-  _deleteTimeCapsule() {
-    let {actions, timeCapsule} = this.props
-
-    actions.deleteTimeCapsule(timeCapsule.id);
   }
 
   _clickHandler(e) {
-    if(e.target.id == "removeCapsule") {
+    e.preventDefault();
+    if(e.target.id == "labelDeleteButton") {
       let {actions, timeCapsule} = this.props
       actions.deleteTimeCapsule(timeCapsule.id)
-    } else {
+    } else if(e.target.id == "formCapsule") {
       let {timeCapsule} = this.props;
       window.location = `/timeCapsule/${timeCapsule.id}`;
     }
@@ -80,13 +74,15 @@ export default class TimeCapsuleItem extends React.Component {
               <div>
                 <div>{this.statusManager()}<StatusCircle status={this.statusManager()}/></div>
                 <div>Wrapped {wrap_date}</div>
+                { currentUser.name == timeCapsule.user.name && <label htmlFor="removeCapsule">
+                  <i id="labelDeleteButton" className="fa fa-times delete-icon" aria-hidden="true"></i></label>}
+                <input className="btn-delete-capsule" style={{display: "none"}} id="removeCapsule" type="button" onClick={e => this._clickHandler(e)} value="Delete"/>
               </div>
             </div>
             <h3>{timeCapsule.subject}</h3>
             <div className="">
               {timeCapsule.memory_boxes[0].description}
             </div>
-            { currentUser.name == timeCapsule.user.name && <input className="btn-delete-capsule" id="removeCapsule" type="button" onClick={e => this._clickHandler(e)} value="Delete"/>}
           </div>
         </div>
       </div>
