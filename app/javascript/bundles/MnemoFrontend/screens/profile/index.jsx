@@ -157,13 +157,14 @@ class Profile extends React.Component {
     let {timeCapsule} = profile;
     let {medium} = profile.media;
     let {fetchedUserCapsule} = this.state
+    const dummyAvatar = "https://storage.googleapis.com/mnemo-storage/placeHolderAvatar/tempAvatar.jpg";
 
     return (
       <div>
         <div className="profile-container">
           <div className="row">
             <div className="col-4" >
-              <center><Image size="l" src={this.context.currentUser.image}/></center>
+              <center><Image size="l" src={this.context.currentUser.image || dummyAvatar}/></center>
             </div>
             <div className="col-5">
               <div className="row"><h2>{this.context.currentUser.name}</h2></div>

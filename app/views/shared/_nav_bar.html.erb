@@ -21,8 +21,10 @@
         <div class="dropdown">
           <div class="avatar-container" data-toggle="dropdown">
             <span> <%= current_user.name %> |</span>
-            <% if current_user.image %>
-                <%=image_tag(current_user.image)%>
+            <% if current_user.image_tag %>
+              <%=image_tag(current_user.image)%>
+            <% else %>
+              <%=image_tag("https://storage.googleapis.com/mnemo-storage/placeHolderAvatar/tempAvatar.jpg")%>
             <% end %>
           </div>
           <ul class="dropdown-menu dropdown-menu-right">
