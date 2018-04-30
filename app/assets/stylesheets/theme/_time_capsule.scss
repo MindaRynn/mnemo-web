@@ -57,7 +57,7 @@ body.time-capsule .time-capsule-section .time-capsule-container {
   .capsule-detail-group .media-container {
     @include flexbox();
 
-    .img + .img {
+    .image-modal + .image-modal {
       margin-left: 10px;
     }
 

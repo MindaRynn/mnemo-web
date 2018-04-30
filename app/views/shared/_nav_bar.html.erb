@@ -9,7 +9,11 @@
           <a class="nav-link" href="#">Pinned</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Notification</a>
+          <%= react_component('Notification', props: {
+              currentUser: current_user,
+              csrfToken: csrf_token
+          })
+          %>
         </li>
       </ul>
       <div class="navbar-brand">Logo</div>
@@ -17,7 +21,9 @@
         <div class="dropdown">
           <div class="avatar-container" data-toggle="dropdown">
             <span> <%= current_user.name %> |</span>
-            <%=image_tag(current_user.image)%>
+            <% if current_user.image %>
+                <%=image_tag(current_user.image)%>
+            <% end %>
           </div>
           <ul class="dropdown-menu dropdown-menu-right">
             <li><a href="/profile"><%= current_user.name %></a></li>
@@ -28,7 +34,6 @@
             <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %></li>
           </ul>
         </div>
-
       </div>
     </nav>
   </div>

@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  attribute :opened_time_capsule_ids
+  attribute :participation_ids
+
   devise :database_authenticatable,
          :registerable,
          :recoverable,
@@ -27,6 +30,14 @@ class User < ApplicationRecord
         user.email = data["email"] if user.email.blank?
       end
     end
+  end
+
+  def opened_time_capsule_ids
+    SeenRelationship.where(user_id: id).pluck(:time_capsule_id)
+  end
+
+  def participation_ids
+    Participation.where(user_id: id).pluck(:time_capsule_id)
   end
 
   def clean_up_passwords

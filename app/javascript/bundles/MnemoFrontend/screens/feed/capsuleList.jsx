@@ -97,28 +97,18 @@ class CapsuleList extends React.Component {
   }
 
   _rederTimeCapsule(){
+    let {actions} = this.props;
     let {timeCapsules} = this.props.timeCapsule;
 
     return (
       <div>
         {timeCapsules.map((timeCapsule, index) => {
-          let wrapDate = new moment(timeCapsule.wrap_date);
-          let openDate = new moment(timeCapsule.open_date);
-          let currentTime = new moment();
-          let diffTime1 = wrapDate.diff(currentTime)
-          let diffTime2 = openDate.diff(currentTime)
-          let isNotWaiting = diffTime1 > 0 || diffTime2 < 0;
-          let status = ""
-          if(isNotWaiting) {
-            status = "isNotWaiting"
-          } else {
-            status = "isWaiting"
-          }
           
-          return (<ContainerSwtichCapsule status={status} key={index}
+          return (<ContainerSwtichCapsule key={index}
                        avatar={timeCapsule.user.image}
                        name={timeCapsule.user.name}
-                       timeCapsule={timeCapsule} />);
+                       timeCapsule={timeCapsule}
+                       actions={actions}/>);
         })}
       </div>
     );

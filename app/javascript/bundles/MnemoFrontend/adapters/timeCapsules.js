@@ -67,6 +67,18 @@ class TimeCapsulesAdapter extends BaseAdapter {
 
     return this.prototype.patchRequest(`${config['api']['time_capsules']}/${timeCapsuleId}`, requestParams);
   }
+
+  /**
+   * Update a time capsule that opened
+   *
+   * @param {String} [timeCapsuleId] - time Capsule ID
+   * @return {Promise} - a promise which will resolve to timeCapsule opened response
+   */
+  static open(timeCapsuleId) {
+    let requestParams = {};
+
+    return this.prototype.postRequest(`${config['api']['time_capsules']}/${timeCapsuleId}/open`, requestParams);
+  }
 }
 
 export default TimeCapsulesAdapter;

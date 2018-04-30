@@ -38,12 +38,13 @@ class TimeCapsule extends React.Component {
   componentDidMount() {
     let {actions, params} = this.props;
     actions.getTimeCapsule(params.id);
+    actions.openTimeCapsule(params.id);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    let {getTimeCapsuleSuccess, updateTimeCapsuleSuccess} = this.props.timeCapsule.timeCapsule;
+    let {getTimeCapsuleSuccess, updateTimeCapsuleSuccess, memoryBoxCreateSuccess} = this.props.timeCapsule.timeCapsule;
     let {fetchedCapsule} = this.state;
-    let {actions} = this.props;
+    let {actions, params} = this.props;
     let {timeCapsule} = this.props.timeCapsule.timeCapsule;
     let {currentUser} = this.context;
 
@@ -70,6 +71,10 @@ class TimeCapsule extends React.Component {
       timeCapsule.memory_boxes[0].medium.forEach(function (media) {
         actions.addMedia(media.media_url)
       });
+    }
+
+    if(memoryBoxCreateSuccess && !prevProps.timeCapsule.timeCapsule.memoryBoxCreateSuccess) {
+      actions.getTimeCapsule(params.id);
     }
   }
 
@@ -173,7 +178,7 @@ class TimeCapsule extends React.Component {
                                    typeEdit={true}/> : null
                   }
 
-                  { currentUser.id == timeCapsule.user.id ?
+                  { currentUser.id == timeCapsule.user.id || timeCapsule.participations.includes(currentUser.id) ?
                     null :
                     <MemoryBoxForm sendTextHandler={this._sendText}
                                    buttonText={"Add Memory Box"}

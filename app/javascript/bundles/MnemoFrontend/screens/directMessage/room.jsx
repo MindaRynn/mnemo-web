@@ -49,6 +49,7 @@ class Room extends React.Component {
 
           var childData = childSnapshot.val();
           var className =  childData.user_id == currentUser.id ? 'mine' : null
+
           if(itemsProcessed === length) {
             el.scrollTo(0, el.scrollHeight - el.clientHeight);
           }
