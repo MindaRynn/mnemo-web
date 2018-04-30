@@ -18,6 +18,12 @@
 .capsule-box .capsule-detail-container {
   @include flex-grow(1);
 
+  .delete-icon {
+    color: red;
+    padding-left: 0.9rem;
+    font-size: 1rem;
+  }
+
   > h3 {
     color: map-get($brand-orange, 'primary');
   }
