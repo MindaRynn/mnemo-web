@@ -89,7 +89,7 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
 
     case actionTypes.FILETER_BY_TAGS:
       return objectAssign({}, state, {
-        timeCapsules: state.allTimeCapsules.filter(timeCapsule => tags.includes(timeCapsule.tag_name))
+        timeCapsules: tags.length <= 0 ? state.allTimeCapsules : state.allTimeCapsules.filter(timeCapsule => tags.includes(timeCapsule.tag_name))
       });
 
     default:
