@@ -7,8 +7,6 @@ class TimeCapsule < ApplicationRecord
 
   has_many :memory_boxes, dependent: :destroy
 
-  has_many :ready_notifications
-
   def ready?
     Date.current <= open_date_format
   end
