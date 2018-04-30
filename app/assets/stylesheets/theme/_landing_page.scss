@@ -1,9 +1,10 @@
 .home.landing-page {
-    background: url("https://storage.googleapis.com/mnemo-storage/image_project/bgLandingPage.jpg") no-repeat center center fixed;
+    background: url("https://storage.googleapis.com/mnemo-storage/image_project/Landing%20Page.png") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+
     .navbar-container {
         background-color: transparent;
     }
@@ -20,5 +21,20 @@
     }
     .content {
         margin-top: 15%
+    }
+    .subtitle {
+      color: white;
+      width: 35rem;
+    }
+    .padding-bottom {
+      padding-bottom: 1.25rem;
+    }
+    .btn {
+      a {
+        color: #fff;
+      }
+      a:hover {
+        text-decoration-line: none;
+      }
     }
 }

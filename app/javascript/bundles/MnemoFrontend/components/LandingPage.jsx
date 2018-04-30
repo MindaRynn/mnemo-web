@@ -24,13 +24,13 @@ export default class LandingPage extends React.Component {
         <div className="row content">
           <div className="col-md-1"></div>
           <div className="col-md-10">
-            <h1>
+            <h1 className="padding-bottom">
               MNEMO
             </h1>
-            <h2>
-             Welcome to our final project ....
-            </h2>
-            <PrimaryButton text="Join us" />
+            <p className="subtitle padding-bottom">
+              Good memories should be kept and shared to people we love. Our application is a kind of social application which provides many features to connect people with their precious memory. Firstly, We focus on peer to peer features. Not only sending a capsule of memory to others, users can send the capsule to themselves.
+            </p>
+            <button className="btn btn-primary"><a href="/users/sign_in">Join us</a></button>
           </div>
           <div className="col-md-1"></div>
         </div>
