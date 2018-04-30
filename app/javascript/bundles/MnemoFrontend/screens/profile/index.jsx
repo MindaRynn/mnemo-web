@@ -98,7 +98,7 @@ class Profile extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    let {fetchTimeCapsuleSuccess, fetchParticipatedTimeCapsuleSuccess} = this.props.profile.timeCapsule
+    let {fetchTimeCapsuleSuccess, fetchParticipatedTimeCapsuleSuccess, deleteTimeCapsuleSuccess} = this.props.profile.timeCapsule
 
     if(fetchTimeCapsuleSuccess && !prevProps.profile.timeCapsule.fetchTimeCapsuleSuccess) {
       this.setState({
@@ -134,6 +134,8 @@ class Profile extends React.Component {
           }
           
           return (<ContainerSwtichCapsule status={status} key={index}
+                      actions={this.props.actions}
+                      currentUser={this.context.currentUser}
                        avatar={timeCapsule.user.image}
                        name={timeCapsule.user.name}
                        timeCapsule={timeCapsule}

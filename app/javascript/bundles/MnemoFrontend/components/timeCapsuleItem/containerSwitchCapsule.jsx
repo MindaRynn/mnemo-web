@@ -21,6 +21,10 @@ export default class ContainerSwitch extends React.Component {
     this.interval = setInterval(this.updateState, 1000);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   componentDidUpdate(prevProps, prevState) {
     let {isWaiting} = this.state;
     let {timeCapsule} = this.props
@@ -55,7 +59,7 @@ export default class ContainerSwitch extends React.Component {
   }
 
   render() {
-    let {avatar,name,timeCapsule, actions} = this.props
+    let {avatar,name,timeCapsule, actions, currentUser} = this.props
 
     return (
       <div>

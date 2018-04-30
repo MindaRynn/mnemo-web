@@ -44,6 +44,13 @@ module Api
                status: :ok
       end
 
+      def destroy
+        TimeCapsule.find(params[:id]).destroy
+
+        render json: {time_capsule_id: params[:id]},
+               status: :ok
+      end
+
       def create
         time_capsule = TimeCapsule.create(
           user_id: current_user.id,

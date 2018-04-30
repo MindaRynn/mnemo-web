@@ -11,16 +11,23 @@ export default class TimeCapsuleItem extends React.Component {
     super(props)
     this._clickHandler = this._clickHandler.bind(this);
     this.statusManager = this.statusManager.bind(this);
+    this._deleteTimeCapsule = this._deleteTimeCapsule.bind(this);
+  }
+
+  _deleteTimeCapsule() {
+    let {actions, timeCapsule} = this.props
+
+    actions.deleteTimeCapsule(timeCapsule.id);
   }
 
   _clickHandler(e) {
-    let {timeCapsule, actions} = this.props;
-    actions.openTimeCapsule(timeCapsule.id)
-    window.location = `/timeCapsule/${timeCapsule.id}`;
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
+    if(e.target.id == "removeCapsule") {
+      let {actions, timeCapsule} = this.props
+      actions.deleteTimeCapsule(timeCapsule.id)
+    } else {
+      let {timeCapsule} = this.props;
+      window.location = `/timeCapsule/${timeCapsule.id}`;
+    }
   }
 
   statusManager() {
@@ -56,27 +63,30 @@ export default class TimeCapsuleItem extends React.Component {
 
   render() {
     let {timeCapsule} = this.props
-
+    let {currentUser} = this.context;
     let created_at = moment(this.props.timeCapsule.created_at.toLocaleString()).format('LLL')
     let wrap_date = moment(this.props.timeCapsule.wrap_date.toLocaleString()).format('LLL')
 
     return (
-      <div onClick={e => this._clickHandler(e)} className="capsule-box">
-        <div className="avatar-container"><Image size="s" src={timeCapsule.user.image}/></div>
-        <div className="capsule-detail-container">
-          <div className="header-container">
-            <div>
-              <h3>{timeCapsule.user.name}</h3>
-              <div className="font-status-size">{created_at}</div>
+      <div>
+          <div id="formCapsule" onClick={e => this._clickHandler(e)} className="capsule-box">
+          <div className="avatar-container"><Image size="s" src={timeCapsule.user.image}/></div>
+          <div className="capsule-detail-container">
+            <div className="header-container">
+              <div>
+                <h3>{timeCapsule.user.name}</h3>
+                <div className="font-status-size">{created_at}</div>
+              </div>
+              <div>
+                <div>{this.statusManager()}<StatusCircle status={this.statusManager()}/></div>
+                <div>Wrapped {wrap_date}</div>
+              </div>
             </div>
-            <div>
-              <div>{this.statusManager()}<StatusCircle status={this.statusManager()}/></div>
-              <div>Wrapped {wrap_date}</div>
+            <h3>{timeCapsule.subject}</h3>
+            <div className="">
+              {timeCapsule.memory_boxes[0].description}
             </div>
-          </div>
-          <h3>{timeCapsule.subject}</h3>
-          <div className="">
-            {timeCapsule.memory_boxes[0].description}
+            { currentUser.name == timeCapsule.user.name && <input className="btn-delete-capsule" id="removeCapsule" type="button" onClick={e => this._clickHandler(e)} value="Delete"/>}
           </div>
         </div>
       </div>
