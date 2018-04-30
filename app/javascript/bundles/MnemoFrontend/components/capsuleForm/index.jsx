@@ -152,12 +152,14 @@ class CapsuleForm extends React.Component {
     let {typeEdit, wrapDate, openDate, wrapDateChangeHandler, openDateChangeHandler, sendTextHandler, buttonText, medium} = this.props;
     let {currentUser} = this.context;
     let {directTo} = this.state;
+    const dummyAvatar = "https://storage.googleapis.com/mnemo-storage/placeHolderAvatar/tempAvatar.jpg";
+    
 
     return (
       <div className='comment-field-container capsule-form'>
         {!typeEdit ?
           <div className="profile">
-            <Image classNames="circle" src={currentUser.image} size="s" />
+            <Image classNames="circle" src={currentUser.image || dummyAvatar} size="s" />
           </div> : null
         }
         <div className="form-group">
