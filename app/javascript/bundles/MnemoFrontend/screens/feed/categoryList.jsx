@@ -5,6 +5,30 @@ class CategoryList extends React.Component {
 
   constructor(props) {
     super(props)
+
+    this.state = {checkedList: []}
+
+    this._checkboxChangeHandler = this._checkboxChangeHandler.bind(this);
+  }
+
+  _checkboxChangeHandler(e) {
+    let {checkedList} = this.state;
+    let {actions} = this.props;
+
+    if(e.target.checked) {
+      this.setState({
+        checkedList: checkedList.concat(e.target.value)
+      })
+
+      actions.filterByTag(checkedList.concat(e.target.value))
+    } else {
+
+      let newCheckedList = checkedList.filter(function(value, arrIndex) {return value !== e.target.value})
+
+      this.setState({checkedList: newCheckedList})
+
+      actions.filterByTag(newCheckedList)
+    }
   }
 
   render() {
@@ -16,7 +40,7 @@ class CategoryList extends React.Component {
         {tags.map((tag, index) => {
           return (
             <div className="filter-list" key={index}>
-              <input type="checkbox" className="form-check-input"/>
+              <input type="checkbox" className="form-check-input" onChange={e => this._checkboxChangeHandler(e)} value={tag.tag} />
               <label> {tag.tag} </label>
             </div>
           );

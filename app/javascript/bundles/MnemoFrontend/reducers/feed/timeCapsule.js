@@ -14,11 +14,12 @@ const initialState = {
   deleteTimeCapsuleSuccess: false,
   deleteTimeCapsuleFailure: false,
 
-  timeCapsules: []
+  timeCapsules: [],
+  allTimeCapsules: []
 };
 
 export default function timeCapsuleReducer(state = initialState, action = {}) {
-  let { type, timeCapsules, timeCapsule, deleted_timeCapsule_id } = action;
+  let { type, timeCapsules, timeCapsule, deleted_timeCapsule_id, tags } = action;
 
   switch(type) {
     case actionTypes.TIME_CAPSULE_IS_FETCHING:
@@ -33,7 +34,8 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
         fetchingTimeCapsule: false,
         fetchTimeCapsuleSuccess: true,
         fetchTimeCapsuleFailure: false,
-        timeCapsules: state.timeCapsules.concat(timeCapsules)
+        timeCapsules: state.timeCapsules.concat(timeCapsules),
+        allTimeCapsules: state.timeCapsules.concat(timeCapsules)
       });
 
     case actionTypes.TIME_CAPSULE_FETCH_FAILURE:
@@ -84,11 +86,10 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
         timeCapsules: state.timeCapsules.filter(timeCapsule => timeCapsule.id != parseInt(deleted_timeCapsule_id))
       });
 
-    case actionTypes.DELETE_TIME_CAPSULE_FAILURE:
+
+    case actionTypes.FILETER_BY_TAGS:
       return objectAssign({}, state, {
-        deletingTimeCapsule: false,
-        deleteTimeCapsuleSuccess: false,
-        deleteTimeCapsuleFailure: true
+        timeCapsules: state.allTimeCapsules.filter(timeCapsule => tags.includes(timeCapsule.tag_name))
       });
 
     default:
