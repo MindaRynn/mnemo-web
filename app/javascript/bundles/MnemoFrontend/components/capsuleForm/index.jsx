@@ -1,6 +1,7 @@
 import React from "react";
 import DatePicker from 'react-datepicker';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import Image from "../../components/image";
 
@@ -34,6 +35,7 @@ class CapsuleForm extends React.Component {
     this._capsuleDetailHandler = this._capsuleDetailHandler.bind(this);
     this._friendNameHandler = this._friendNameHandler.bind(this);
     this._deleteMedia = this._deleteMedia.bind(this);
+    this._updateWrappedTime = this._updateWrappedTime.bind(this);
   }
 
   componentWillMount(){
@@ -44,8 +46,23 @@ class CapsuleForm extends React.Component {
         directTo: timeCapsule.direct_type,
         capsuleName: timeCapsule.subject,
         capsuleDetail: timeCapsule.memory_boxes[0].description,
+        currentTime : this.props.wrapDate
       })
     }
+  }
+
+  _updateWrappedTime() {
+    this.setState({
+      currentTime: moment()
+    })
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this._updateWrappedTime, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   componentDidUpdate(prevProps) {
@@ -135,12 +152,14 @@ class CapsuleForm extends React.Component {
     let {typeEdit, wrapDate, openDate, wrapDateChangeHandler, openDateChangeHandler, sendTextHandler, buttonText, medium} = this.props;
     let {currentUser} = this.context;
     let {directTo} = this.state;
+    const dummyAvatar = "https://storage.googleapis.com/mnemo-storage/placeHolderAvatar/tempAvatar.jpg";
+    
 
     return (
       <div className='comment-field-container capsule-form'>
         {!typeEdit ?
           <div className="profile">
-            <Image classNames="circle" src={currentUser.image} size="s" />
+            <Image classNames="circle" src={currentUser.image || dummyAvatar} size="s" />
           </div> : null
         }
         <div className="form-group">
@@ -196,7 +215,7 @@ class CapsuleForm extends React.Component {
             <div>
               <label>Wrap time : </label>
               <div className="small-field">
-                <DatePicker selected={wrapDate}
+                <DatePicker selected={moment(wrapDate).diff(this.state.currentTime) < 0 ? this.state.currentTime : wrapDate}
                             selectsStart
                             onChange={wrapDateChangeHandler}
                             showTimeSelect
@@ -206,7 +225,7 @@ class CapsuleForm extends React.Component {
                             timeCaption="Time"/>
               </div>
               <div className="large-field">
-                <DatePicker selected={wrapDate}
+                <DatePicker selected={moment(wrapDate).diff(this.state.currentTime) < 0 ? this.state.currentTime : wrapDate}
                             selectsStart
                             onChange={wrapDateChangeHandler}/>
               </div>
@@ -214,7 +233,7 @@ class CapsuleForm extends React.Component {
             <div>
               <label>Open time : </label>
               <div className="small-field">
-                <DatePicker selected={openDate}
+                <DatePicker selected={moment(openDate).diff(this.state.currentTime) > 0 ? openDate : this.state.currentTime}
                             selectsStart
                             onChange={openDateChangeHandler}
                             showTimeSelect
@@ -224,7 +243,7 @@ class CapsuleForm extends React.Component {
                             timeCaption="Time" />
               </div>
               <div className="large-field">
-                <DatePicker selected={openDate}
+                <DatePicker selected={moment(openDate).diff(this.state.currentTime) > 0 ? openDate : this.state.currentTime}
                             selectsStart
                             onChange={openDateChangeHandler}/>
               </div>

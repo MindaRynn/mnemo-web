@@ -57,8 +57,37 @@ body.time-capsule .time-capsule-section .time-capsule-container {
   .capsule-detail-group .media-container {
     @include flexbox();
 
-    .img + .img {
+    .image-modal + .image-modal {
       margin-left: 10px;
+    }
+
+    .modal-header {
+      background-color: black;
+    }
+  
+    .modal-body {
+      background-color: black;
+    }
+  
+    .modal-content {
+      height: 90vh;
+  }
+  
+    .close {
+      @include justify-content(flex-start);
+      @include align-items(flex-start);
+      color: white;
+    }
+    
+    .container-fluid {
+      @include flexbox();
+      @include justify-content(center);
+      @include align-items(center);
+      height: 80vh;
+      .full-img {
+        max-width: 100%;
+        max-height: 100%;
+      }
     }
   }
 }

@@ -6,7 +6,9 @@
     <%= stylesheet_link_tag 'application' %>
     <%= javascript_include_tag 'application' %>
     <%= javascript_pack_tag 'webpack-bundle' %>
-    <%= render partial: 'shared/nav_bar' %>
+    <%= react_component('FirebaseInitialize')
+    %>
+    <%= render partial: 'shared/nav_bar',:locals => {:user => current_user} %>
   </head>
 
   <body class="<%= controller_name %> <%= action_name %> <%= 'landing-page' unless user_signed_in? %>">

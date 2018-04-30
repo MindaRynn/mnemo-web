@@ -10,11 +10,15 @@ const initialState = {
   createTimeCapsuleSuccess: false,
   createTimeCapsuleFailure: false,
 
+  deletingTimeCapsule: false,
+  deleteTimeCapsuleSuccess: false,
+  deleteTimeCapsuleFailure: false,
+
   timeCapsules: []
 };
 
 export default function timeCapsuleReducer(state = initialState, action = {}) {
-  let { type, timeCapsules, timeCapsule } = action;
+  let { type, timeCapsules, timeCapsule, deleted_timeCapsule_id } = action;
 
   switch(type) {
     case actionTypes.TIME_CAPSULE_IS_FETCHING:
@@ -61,6 +65,30 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
         creatingTimeCapsule: false,
         createTimeCapsuleSuccess: false,
         createTimeCapsuleFailure: true
+      });
+
+// ------------------------------------------------------------
+
+    case actionTypes.DELETING_TIME_CAPSULE:
+      return objectAssign({}, state, {
+        deletingTimeCapsule: true,
+        deleteTimeCapsuleSuccess: false,
+        deleteTimeCapsuleFailure: false
+      });
+
+    case actionTypes.DELETE_TIME_CAPSULE_SUCCESS:
+      return objectAssign({}, state, {
+        deletingTimeCapsule: false,
+        deleteTimeCapsuleSuccess: true,
+        deleteTimeCapsuleFailure: false,
+        timeCapsules: state.timeCapsules.filter(timeCapsule => timeCapsule.id != parseInt(deleted_timeCapsule_id))
+      });
+
+    case actionTypes.DELETE_TIME_CAPSULE_FAILURE:
+      return objectAssign({}, state, {
+        deletingTimeCapsule: false,
+        deleteTimeCapsuleSuccess: false,
+        deleteTimeCapsuleFailure: true
       });
 
     default:

@@ -6,38 +6,69 @@ const initialState = {
   fetchTimeCapsuleSuccess: false,
   fetchTimeCapsuleFailure: false,
 
+  fetchingParticipatedTimeCapsule: false,
+  ParticipatedTimeCapsuleFetchSuccess: false,
+  ParticipatedTimeCapsuleFetchFailure: false,
+
   creatingTimeCapsule: false,
   createTimeCapsuleSuccess: false,
   createTimeCapsuleFailure: false,
 
-  timeCapsules: []
+  deletingTimeCapsule: false,
+  deleteTimeCapsuleSuccess: false,
+  deleteTimeCapsuleFailure: false,
+
+  userTimeCapsules: [],
+  participatedTimeCapsules: []
 };
 
 export default function timeCapsuleReducer(state = initialState, action = {}) {
-  let { type, timeCapsules, timeCapsule } = action;
+  let { type, userTimeCapsules, userTimeCapsule, participatedTimeCapsules, deleted_timeCapsule_id } = action;
 
   switch(type) {
-    case actionTypes.TIME_CAPSULE_IS_FETCHING:
+    case actionTypes.USER_TIME_CAPSULE_IS_FETCHING:
       return objectAssign({}, state, {
         fetchingTimeCapsule: true,
         fetchTimeCapsuleSuccess: false,
         fetchTimeCapsuleFailure: false
       });
 
-    case actionTypes.TIME_CAPSULE_FETCH_SUCCESS:
+    case actionTypes.USER_TIME_CAPSULE_FETCH_SUCCESS:
       return objectAssign({}, state, {
         fetchingTimeCapsule: false,
         fetchTimeCapsuleSuccess: true,
         fetchTimeCapsuleFailure: false,
-        timeCapsules: state.timeCapsules.concat(timeCapsules)
+        userTimeCapsules: state.userTimeCapsules.concat(userTimeCapsules)
       });
 
-    case actionTypes.TIME_CAPSULE_FETCH_FAILURE:
+    case actionTypes.USER_TIME_CAPSULE_FETCH_FAILURE:
       return objectAssign({}, state, {
         fetchingTimeCapsule: false,
         fetchTimeCapsuleSuccess: false,
         fetchTimeCapsuleFailure: true
       });
+
+    case actionTypes.PATICIPATED_TIME_CAPSULE_IS_FETCHING:
+      return objectAssign({}, state, {
+        fetchingParticipatedTimeCapsule: true,
+        ParticipatedTimeCapsuleFetchSuccess: false,
+        ParticipatedTimeCapsuleFetchFailure: false
+    });
+
+    case actionTypes.PATICIPATED_TIME_CAPSULE_FETCH_SUCCESS:
+      return objectAssign({}, state, {
+        fetchingParticipatedTimeCapsule: false,
+        ParticipatedTimeCapsuleFetchSuccess: true,
+        ParticipatedTimeCapsuleFetchFailure: false,
+        participatedTimeCapsules: state.participatedTimeCapsules.concat(participatedTimeCapsules)
+    });
+
+    case actionTypes.PATICIPATED_TIME_CAPSULE_FETCH_FAILURE:
+      return objectAssign({}, state, {
+        fetchingParticipatedTimeCapsule: false,
+        ParticipatedTimeCapsuleFetchSuccess: false,
+        ParticipatedTimeCapsuleFetchFailure: true,
+    });
 
 // ------------------------------------------------------------
 
@@ -45,24 +76,49 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
       return objectAssign({}, state, {
         creatingTimeCapsule: true,
         createTimeCapsuleSuccess: false,
-        createTimeCapsuleFailure: false
+        createTimeCapsuleFailure: false,
       });
 
-    case actionTypes.TIME_CAPSULE_CREATE_SUCCESS:
     case actionTypes.TIME_CAPSULE_CREATE_SUCCESS:
       return objectAssign({}, state, {
         creatingTimeCapsule: false,
         createTimeCapsuleSuccess: true,
         createTimeCapsuleFailure: false,
-        timeCapsules: state.timeCapsules.concat(timeCapsule)
+        userTimeCapsules: state.userTimeCapsules.concat(userTimeCapsule)
       });
 
     case actionTypes.TIME_CAPSULE_CREATE_FAILURE:
       return objectAssign({}, state, {
         creatingTimeCapsule: false,
         createTimeCapsuleSuccess: false,
-        createTimeCapsuleFailure: true
+        createTimeCapsuleFailure: true,
       });
+//----------------------------------------------
+
+    case actionTypes.DELETING_TIME_CAPSULE:
+      return objectAssign({}, state, {
+        deletingTimeCapsule: true,
+        deleteTimeCapsuleSuccess: false,
+        deleteTimeCapsuleFailure: false
+      });
+
+    case actionTypes.DELETE_TIME_CAPSULE_SUCCESS:
+      return objectAssign({}, state, {
+        deletingTimeCapsule: false,
+        deleteTimeCapsuleSuccess: true,
+        deleteTimeCapsuleFailure: false,
+        userTimeCapsules: state.userTimeCapsules.filter(userTimeCapsule => userTimeCapsule.id != parseInt(deleted_timeCapsule_id)),
+        participatedTimeCapsules: state.participatedTimeCapsules.filter(participatedTimeCapsule => participatedTimeCapsule.id != parseInt(deleted_timeCapsule_id))
+      });
+
+    case actionTypes.DELETE_TIME_CAPSULE_FAILURE:
+      return objectAssign({}, state, {
+        deletingTimeCapsule: false,
+        deleteTimeCapsuleSuccess: false,
+        deleteTimeCapsuleFailure: true
+      });
+
+//----------------------------------------------
 
     default:
       return state;

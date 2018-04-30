@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180417165909) do
+ActiveRecord::Schema.define(version: 20180428092446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,19 @@ ActiveRecord::Schema.define(version: 20180417165909) do
     t.index ["user_id", "room_id"], name: "index_rooms_users_on_user_id_and_room_id"
   end
 
+  create_table "seen_relationships", force: :cascade do |t|
+    t.integer "time_capsule_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.text "tag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "time_capsules", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -74,6 +87,8 @@ ActiveRecord::Schema.define(version: 20180417165909) do
     t.integer "direct_type", default: 0, null: false
     t.integer "status", default: 0, null: false
     t.text "subject"
+    t.bigint "tag_id"
+    t.index ["tag_id"], name: "index_time_capsules_on_tag_id"
     t.index ["user_id"], name: "index_time_capsules_on_user_id"
   end
 
@@ -96,6 +111,7 @@ ActiveRecord::Schema.define(version: 20180417165909) do
     t.text "image"
     t.text "bio"
     t.bigint "time_capsule_id"
+    t.text "notification_key"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["time_capsule_id"], name: "index_users_on_time_capsule_id"

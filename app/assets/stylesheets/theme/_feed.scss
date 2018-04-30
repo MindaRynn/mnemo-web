@@ -1,5 +1,10 @@
 body.feed .app-container {
   padding: 1.875rem 12rem 0 12rem;
+
+  #timeOverModal {
+    top: 50%;
+    transform: translate(0, -70%);
+  }
 }
 
 body.feed .comment-field-container {

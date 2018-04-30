@@ -66,7 +66,7 @@
 
 .dropdown-menu {
   display: none;
-  position: absolute;
+  position: absolute !important;
   background-color: map-get($brand-gray, "lightest");
   min-width: 160px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -89,4 +89,10 @@
 
 .dropdown-toggle::after {
   display: none;
+}
+
+.btn-delete-capsule {
+  background-color: rgb(255, 100, 73);
+  color: white;
+  height: 2rem;
 }

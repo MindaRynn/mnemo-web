@@ -11,9 +11,11 @@ class CommentField extends React.Component {
     this.inputOnChangeHandler = this.inputOnChangeHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
     this.sendTextAndResetImage = this.sendTextAndResetImage.bind(this);
+    this._setCapsuleMode = this._setCapsuleMode.bind(this);
 
     this.state = {
-      image: ''
+      image: '',
+      capsuleMode: false
     };
   }
 
@@ -43,13 +45,20 @@ class CommentField extends React.Component {
     xhr.send(data);
   }
 
+  _setCapsuleMode() {
+    this.setState({
+      capsuleMode: !this.state.capsuleMode
+    })
+  }
+
   sendTextAndResetImage(e, image) {
     let {sendTextHandler} = this.props;
 
     let code = (e.keyCode ? e.keyCode : e.which);
+    let eventId = e.target.id
 
-    if (code == 13) {
-      sendTextHandler(e, image);
+    if (code == 13 || eventId == "postCapsuleDirectMessage") {
+      sendTextHandler(e, image, this.state.capsuleMode);
       this.setState({
         image: ''
       })
@@ -98,28 +107,40 @@ class CommentField extends React.Component {
           <textarea placeholder="Type messages" onKeyPress={e => this.sendTextAndResetImage(e, this.state.image)}/>
           <div className="timing-container">
             <div>
-              <label>Open time: </label>
-              <div className="small-field">
-                <DatePicker
-                  selected={openDate}
-                  selectsStart
-                  onChange={openDateChangeHandler}
-                  showTimeSelect
-                  showTimeSelectOnly
-                  timeIntervals={15}
-                  dateFormat="LT"
-                  timeCaption="Time"
-                />
+              <div>
+                <label>Capsule mode: </label>
               </div>
-              <div className="large-field">
-                <DatePicker
-                  selected={openDate}
-                  selectsStart
-                  onChange={openDateChangeHandler}
-                />
+              <div className="toggle-field">
+                <label className="switch">
+                  <input onClick={this._setCapsuleMode} type="checkbox" />
+                  <span className="slider round">{this.state.capsuleMode ? <div className="on-mode">On</div> : <div className="off-mode">Off</div>}</span>
+                </label>
               </div>
+              {this.state.capsuleMode && 
+                <div className="timing-container" style={{marginTop: "0px"}}>
+                  <label>Open time: </label>
+                  <div className="small-field">
+                    <DatePicker
+                      selected={openDate}
+                      selectsStart
+                      onChange={openDateChangeHandler}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      dateFormat="LT"
+                      timeCaption="Time"
+                    />
+                  </div>
+                  <div className="large-field">
+                    <DatePicker
+                      selected={openDate}
+                      selectsStart
+                      onChange={openDateChangeHandler}
+                    />
+                  </div>
+                </div>}
             </div>
-            <button className="submit-button" onClick={e => this.sendTextAndResetImage(e, this.state.image)}>{buttonText}</button>
+            <button id="postCapsuleDirectMessage" className="submit-button" onClick={e => this.sendTextAndResetImage(e, this.state.image)}>{buttonText}</button>
           </div>
         </div>
       </div>

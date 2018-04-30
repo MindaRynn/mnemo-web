@@ -3,32 +3,39 @@
     <nav class="navbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/users/sign_in">New Feed</a>
+          <a class="nav-link" href="/">New Feed</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/users/sign_up">Pinned</a>
+          <a class="nav-link" href="#">Pinned</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/users/sign_up">Notification</a>
+          <%= react_component('Notification', props: {
+              currentUser: current_user,
+              csrfToken: csrf_token
+          })
+          %>
         </li>
       </ul>
       <div class="navbar-brand">Logo</div>
       <div class="dropdown-container">
         <div class="dropdown">
           <div class="avatar-container" data-toggle="dropdown">
-            <span> @Makhamwan |</span>
-            <%=image_tag("placeholder.png", size: "45x45")%>
+            <span> <%= current_user.name %> |</span>
+            <% if current_user.image_tag %>
+              <%=image_tag(current_user.image)%>
+            <% else %>
+              <%=image_tag("https://storage.googleapis.com/mnemo-storage/placeHolderAvatar/tempAvatar.jpg")%>
+            <% end %>
           </div>
           <ul class="dropdown-menu dropdown-menu-right">
-            <li><a href="#">@Makhamwan</a></li>
-            <li class="hidden-list"><a href="#">New Feed</a></li>
+            <li><a href="/profile"><%= current_user.name %></a></li>
+            <li class="hidden-list"><a href="">New Feed</a></li>
             <li class="hidden-list"><a href="#">Pinned</a></li>
             <li class="hidden-list"><a href="#">Notification</a></li>
-            <li><a href="#">Setting</a></li>
+            <li><a href="/users/edit">Setting</a></li>
             <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %></li>
           </ul>
         </div>
-
       </div>
     </nav>
   </div>

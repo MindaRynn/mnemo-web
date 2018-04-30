@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Image from '../../components/image'
+import ImageModal from '../../components/image/imageModal'
 
 class TimeCapsuleMedia extends React.Component {
   constructor(props, context) {
@@ -16,9 +17,8 @@ class TimeCapsuleMedia extends React.Component {
     return (
       <div className="media-container">
         {medium.map((media, index) => {
-
           return (
-            <Image key={index} src={media.media_url} size="m" />
+            <ImageModal key={index} size="m" src={media.media_url} />
           );
         })}
       </div>

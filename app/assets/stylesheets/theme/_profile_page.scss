@@ -5,6 +5,11 @@ body.profile .profile-container {
   margin-left: 10rem;
   margin-right: 10rem;
   margin-top: 8rem;
+
+  #timeOverModal {
+    top: 50%;
+    transform: translate(0, -70%);
+  }
 }
 
 .sameline {

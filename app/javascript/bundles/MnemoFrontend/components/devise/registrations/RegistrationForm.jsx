@@ -1,4 +1,5 @@
 import React from 'react';
+import * as firebase from 'firebase';
 
 export default class RegistrationForm extends React.Component {
   constructor(props) {
@@ -35,11 +36,12 @@ export default class RegistrationForm extends React.Component {
                  name="user[password_confirmation]"/>
         </div>
         <input type="hidden" name="authenticity_token" value={csrfToken} />
+        <input type="hidden" name="user[notification_key]" value={firebase.database().ref().child('notification').push().key} />
 
         <div className="form-input-group flex-end">
           <div className="form-group">
             <a>Accept term & policy</a>
-            <button class="btn btn-primary" type="submit">
+            <button className="btn btn-primary" type="submit">
               Sign up
             </button>
           </div>

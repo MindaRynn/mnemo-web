@@ -18,8 +18,8 @@ export default class WaitingTimeCapsule extends React.Component {
   }
 
   updateState() {
-    let openDate = new moment(this.props.timeCapsule.open_date.toLocaleString());
-    let currentTime = new moment()
+    let openDate = moment(this.props.openDate);
+    let currentTime = moment()
     let numDayCurrentMonth = moment().daysInMonth();
     let diffYear = openDate.diff(currentTime, "years")
     let diffMonth = openDate.diff(currentTime, "months")
@@ -64,6 +64,8 @@ export default class WaitingTimeCapsule extends React.Component {
         second_label: 'Minutes',
         third_label: 'Seconds'
         }))
+    } else {
+      this.props.switchComponent(this.props.isWaiting)
     }
   }
   
@@ -76,24 +78,9 @@ export default class WaitingTimeCapsule extends React.Component {
   }
   
   render() {
-    let {name,avatar,timeCapsule} = this.props
-    let created_at = moment(this.props.timeCapsule.created_at.toLocaleString()).format('LLL')
-    let wrap_date = moment(this.props.timeCapsule.wrap_date.toLocaleString()).format('LLL')
 
     return (
-      <div className="capsule-box waiting">
-        <div className="avatar-container"><Image size="s" src={avatar}/></div>
-        <div className="capsule-detail-container">
-          <div className="header-container">
-            <div className="left-section">
-              <h3>{name}</h3>
-              <div className="font-status-size">{created_at}</div>
-            </div>
-            <div className="right-section">
-              <div>Wrapped {wrap_date}</div>
-            </div>
-          </div>
-        </div>
+      <div className="capsule-box waiting-direct-message">
         <div className="timimg-container">
           <div className="left-container">
             <div className="font-label">{this.state.first_label}</div>

@@ -77,3 +77,14 @@ export function updateTimeCapsule(timeCapsuleId, timeCapsuleDetail) {
       });
   };
 }
+
+export function openTimeCapsule(timeCapsuleId) {
+  return function (dispatch) {
+
+    TimeCapsulesAdapter
+      .open(timeCapsuleId)
+      .then((response) => {
+        return response;
+      })
+  };
+}

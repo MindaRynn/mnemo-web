@@ -67,6 +67,33 @@ class TimeCapsulesAdapter extends BaseAdapter {
 
     return this.prototype.patchRequest(`${config['api']['time_capsules']}/${timeCapsuleId}`, requestParams);
   }
+
+  /**
+   * Update a time capsule that opened
+   *
+   * @param {String} [timeCapsuleId] - time Capsule ID
+   * @return {Promise} - a promise which will resolve to timeCapsule opened response
+   */
+  static open(timeCapsuleId) {
+    let requestParams = {};
+
+    return this.prototype.postRequest(`${config['api']['time_capsules']}/${timeCapsuleId}/open`, requestParams);
+  }
+
+  /**
+   * Delete capsule identified by `timeCapsuleId`
+   *
+   * @param userId {String} - id of the user whose friends are to be fetched
+   *
+   * @return {Promise} - a promise which will resolve to the response from server
+   */
+  static delete(timeCapsuleId) {
+    let requestParams = {
+      time_capsule_id: timeCapsuleId
+    };
+
+    return this.prototype.deleteRequest(`${config['api']['time_capsules']}/${timeCapsuleId}`, requestParams);
+  }
 }
 
 export default TimeCapsulesAdapter;

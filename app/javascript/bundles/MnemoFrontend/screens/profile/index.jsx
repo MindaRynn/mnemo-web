@@ -13,7 +13,9 @@ class Profile extends React.Component {
     this.state = {
       wrapDate: moment(),
       openDate: moment(),
-      fetchedCapsule: false
+      fetchedUserCapsule: false,
+      fetchedParticipatedCapsule: false,
+      currentShowCapsule: "yours"
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -22,6 +24,8 @@ class Profile extends React.Component {
     this._sendText = this._sendText.bind(this);
     this._resetForm = this._resetForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.setShowCapsule = this.setShowCapsule.bind(this);
+    this._checkTimeOver = this._checkTimeOver.bind(this);
   }
 
   handleChange ({ wrapDate, openDate }){
@@ -42,14 +46,32 @@ class Profile extends React.Component {
   _sendText(e, capsuleDetail) {
     e.preventDefault();
 
-    let {actions} = this.props;
-    let {currentUser} = this.context;
+    if(this._checkTimeOver(capsuleDetail)) {
+      document.getElementById("timeOverButton").click();
+    } else {
+      let {actions} = this.props;
+      let {currentUser} = this.context;
 
-    capsuleDetail['wrapDate'] = this.state.wrapDate.toDate();
-    capsuleDetail['openDate'] = this.state.openDate.toDate();
-    capsuleDetail['medium'] = this.props.profile.media.medium;
+      if(capsuleDetail.currentTime.isAfter(this.state.wrapDate)) {
+        this.setState({
+          wrapDate: capsuleDetail.currentTime
+        }, () => {
+      capsuleDetail['wrapDate'] = this.state.wrapDate.toDate();
+      capsuleDetail['openDate'] = this.state.openDate.toDate();
+      capsuleDetail['medium'] = this.props.profile.media.medium;
 
-    actions.createTimeCapsule(currentUser.id, capsuleDetail)
+      actions.createTimeCapsule(currentUser.id, capsuleDetail)
+      window.location.reload();
+        })
+      } else {
+        capsuleDetail['wrapDate'] = (this.state.wrapDate.add(1, 'seconds')).toDate();
+        capsuleDetail['openDate'] = this.state.openDate.toDate();
+        capsuleDetail['medium'] = this.props.medium;
+
+        actions.createTimeCapsule(currentUser.id, capsuleDetail)
+        window.location.reload();
+      }
+    }
   }
 
   _resetForm() {
@@ -63,30 +85,43 @@ class Profile extends React.Component {
     });
   }
 
+  _checkTimeOver(capsuleDetail) {
+    return capsuleDetail.currentTime.diff(this.state.openDate) >= 0;
+  }
+
   componentDidMount() {
     let {actions} = this.props;
+    let {currentUser} = this.context;
 
-    actions.fetchTimeCapsule();
+    actions.fetchUserTimeCapsule(currentUser.id);
+    actions.fetchParticipatedTimeCapsule();
   }
 
   componentDidUpdate(prevProps) {
-    let {fetchTimeCapsuleSuccess} = this.props.profile.timeCapsule
+    let {fetchTimeCapsuleSuccess, fetchParticipatedTimeCapsuleSuccess, deleteTimeCapsuleSuccess} = this.props.profile.timeCapsule
 
     if(fetchTimeCapsuleSuccess && !prevProps.profile.timeCapsule.fetchTimeCapsuleSuccess) {
       this.setState({
-        fetchedCapsule: true,
+        fetchedUserCapsule: true,
+      });
+    }
+    if(fetchParticipatedTimeCapsuleSuccess && !prevProps.profile.participatedTimeCapsule.fetchParticipatedTimeCapsuleSuccess) {
+      this.setState({
+        fetchedParticipatedCapsule: true,
       });
     }
   }
 
-  _renderTimeCapsule(){
-    let {timeCapsules} = this.props.profile.timeCapsule;
-
+  _renderTimeCapsule() {
+    let {userTimeCapsules} = this.props.profile.timeCapsule;
+    let {participatedTimeCapsules} = this.props.profile.timeCapsule;
+    let {actions} = this.props;
+    let timeCapsules = this.state.currentShowCapsule == "yours" ? userTimeCapsules : participatedTimeCapsules
     return (
       <div>
         {timeCapsules.map((timeCapsule, index) => {
-          let wrapDate = new moment(timeCapsule.wrap_date.toLocaleString());
-          let openDate = new moment(timeCapsule.open_date.toLocaleString());
+          let wrapDate = new moment(timeCapsule.wrap_date);
+          let openDate = new moment(timeCapsule.open_date);
           let currentTime = new moment();
           let diffTime1 = wrapDate.diff(currentTime)
           let diffTime2 = openDate.diff(currentTime)
@@ -99,26 +134,37 @@ class Profile extends React.Component {
           }
           
           return (<ContainerSwtichCapsule status={status} key={index}
-                       avatar={this.context.currentUser.image}
-                       name={this.context.currentUser.name}
-                       timeCapsule={timeCapsule} />);
+                      actions={this.props.actions}
+                      currentUser={this.context.currentUser}
+                       avatar={timeCapsule.user.image}
+                       name={timeCapsule.user.name}
+                       timeCapsule={timeCapsule}
+                       actions={actions} />);
         })}
       </div>
     );
+  }
+
+  setShowCapsule(e,state) {
+    e.preventDefault()
+    this.setState({
+      currentShowCapsule: state
+    })
   }
 
   render() {
     let {actions, profile} = this.props;
     let {timeCapsule} = profile;
     let {medium} = profile.media;
-    let {fetchedCapsule} = this.state
+    let {fetchedUserCapsule} = this.state
+    const dummyAvatar = "https://storage.googleapis.com/mnemo-storage/placeHolderAvatar/tempAvatar.jpg";
 
     return (
       <div>
         <div className="profile-container">
           <div className="row">
             <div className="col-4" >
-              <center><Image size="l" src={this.context.currentUser.image}/></center>
+              <center><Image size="l" src={this.context.currentUser.image || dummyAvatar}/></center>
             </div>
             <div className="col-5">
               <div className="row"><h2>{this.context.currentUser.name}</h2></div>
@@ -136,30 +182,42 @@ class Profile extends React.Component {
             <div className="col-2"></div>
           </div>
           <hr/>
-          <div className="profile-detail-container">
-            <CapsuleForm hasOpenTime={true}
-                         hasWrapTime={true}
-                         wrapDateChangeHandler={this.wrapDateChangeHandler}
-                         openDateChangeHandler={this.openDateChangeHandler}
-                         openDate={this.state.openDate}
-                         wrapDate={this.state.wrapDate}
-                         buttonText="Create Time Capsule"
-                         actions={actions}
-                         medium={medium}
-                         resetFormHandler={this._resetForm}
-                         sendTextHandler={this._sendText}
-                         timeCapsule={timeCapsule} />
-            <div className="row">
-              <div className="col-8">
-                <ul className="nav">
-                  <li className="space-item"><a data-toggle="tab" href="#menu1" className="space-toggle active show">All</a></li>
-                  <li className="space-item"><a data-toggle="tab" href="#menu2" className="space-toggle">Opened</a></li>
-                </ul>
-              </div>
+          <CapsuleForm hasOpenTime={true}
+                       hasWrapTime={true}
+                       wrapDateChangeHandler={this.wrapDateChangeHandler}
+                       openDateChangeHandler={this.openDateChangeHandler}
+                       openDate={this.state.openDate}
+                       wrapDate={this.state.wrapDate}
+                       buttonText="Create Time Capsule"
+                       actions={actions}
+                       medium={medium}
+                       resetFormHandler={this._resetForm}
+                       sendTextHandler={this._sendText}
+                       timeCapsule={timeCapsule} />
+          <div className="row">
+            <div className="col-8">
+              <ul className="nav">
+                <li className="space-item"><a data-toggle="tab" onClick={e => this.setShowCapsule(e,"yours")} href="#menu1" className="space-toggle active show">Yours</a></li>
+                <li className="space-item"><a data-toggle="tab" onClick={e => this.setShowCapsule(e,"joined")} href="#menu2" className="space-toggle">Joined</a></li>
+              </ul>
             </div>
+          </div>      
 
-            {fetchedCapsule ? this._renderTimeCapsule() : null}
+          <div className="add-data">
+            <input id="timeOverButton" style={{ display: "none" }} data-toggle="modal" data-target="#timeover"/>
           </div>
+          <div className="modal fade" id="timeover" tabIndex="-1" role="dialog" aria-labelledby="timeover" aria-hidden="true">
+              <div id="timeOverModal" className="modal-dialog modal-sm">
+                <div className="modal-content">
+                  <div className="modal-body text-center">
+                    <h2>Open time invalid</h2>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          {fetchedUserCapsule ? this._renderTimeCapsule() : null}
         </div>
       </div>
     );

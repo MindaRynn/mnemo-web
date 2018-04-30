@@ -9,6 +9,14 @@ module Api
                status: :ok
       end
 
+      def opened
+        SeenRelationship.create(user_id: current_user.id, time_capsule_id: params[:time_capsule_id]) unless time_capsule_have_not_opened
+      end
+
+      def time_capsule_have_not_opened
+        SeenRelationship.where(user: current_user).pluck(:time_capsule_id).include?(params[:time_capsule_id].to_i)
+      end
+
       def update
         time_capsule = TimeCapsule.find(params[:id])
 
@@ -36,6 +44,13 @@ module Api
                status: :ok
       end
 
+      def destroy
+        TimeCapsule.find(params[:id]).destroy
+
+        render json: {time_capsule_id: params[:id]},
+               status: :ok
+      end
+
       def create
         time_capsule = TimeCapsule.create(
           user_id: current_user.id,
@@ -58,6 +73,8 @@ module Api
 
         time_capsule.memory_boxes << memory_box
 
+        Participation.create(user: current_user, time_capsule: time_capsule);
+
         render json: time_capsule,
                current_user: current_user,
                status: :ok
@@ -78,7 +95,7 @@ module Api
       end
 
       def permitted_attributes
-        [:user_id, :time_capsule_detail]
+        [:user_id, :time_capsule_detail, :participated]
       end
     end
   end
