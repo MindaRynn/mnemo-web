@@ -160,3 +160,11 @@ body.direct-message .room-placeholder {
   margin: auto;
   color: map-get($brand-gray, 'light');
 }
+
+body.direct-message .content-group .tab-pane {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
