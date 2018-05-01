@@ -16,6 +16,17 @@ class UsersAdapter extends BaseAdapter {
 
     return this.prototype.getRequest(config['api']['users'], requestParams);
   }
+
+  /**
+   * Fetch all users
+   *
+   * @return {Promise} - a promise which will resolve to the response from server
+   */
+  static fetch() {
+    let requestParams = {};
+
+    return this.prototype.getRequest(config['api']['users'], requestParams);
+  }
 }
 
 export default UsersAdapter;

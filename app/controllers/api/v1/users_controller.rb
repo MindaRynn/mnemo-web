@@ -12,7 +12,7 @@ module Api
 
       # Remove this whem friend chat system enable
       def find_user
-        return current_user if params[:user_id].nil?
+        return User.all if params[:user_id].nil?
 
         User.find(params[:user_id])
       end

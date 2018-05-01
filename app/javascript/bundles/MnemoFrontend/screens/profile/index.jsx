@@ -15,7 +15,10 @@ class Profile extends React.Component {
       openDate: moment(),
       fetchedUserCapsule: false,
       getUserSuccess: false,
+      fetchedUser:false,
+      fetchedTag: false,
       fetchedParticipatedCapsule: false,
+      fetchedGiftedCapsule: false,
       currentShowCapsule: "yours"
     }
 
@@ -100,12 +103,17 @@ class Profile extends React.Component {
     } else {
       actions.fetchUserTimeCapsule(currentUser.id);
       actions.fetchParticipatedTimeCapsule();
+      actions.fetchGiftedTimeCapsule();
       actions.fetchTags();
+      actions.fetchUser(currentUser.id);
     }
   }
 
   componentDidUpdate(prevProps) {
-    let {fetchTimeCapsuleSuccess, fetchParticipatedTimeCapsuleSuccess} = this.props.profile.timeCapsule
+    let {fetchTimeCapsuleSuccess, fetchParticipatedTimeCapsuleSuccess, fetchGiftedTimeCapsuleSuccess} = this.props.profile.timeCapsule
+    let {fetchTagSuccess} = this.props.profile.tag
+    let {fetchUserSuccess} = this.props.profile.user
+
     let {actions} = this.props
 
     let {getUserSuccess} = this.props.profile.user
@@ -115,9 +123,16 @@ class Profile extends React.Component {
         fetchedUserCapsule: true,
       });
     }
+
     if(fetchParticipatedTimeCapsuleSuccess && !prevProps.profile.participatedTimeCapsule.fetchParticipatedTimeCapsuleSuccess) {
       this.setState({
         fetchedParticipatedCapsule: true,
+      });
+    }
+
+    if(fetchGiftedTimeCapsuleSuccess && !prevProps.profile.participatedTimeCapsule.fetchGiftedTimeCapsuleSuccess) {
+      this.setState({
+        fetchedGiftedCapsule: true,
       });
     }
 
@@ -128,13 +143,36 @@ class Profile extends React.Component {
 
       actions.fetchUserTimeCapsule(this.props.params.id);
     }
+
+    if(fetchUserSuccess && !prevProps.profile.user.fetchUserSuccess) {
+      this.setState({
+        fetchedUser: true
+      });
+    }
+
+    if(fetchTagSuccess && !prevProps.profile.tag.fetchTagSuccess) {
+      this.setState({
+        fetchedTag: true
+      });
+    }
   }
 
   _renderTimeCapsule() {
-    let {userTimeCapsules} = this.props.profile.timeCapsule;
-    let {participatedTimeCapsules} = this.props.profile.timeCapsule;
+    let {userTimeCapsules, giftedTimeCapsules, participatedTimeCapsules} = this.props.profile.timeCapsule;
+
     let {actions} = this.props;
-    let timeCapsules = this.state.currentShowCapsule == "yours" ? userTimeCapsules : participatedTimeCapsules
+    let {currentShowCapsule} = this.state
+
+    let timeCapsules = {}
+    
+    if (currentShowCapsule == "yours") {
+      timeCapsules = userTimeCapsules
+    }else if (currentShowCapsule == "joined") {
+      timeCapsules = participatedTimeCapsules
+    } else {
+      timeCapsules = giftedTimeCapsules
+    }
+
 
     let shownUser = this.props.params.id ? this.props.profile.user.user : this.context.currentUser
 
@@ -174,9 +212,10 @@ class Profile extends React.Component {
 
   render() {
     let {actions, profile} = this.props;
+    let {users} = this.props.profile.user;
     let {timeCapsule} = profile;
     let {medium} = profile.media;
-    let {fetchedUserCapsule, getUserSuccess} = this.state
+    let {fetchedUserCapsule, getUserSuccess, fetchedUser, fetchedTag} = this.state
     let {currentUser} = this.context;
 
     let userProfileId = this.props.params.id
@@ -200,7 +239,8 @@ class Profile extends React.Component {
             {
               (userProfileId != currentUser.id) && !!userProfileId ? null :
                 <div>
-                  <CapsuleForm hasOpenTime={true}
+                  {fetchedTag && fetchedUser ?
+                    <CapsuleForm hasOpenTime={true}
                                hasWrapTime={true}
                                wrapDateChangeHandler={this.wrapDateChangeHandler}
                                openDateChangeHandler={this.openDateChangeHandler}
@@ -213,12 +253,15 @@ class Profile extends React.Component {
                                sendTextHandler={this._sendText}
                                timeCapsule={timeCapsule}
                                tags={profile.tag.tags}
-                  />
+                               allUsers={users}
+                    /> : null
+                  }
                   <div className="row">
                     <div className="col-8">
                       <ul className="nav">
                         <li className="space-item"><a data-toggle="tab" onClick={e => this.setShowCapsule(e,"yours")} href="#menu1" className="space-toggle active show">Yours</a></li>
                         <li className="space-item"><a data-toggle="tab" onClick={e => this.setShowCapsule(e,"joined")} href="#menu2" className="space-toggle">Joined</a></li>
+                        <li className="space-item"><a data-toggle="tab" onClick={e => this.setShowCapsule(e,"gifted")} href="#menu2" className="space-toggle">My Gift</a></li>
                       </ul>
                     </div>
                   </div>

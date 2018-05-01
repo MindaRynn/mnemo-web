@@ -115,8 +115,7 @@ class CapsuleList extends React.Component {
   }
 
   render() {
-    let {actions, medium, timeCapsule, tags} = this.props;
-    let {fetchedCapsule} = this.state
+    let {actions, medium, timeCapsule, tags, allUsers} = this.props;
 
     return (
       <div className="list col-9">
@@ -130,7 +129,8 @@ class CapsuleList extends React.Component {
                      medium={medium}
                      sendTextHandler={this._sendText}
                      timeCapsule={timeCapsule}
-                     tags={tags}/>
+                     tags={tags}
+                     allUsers={allUsers}/>
         
         <div className="add-data">
           <input id="timeOverButton" style={{ display: "none" }} data-toggle="modal" data-target="#timeover"/>

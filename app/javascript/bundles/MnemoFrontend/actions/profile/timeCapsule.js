@@ -2,28 +2,40 @@ import * as types from '../../constants/profile/timeCapsule';
 import TimeCapsulesAdapter from '../../adapters/timeCapsules';
 import {appErrorHandler} from '../app';
 
-export function fetchingUserTimeCapsule() {
+function fetchingUserTimeCapsule() {
   return {type: types.USER_TIME_CAPSULE_IS_FETCHING};
 }
 
-export function UsertimeCapsuleFetchSuccess(userTimeCapsules) {
+function UsertimeCapsuleFetchSuccess(userTimeCapsules) {
   return {type: types.USER_TIME_CAPSULE_FETCH_SUCCESS, userTimeCapsules: userTimeCapsules};
 }
 
-export function UsertimeCapsuleFetchFailure() {
+function UsertimeCapsuleFetchFailure() {
   return {type: types.USER_TIME_CAPSULE_FETCH_FAILURE};
 }
 
-export function fetchingParticipatedTimeCapsule() {
+function fetchingParticipatedTimeCapsule() {
   return {type: types.PATICIPATED_TIME_CAPSULE_IS_FETCHING};
 }
 
-export function ParticipatedTimeCapsuleFetchSuccess(participatedTimeCapsules) {
+function ParticipatedTimeCapsuleFetchSuccess(participatedTimeCapsules) {
   return {type: types.PATICIPATED_TIME_CAPSULE_FETCH_SUCCESS, participatedTimeCapsules: participatedTimeCapsules};
 }
 
-export function ParticipatedTimeCapsuleFetchFailure() {
+function ParticipatedTimeCapsuleFetchFailure() {
   return {type: types.PATICIPATED_TIME_CAPSULE_FETCH_FAILURE};
+}
+
+function fetchingGiftedTimeCapsule() {
+  return {type: types.GIFTED_TIME_CAPSULE_IS_FETCHING};
+}
+
+function giftedTimeCapsuleFetchSuccess(giftedTimeCapsules) {
+  return {type: types.GIFTED_TIME_CAPSULE_FETCH_SUCCESS, giftedTimeCapsules: giftedTimeCapsules};
+}
+
+function giftedTimeCapsuleFetchFailure() {
+  return {type: types.GIFTED_TIME_CAPSULE_FETCH_FAILURE};
 }
 
 //-------------------------------------------------------
@@ -78,6 +90,14 @@ function fetchParticipated() {
     })
 }
 
+function fetchGifted() {
+  return TimeCapsulesAdapter
+    .fetch({gifted: 1})
+    .then((response) => {
+      return response;
+    })
+}
+
 function deleting(timeCapsuleId) {
   return TimeCapsulesAdapter
     .delete(timeCapsuleId)
@@ -114,6 +134,21 @@ export function fetchParticipatedTimeCapsule() {
       .catch(errors => {
         dispatch(appErrorHandler(errors));
         dispatch(ParticipatedTimeCapsuleFetchFailure());
+      });
+  };
+}
+
+export function fetchGiftedTimeCapsule() {
+  return function (dispatch) {
+
+    dispatch(fetchingGiftedTimeCapsule());
+    fetchGifted()
+      .then((response) => {
+        dispatch(giftedTimeCapsuleFetchSuccess(response));
+      })
+      .catch(errors => {
+        dispatch(appErrorHandler(errors));
+        dispatch(giftedTimeCapsuleFetchFailure());
       });
   };
 }

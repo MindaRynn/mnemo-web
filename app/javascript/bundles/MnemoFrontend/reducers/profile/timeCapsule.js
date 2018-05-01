@@ -10,6 +10,10 @@ const initialState = {
   ParticipatedTimeCapsuleFetchSuccess: false,
   ParticipatedTimeCapsuleFetchFailure: false,
 
+  fetchingGiftedTimeCapsule: false,
+  giftedTimeCapsuleFetchSuccess: false,
+  giftedTimeCapsuleFetchFailure: false,
+
   creatingTimeCapsule: false,
   createTimeCapsuleSuccess: false,
   createTimeCapsuleFailure: false,
@@ -19,11 +23,12 @@ const initialState = {
   deleteTimeCapsuleFailure: false,
 
   userTimeCapsules: [],
-  participatedTimeCapsules: []
+  participatedTimeCapsules: [],
+  giftedTimeCapsules: []
 };
 
 export default function timeCapsuleReducer(state = initialState, action = {}) {
-  let { type, userTimeCapsules, userTimeCapsule, participatedTimeCapsules, deleted_timeCapsule_id } = action;
+  let { type, userTimeCapsules, userTimeCapsule, participatedTimeCapsules, giftedTimeCapsules, deleted_timeCapsule_id } = action;
 
   switch(type) {
     case actionTypes.USER_TIME_CAPSULE_IS_FETCHING:
@@ -69,6 +74,28 @@ export default function timeCapsuleReducer(state = initialState, action = {}) {
         ParticipatedTimeCapsuleFetchSuccess: false,
         ParticipatedTimeCapsuleFetchFailure: true,
     });
+
+    case actionTypes.GIFTED_TIME_CAPSULE_IS_FETCHING:
+      return objectAssign({}, state, {
+        fetchingParticipatedTimeCapsule: true,
+        ParticipatedTimeCapsuleFetchSuccess: false,
+        ParticipatedTimeCapsuleFetchFailure: false
+      });
+
+    case actionTypes.GIFTED_TIME_CAPSULE_FETCH_SUCCESS:
+      return objectAssign({}, state, {
+        fetchingGiftedTimeCapsule: false,
+        giftedTimeCapsuleFetchSuccess: true,
+        giftedTimeCapsuleFetchFailure: false,
+        giftedTimeCapsules: state.giftedTimeCapsules.concat(giftedTimeCapsules)
+      });
+
+    case actionTypes.GIFTED_TIME_CAPSULE_FETCH_FAILURE:
+      return objectAssign({}, state, {
+        fetchingGiftedTimeCapsule: false,
+        giftedTimeCapsuleFetchSuccess: false,
+        giftedTimeCapsuleFetchFailure: true,
+      });
 
 // ------------------------------------------------------------
 
