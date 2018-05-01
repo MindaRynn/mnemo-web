@@ -12,19 +12,16 @@ import MemoryBoxesSection from './memoryBox';
 import Image from '../../components/image'
 
 const initialState = {
-  fetchedCapsule: false
+  fetchedCapsule: false,
+  fetchedTag: false,
+  wrapDate : moment(),
+  openDate: moment(),
+  isEditing: false
 };
 
 class TimeCapsule extends React.Component {
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      wrapDate : moment(),
-      openDate: moment(),
-      isEditing: false,
-      tagFetched: false
-    };
 
     this._sendText = this._sendText.bind(this);
     this._updateTimeCapsule = this._updateTimeCapsule.bind(this);
@@ -40,12 +37,13 @@ class TimeCapsule extends React.Component {
     let {actions, params} = this.props;
     actions.getTimeCapsule(params.id);
     actions.openTimeCapsule(params.id);
-    actions.fetchTags()
+    actions.fetchTags();
   }
 
   componentDidUpdate(prevProps, prevState) {
     let {getTimeCapsuleSuccess, updateTimeCapsuleSuccess, memoryBoxCreateSuccess} = this.props.timeCapsule.timeCapsule;
     let {fetchTagSuccess} = this.props.timeCapsule.tag;
+
     let {fetchedCapsule} = this.state;
     let {actions, params} = this.props;
     let {timeCapsule} = this.props.timeCapsule.timeCapsule;
@@ -82,7 +80,7 @@ class TimeCapsule extends React.Component {
 
     if(fetchTagSuccess && !prevProps.timeCapsule.tag.fetchTagSuccess) {
       this.setState({
-        tagFetched: true
+        fetchedTag: true
       })
     }
   }
@@ -143,20 +141,17 @@ class TimeCapsule extends React.Component {
 
   render() {
     let {currentUser} = this.context;
-    let {fetchedCapsule, isEditing, tagFetched} = this.state;
+    let {fetchedCapsule, isEditing, fetchedTag} = this.state;
     let {actions} = this.props
     let {timeCapsule} = this.props.timeCapsule.timeCapsule;
-    let {tags} = this.props.timeCapsule.tag
     let {medium} = this.props.timeCapsule.media
+    let {tags} = this.props.timeCapsule.tag
     let memoryBoxes = this.props.timeCapsule.timeCapsule.memoryBoxes;
-    
+
     return (
       <div className="row">
-        {
-          tagFetched ? <CategoryList tags={tags}/> : null
-        }
-        <div className="time-capsule-section list col-9">
-          { fetchedCapsule ?
+        <div className="time-capsule-section list col-12">
+          { fetchedCapsule && fetchedTag ?
           <div className="time-capsule-container">
             <div className="profile">
               <Image src={timeCapsule.user.image} size="xs" classNames="circle"/>
@@ -187,6 +182,7 @@ class TimeCapsule extends React.Component {
                                    sendTextHandler={this._updateTimeCapsule}
                                    timeCapsule={timeCapsule}
                                    memoryBoxes={memoryBoxes}
+                                   tags={tags}
                                    typeEdit={true}/> : null
                   }
 
