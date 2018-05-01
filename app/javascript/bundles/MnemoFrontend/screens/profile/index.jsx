@@ -95,7 +95,7 @@ class Profile extends React.Component {
     let {currentUser} = this.context;
     let {id} = this.props.params
 
-    if (!!id) {
+    if (!!id && id != currentUser.id) {
       actions.getUser(id);
     } else {
       actions.fetchUserTimeCapsule(currentUser.id);

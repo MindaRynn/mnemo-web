@@ -7,7 +7,7 @@ class SearchForm extends React.Component {
     super(props);
     this._getSuggestions = this._getSuggestions.bind(this);
     this._renderSuggestion = this._renderSuggestion.bind(this);
-    
+
     this.state = {
       value: '',
       suggestions: []
