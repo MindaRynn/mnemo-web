@@ -181,7 +181,7 @@ class Profile extends React.Component {
 
     let userProfileId = this.props.params.id
 
-    let shownUser = !!userProfileId ? this.props.profile.user.user : currentUser
+    let shownUser = !!userProfileId && userProfileId != currentUser.id ? this.props.profile.user.user : currentUser
 
     return (
       <div>
