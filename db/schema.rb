@@ -72,6 +72,12 @@ ActiveRecord::Schema.define(version: 20180428092446) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.text "tag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "time_capsules", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -80,6 +86,7 @@ ActiveRecord::Schema.define(version: 20180428092446) do
     t.text "open_date"
     t.integer "direct_type", default: 0, null: false
     t.integer "status", default: 0, null: false
+    t.bigint "tag_id"
     t.text "subject"
     t.index ["tag_id"], name: "index_time_capsules_on_tag_id"
     t.index ["user_id"], name: "index_time_capsules_on_user_id"
