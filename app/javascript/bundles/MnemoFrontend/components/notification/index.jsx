@@ -67,7 +67,13 @@ class Notification extends React.Component {
               <div key={index} className={`notification-item ${notification.seen ? 'seen' : ''}`} onClick={e => this._clickHandler(e, notification.url)}>
                 <div>
                   <Image src={notification.user.image} size="xxs" classNames="circle" />
-                  <div className="detail">One Capsule is ready to Open</div>
+                    {
+                      notification.type == 'capsule' ? <div className="detail">One Capsule is ready to Open</div> : null
+                    }
+
+                    {
+                      notification.type == 'gift' ? <div className="detail">Someone send you a gifted</div> : null
+                    }
                 </div>
                 <div className="datetime">{notification.notiTime}</div>
               </div>
