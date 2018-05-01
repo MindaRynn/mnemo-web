@@ -185,8 +185,7 @@ class Profile extends React.Component {
 
     return (
       <div>
-
-        { (userProfileId && getUserSuccess) || !!!userProfileId ?
+        { (!!userProfileId && getUserSuccess) || !!!userProfileId || (!!userProfileId && userProfileId == currentUser.id) ?
           <div className="profile-container">
             <div className="row">
               <div className="col-4" >
