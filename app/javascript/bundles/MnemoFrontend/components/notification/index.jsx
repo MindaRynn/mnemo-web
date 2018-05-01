@@ -7,14 +7,6 @@ class Notification extends React.Component {
   constructor(props) {
     super(props);
 
-    // firebase.database().ref().child('notification').child(this.props.currentUser.notification_key).push({
-    //   type: 'capsule',
-    //   url: 'timeCapsule/2',
-    //   seen: false,
-    //   notiTime: moment().toDate().toLocaleDateString(),
-    //   user: this.props.currentUser
-    // })
-
     this.state = {notifications: [], unseenNum: 0}
   }
 
@@ -26,7 +18,6 @@ class Notification extends React.Component {
       .child('notification')
       .child(this.props.currentUser.notification_key)
       .once('value', function(snapshot) {
-
         snapshot.forEach(function(childSnapshot) {
           notifications.push(childSnapshot.val())
         })

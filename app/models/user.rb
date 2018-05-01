@@ -56,11 +56,19 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
+    firebase_url    = 'https://mnemo-194409.firebaseio.com/'
+    firebase_secret = 'WT9D9VscWz2Y7kXEei78SwlZ6YSAiW5fmNX5zU2R'
+    @firebase = Firebase::Client.new(firebase_url, firebase_secret)
+
+    notification_key = @firebase.push("notification",{facebook: 1}).body.to_h["name"]
+
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       user.name = auth.info.name   # assuming the user model has a name
       user.image = auth.info.image # assuming the user model has an image
+      user.notification_key = notification_key
+      @firebase.delete("notification/#{notification_key}")
     end
   end
 

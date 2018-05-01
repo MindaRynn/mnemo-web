@@ -198,7 +198,7 @@ class Profile extends React.Component {
             </div>
             <hr/>
             {
-              (userProfileId != currentUser.id) ? null :
+              (userProfileId != currentUser.id) && !!userProfileId ? null :
                 <div>
                   <CapsuleForm hasOpenTime={true}
                                hasWrapTime={true}
