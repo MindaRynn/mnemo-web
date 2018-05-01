@@ -186,7 +186,7 @@ class TimeCapsule extends React.Component {
                                    typeEdit={true}/> : null
                   }
 
-                  { currentUser.id == timeCapsule.user.id || timeCapsule.participations.includes(currentUser.id) ?
+                  { currentUser.id == timeCapsule.user.id || timeCapsule.participations.includes(currentUser.id) || `timeCapsule.ready?` ?
                     null :
                     <MemoryBoxForm sendTextHandler={this._sendText}
                                    buttonText={"Add Memory Box"}
