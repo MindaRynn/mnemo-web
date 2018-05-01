@@ -93,8 +93,8 @@ ActiveRecord::Schema.define(version: 20180501185553) do
     t.text "open_date"
     t.integer "direct_type", default: 0, null: false
     t.integer "status", default: 0, null: false
-    t.text "subject"
     t.bigint "tag_id"
+    t.text "subject"
     t.index ["tag_id"], name: "index_time_capsules_on_tag_id"
     t.index ["user_id"], name: "index_time_capsules_on_user_id"
   end
