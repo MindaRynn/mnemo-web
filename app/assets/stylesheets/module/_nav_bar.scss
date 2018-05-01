@@ -33,6 +33,20 @@ nav {
       display: none;
     }
   }
+
+  .navbar-brand {
+    .nav-link {
+      border-radius: 0;
+      color: #fff;
+      padding: 0px;
+    }
+
+    img {
+      width: auto;
+      height: 30px;
+    }
+  }
+
   .nav-item {
     width: auto;
     display: inline-block;
