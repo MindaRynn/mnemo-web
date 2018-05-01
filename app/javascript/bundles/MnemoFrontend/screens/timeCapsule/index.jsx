@@ -22,7 +22,8 @@ class TimeCapsule extends React.Component {
     this.state = {
       wrapDate : moment(),
       openDate: moment(),
-      isEditing: false
+      isEditing: false,
+      tagFetched: false
     };
 
     this._sendText = this._sendText.bind(this);
@@ -39,10 +40,12 @@ class TimeCapsule extends React.Component {
     let {actions, params} = this.props;
     actions.getTimeCapsule(params.id);
     actions.openTimeCapsule(params.id);
+    actions.fetchTags()
   }
 
   componentDidUpdate(prevProps, prevState) {
     let {getTimeCapsuleSuccess, updateTimeCapsuleSuccess, memoryBoxCreateSuccess} = this.props.timeCapsule.timeCapsule;
+    let {fetchTagSuccess} = this.props.timeCapsule.tag;
     let {fetchedCapsule} = this.state;
     let {actions, params} = this.props;
     let {timeCapsule} = this.props.timeCapsule.timeCapsule;
@@ -75,6 +78,12 @@ class TimeCapsule extends React.Component {
 
     if(memoryBoxCreateSuccess && !prevProps.timeCapsule.timeCapsule.memoryBoxCreateSuccess) {
       actions.getTimeCapsule(params.id);
+    }
+
+    if(fetchTagSuccess && !prevProps.timeCapsule.tag.fetchTagSuccess) {
+      this.setState({
+        tagFetched: true
+      })
     }
   }
 
@@ -134,15 +143,18 @@ class TimeCapsule extends React.Component {
 
   render() {
     let {currentUser} = this.context;
-    let {fetchedCapsule, isEditing} = this.state;
+    let {fetchedCapsule, isEditing, tagFetched} = this.state;
     let {actions} = this.props
     let {timeCapsule} = this.props.timeCapsule.timeCapsule;
+    let {tags} = this.props.timeCapsule.tag
     let {medium} = this.props.timeCapsule.media
     let memoryBoxes = this.props.timeCapsule.timeCapsule.memoryBoxes;
-
+    
     return (
       <div className="row">
-        <CategoryList />
+        {
+          tagFetched ? <CategoryList tags={tags}/> : null
+        }
         <div className="time-capsule-section list col-9">
           { fetchedCapsule ?
           <div className="time-capsule-container">
