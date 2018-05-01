@@ -20,7 +20,7 @@ export default class RegistrationForm extends React.Component {
         </div>
 
         <div className="form-input-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">E-mail</label>
           <input type="email"
                  name="user[email]"/>
         </div>
@@ -49,7 +49,7 @@ export default class RegistrationForm extends React.Component {
 
         <div className="form-input-group flex-end">
           <div className="form-group centered">
-            Already have an account? <a href={signinPath}> Sign in</a>
+            Already have an account? <a href={signinPath}>&nbsp;<u>Sign in</u></a>
           </div>
         </div>
       </form>
