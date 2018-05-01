@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import Image from "../../components/image";
-
-
+import SearchForm from "../../components/searchForm";
 
 const directType = {
   me: 'Only me',
@@ -18,7 +17,7 @@ const initialState = {
   capsuleName: '',
   capsuleDetail: '',
   capsuleTag:'General',
-  friendName: ''
+  friendId: ''
 };
 
 
@@ -38,7 +37,7 @@ class CapsuleForm extends React.Component {
     this._capsuleNameHandler = this._capsuleNameHandler.bind(this);
     this._capsuleDetailHandler = this._capsuleDetailHandler.bind(this);
     this._capsuleTagHandler = this._capsuleTagHandler.bind(this);
-    this._friendNameHandler = this._friendNameHandler.bind(this);
+    this._friendIdHandler = this._friendIdHandler.bind(this);
     this._deleteMedia = this._deleteMedia.bind(this);
     this._updateWrappedTime = this._updateWrappedTime.bind(this);
   }
@@ -113,11 +112,11 @@ class CapsuleForm extends React.Component {
     });
   }
 
-  _friendNameHandler(e){
+  _friendIdHandler(e, userId){
     e.preventDefault();
 
     this.setState({
-      friendName: e.target.value
+      friendId: userId
     });
   }
 
@@ -162,7 +161,7 @@ class CapsuleForm extends React.Component {
   }
 
   render() {
-    let {typeEdit, wrapDate, openDate, wrapDateChangeHandler, openDateChangeHandler, sendTextHandler, buttonText, medium, tags} = this.props;
+    let {typeEdit, wrapDate, openDate, wrapDateChangeHandler, openDateChangeHandler, sendTextHandler, buttonText, medium, tags, allUsers} = this.props;
     let {currentUser} = this.context;
     let {directTo} = this.state;
     const dummyAvatar = "https://storage.googleapis.com/mnemo-storage/placeHolderAvatar/tempAvatar.jpg";
@@ -309,7 +308,7 @@ class CapsuleForm extends React.Component {
             {
              directTo == 'friend' ?
                <div className="friend-seach-container">
-                 <input onChange={this._friendNameHandler} />
+                 <SearchForm onChangeHandler={this._friendIdHandler} hasOnClick={true} allUser={allUsers}/>
                </div> : null
             }
             <button className="submit-button" onClick={e => sendTextHandler(e, this.state)}>{buttonText}</button>

@@ -8,7 +8,8 @@ import Capsule from '../../components/timeCapsuleItem/index'
 
 const initialState = {
   fetchedCapsule: false,
-  fetchedTag: false
+  fetchedTag: false,
+  fetchedUser:false
 };
 
 class Feed extends React.Component {
@@ -24,11 +25,13 @@ class Feed extends React.Component {
 
     actions.fetchTimeCapsule();
     actions.fetchTags();
+    actions.fetchUser(currentUser.id);
   }
 
   componentDidUpdate(prevProps) {
     let {fetchTimeCapsuleSuccess} = this.props.feed.timeCapsule
     let {fetchTagSuccess} = this.props.feed.tag
+    let {fetchUserSuccess} = this.props.feed.user
 
     if(fetchTimeCapsuleSuccess && !prevProps.feed.timeCapsule.fetchTimeCapsuleSuccess) {
       this.setState({
@@ -41,17 +44,24 @@ class Feed extends React.Component {
         fetchedTag: true,
       });
     }
+
+    if(fetchUserSuccess && !prevProps.feed.user.fetchUserSuccess) {
+      this.setState({
+        fetchedUser: true,
+      });
+    }
   }
 
   render() {
-    let {fetchedCapsule, fetchedTag} = this.state
+    let {fetchedCapsule, fetchedTag, fetchedUser} = this.state
     let {actions, feed} = this.props;
     let {medium} = this.props.feed.media
+    let {users} = this.props.feed.user
 
     return (
       <div className="row">
         {fetchedTag ? <CategoryList tags={feed.tag.tags} actions={actions} /> : null }
-        {fetchedCapsule ? <CapsuleList actions={actions} medium={medium} timeCapsule={feed.timeCapsule} tags={feed.tag.tags} /> : null }
+        {fetchedCapsule && fetchedUser ? <CapsuleList allUsers={users} actions={actions} medium={medium} timeCapsule={feed.timeCapsule} tags={feed.tag.tags} /> : null }
       </div>
     );
   }

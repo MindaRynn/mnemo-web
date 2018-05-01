@@ -3,6 +3,10 @@ import Autosuggest from 'react-autosuggest';
 
 class SearchForm extends React.Component {
 
+  static defaultProps = {
+    hasOnClick: false
+  };
+
   constructor(props) {
     super(props);
     this._getSuggestions = this._getSuggestions.bind(this);
@@ -28,6 +32,7 @@ class SearchForm extends React.Component {
     let {allUser} = this.props
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
+
     return inputLength === 0 ? [] : allUser.filter(user =>
         user.name.toLowerCase().slice(0, inputLength) === inputValue
       );
@@ -39,8 +44,9 @@ class SearchForm extends React.Component {
 
   // Use your imagination to render suggestions.
   _renderSuggestion(suggestion){
+    let {hasOnClick, onChangeHandler} = this.props
     return (
-      <div className="suggestion" onClick={e => this._clickHandler(e, suggestion.id)}>
+      <div className="suggestion" onClick={hasOnClick ? e => onChangeHandler(e, suggestion.id) : e => this._clickHandler(e, suggestion.id)}>
         {suggestion.name}
       </div>
     );
