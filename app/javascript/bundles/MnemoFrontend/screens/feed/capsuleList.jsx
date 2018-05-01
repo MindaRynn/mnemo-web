@@ -75,7 +75,8 @@ class CapsuleList extends React.Component {
           wrapDate: capsuleDetail.currentTime
         }, () => {
           capsuleDetail['wrapDate'] = (this.state.wrapDate.add(1, 'seconds')).toDate();
-          capsuleDetail['openDate'] = this.state.openDate.toDate();
+          // capsuleDetail['openDate'] = this.state.openDate.toDate();
+          capsuleDetail['openDate'] = (this.state.wrapDate.add(10, 'seconds')).toDate();
           capsuleDetail['medium'] = this.props.medium;
 
           actions.createTimeCapsule(currentUser.id, capsuleDetail)
@@ -83,8 +84,9 @@ class CapsuleList extends React.Component {
         })
       } else {
         capsuleDetail['wrapDate'] = (this.state.wrapDate.add(1, 'seconds')).toDate();
-        capsuleDetail['openDate'] = this.state.openDate.toDate();
+        // capsuleDetail['openDate'] = this.state.openDate.toDate();
         capsuleDetail['medium'] = this.props.medium;
+        capsuleDetail['openDate'] = (this.state.wrapDate.add(10, 'seconds')).toDate();
 
         actions.createTimeCapsule(currentUser.id, capsuleDetail)
         window.location.reload();

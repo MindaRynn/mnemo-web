@@ -18,7 +18,7 @@ export default class TimeCapsuleItem extends React.Component {
     if(e.target.id == "labelDeleteButton") {
       let {actions, timeCapsule} = this.props
       actions.deleteTimeCapsule(timeCapsule.id)
-    } else if(e.target.id == "formCapsule") {
+    } else {
       let {timeCapsule} = this.props;
       window.location = `/timeCapsule/${timeCapsule.id}`;
     }
