@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :memory_boxes, only: [:index, :create]
       resources :medium, only: [:index, :create]
       resources :tags, only: :index
+      resources :users, only: :index
     end
   end
 

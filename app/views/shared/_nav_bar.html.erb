@@ -15,6 +15,12 @@
       </ul>
       <div class="navbar-brand">Logo</div>
       <div class="dropdown-container">
+        <%= react_component('SearchForm', props: {
+            currentUser: current_user,
+            csrfToken: csrf_token,
+            allUser: @all_user
+        })
+        %>
         <div class="dropdown">
           <div class="avatar-container" data-toggle="dropdown">
             <span> <%= current_user.name %> |</span>

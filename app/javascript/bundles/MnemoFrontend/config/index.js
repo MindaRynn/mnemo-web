@@ -7,6 +7,7 @@ config['api'] = {
   medium: '/api/v1/medium',
   memory_boxes: '/api/v1/memory_boxes',
   tags: '/api/v1/tags',
+  users: '/api/v1/users'
 };
 
 config['firebase'] = {

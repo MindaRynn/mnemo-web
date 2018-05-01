@@ -18,6 +18,8 @@ export default (
     <Route path="/directMessage" component={DirectMessage} />
     <Route path="/profile" component={Profile} />
 
+    <Route path="/profile/:id" component={Profile} />
+
     <Route path="timeCapsule/:id" component={TimeCapsule} />
 
     <Route path="*" getComponent={(_location, callback) => {

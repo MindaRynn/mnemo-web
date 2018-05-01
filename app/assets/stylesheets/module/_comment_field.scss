@@ -48,6 +48,12 @@
   }
 }
 
+.comment-field-container .textfield-group .timing-container {
+  input {
+    padding: 1.25rem;
+  }
+}
+
 .comment-field-container .timing-container {
   @include flexbox();
 
@@ -56,12 +62,12 @@
     @include flex-grow(1);
   }
 
-  > div + div {
-    @include justify-content(flex-end)
+  input {
+    padding: 0;
   }
 
-  input {
-    padding: 1.25rem;
+  > div + div {
+    @include justify-content(flex-end)
   }
 
   .small-field {
