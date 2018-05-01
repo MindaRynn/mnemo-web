@@ -3,7 +3,7 @@
     <nav class="navbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/">New Feed</a>
+          <a class="nav-link" href="/">Home</a>
         </li>
         <li class="nav-item">
           <%= react_component('Notification', props: {
@@ -16,7 +16,9 @@
           <a class="nav-link" href="/directMessage">Direct message</a>
         </li>
       </ul>
-      <div class="navbar-brand">Logo</div>
+      <div class="navbar-brand">
+        <%=image_tag("https://storage.googleapis.com/mnemo-storage/image_project/logo_mnemo.svg")%><div style="display: inline; padding-left: 1rem">MNEMO</div>
+      </div>
       <div class="dropdown-container">
         <div class="dropdown">
           <div class="avatar-container" data-toggle="dropdown">
@@ -41,7 +43,11 @@
 <% else %>
   <div class="navbar-container">
     <nav class="navbar">
-      <div class="navbar-brand">Logo</div>
+      <div class="navbar-brand">
+        <a class="nav-link" href="/">
+          <%=image_tag("https://storage.googleapis.com/mnemo-storage/image_project/logo_mnemo.svg")%><div style="display: inline; padding-left: 1rem">MNEMO</div>
+        </a>
+      </div>
       <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="/users/sign_in">Sign in</a>
