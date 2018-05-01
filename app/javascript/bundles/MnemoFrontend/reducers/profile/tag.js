@@ -1,5 +1,5 @@
 import objectAssign from 'object-assign';
-import * as actionTypes from '../../constants/feed/tag';
+import * as actionTypes from '../../constants/profile/tag';
 
 const initialState = {
   fetchingTag: false,

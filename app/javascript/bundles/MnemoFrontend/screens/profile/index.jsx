@@ -14,6 +14,7 @@ class Profile extends React.Component {
       wrapDate: moment(),
       openDate: moment(),
       fetchedUserCapsule: false,
+      getUserSuccess: false,
       fetchedParticipatedCapsule: false,
       currentShowCapsule: "yours"
     }
@@ -92,14 +93,22 @@ class Profile extends React.Component {
   componentDidMount() {
     let {actions} = this.props;
     let {currentUser} = this.context;
+    let {id} = this.props.params
 
-    actions.fetchUserTimeCapsule(currentUser.id);
-    actions.fetchParticipatedTimeCapsule();
-    actions.fetchTags();
+    if (!!id && id != currentUser.id) {
+      actions.getUser(id);
+    } else {
+      actions.fetchUserTimeCapsule(currentUser.id);
+      actions.fetchParticipatedTimeCapsule();
+      actions.fetchTags();
+    }
   }
 
   componentDidUpdate(prevProps) {
-    let {fetchTimeCapsuleSuccess, fetchParticipatedTimeCapsuleSuccess, deleteTimeCapsuleSuccess} = this.props.profile.timeCapsule
+    let {fetchTimeCapsuleSuccess, fetchParticipatedTimeCapsuleSuccess} = this.props.profile.timeCapsule
+    let {actions} = this.props
+
+    let {getUserSuccess} = this.props.profile.user
 
     if(fetchTimeCapsuleSuccess && !prevProps.profile.timeCapsule.fetchTimeCapsuleSuccess) {
       this.setState({
@@ -111,6 +120,14 @@ class Profile extends React.Component {
         fetchedParticipatedCapsule: true,
       });
     }
+
+    if(getUserSuccess && !prevProps.profile.user.getUserSuccess) {
+      this.setState({
+        getUserSuccess: true,
+      });
+
+      actions.fetchUserTimeCapsule(this.props.params.id);
+    }
   }
 
   _renderTimeCapsule() {
@@ -118,6 +135,9 @@ class Profile extends React.Component {
     let {participatedTimeCapsules} = this.props.profile.timeCapsule;
     let {actions} = this.props;
     let timeCapsules = this.state.currentShowCapsule == "yours" ? userTimeCapsules : participatedTimeCapsules
+
+    let shownUser = this.props.params.id ? this.props.profile.user.user : this.context.currentUser
+
     return (
       <div>
         {timeCapsules.map((timeCapsule, index) => {
@@ -135,7 +155,7 @@ class Profile extends React.Component {
           }
           
           return (<ContainerSwtichCapsule status={status} key={index}
-                      currentUser={this.context.currentUser}
+                       currentUser={shownUser}
                        avatar={timeCapsule.user.image}
                        name={timeCapsule.user.name}
                        timeCapsule={timeCapsule}
@@ -156,55 +176,60 @@ class Profile extends React.Component {
     let {actions, profile} = this.props;
     let {timeCapsule} = profile;
     let {medium} = profile.media;
-    let {fetchedUserCapsule} = this.state
+    let {fetchedUserCapsule, getUserSuccess} = this.state
+    let {currentUser} = this.context;
+
+    let userProfileId = this.props.params.id
+
+    let shownUser = !!userProfileId ? this.props.profile.user.user : currentUser
 
     return (
       <div>
-        <div className="profile-container">
-          <div className="row">
-            <div className="col-4" >
-              <center><Image size="l" src={this.context.currentUser.image}/></center>
-            </div>
-            <div className="col-5">
-              <div className="row"><h2>{this.context.currentUser.name}</h2></div>
-              <div className="row"><p>{this.context.currentUser.bio}</p></div>
-            </div>
-          </div>
-          <hr/>
-          <div className="row text-center">
-            <div className="col-2"></div>
-            <div className="col-4">Post <h2 className="sameline">23.5k</h2></div>
-            <div className="col-4">Friends <h2 className="sameline">235</h2></div>
-            <div className="col-2"></div>
-          </div>
-          <hr/>
-          <CapsuleForm hasOpenTime={true}
-                       hasWrapTime={true}
-                       wrapDateChangeHandler={this.wrapDateChangeHandler}
-                       openDateChangeHandler={this.openDateChangeHandler}
-                       openDate={this.state.openDate}
-                       wrapDate={this.state.wrapDate}
-                       buttonText="Create Time Capsule"
-                       actions={actions}
-                       medium={medium}
-                       resetFormHandler={this._resetForm}
-                       sendTextHandler={this._sendText}
-                       timeCapsule={timeCapsule}
-                       tags={profile.tag.tags}
-          />
-          <div className="row">
-            <div className="col-8">
-              <ul className="nav">
-                <li className="space-item"><a data-toggle="tab" onClick={e => this.setShowCapsule(e,"yours")} href="#menu1" className="space-toggle active show">Yours</a></li>
-                <li className="space-item"><a data-toggle="tab" onClick={e => this.setShowCapsule(e,"joined")} href="#menu2" className="space-toggle">Joined</a></li>
-              </ul>
-            </div>
-          </div>      
 
-          <div className="add-data">
-            <input id="timeOverButton" style={{ display: "none" }} data-toggle="modal" data-target="#timeover"/>
-          </div>
-          <div className="modal fade" id="timeover" tabIndex="-1" role="dialog" aria-labelledby="timeover" aria-hidden="true">
+        { (userProfileId && getUserSuccess) || !!!userProfileId ?
+          <div className="profile-container">
+            <div className="row">
+              <div className="col-4" >
+                <center><Image size="l" src={ shownUser.image}/></center>
+              </div>
+              <div className="col-5">
+                <div className="row"><h2>{shownUser.name}</h2></div>
+                <div className="row"><p>{shownUser.bio}</p></div>
+              </div>
+            </div>
+            <hr/>
+            {
+              (userProfileId != currentUser.id) ? null :
+                <div>
+                  <CapsuleForm hasOpenTime={true}
+                               hasWrapTime={true}
+                               wrapDateChangeHandler={this.wrapDateChangeHandler}
+                               openDateChangeHandler={this.openDateChangeHandler}
+                               openDate={this.state.openDate}
+                               wrapDate={this.state.wrapDate}
+                               buttonText="Create Time Capsule"
+                               actions={actions}
+                               medium={medium}
+                               resetFormHandler={this._resetForm}
+                               sendTextHandler={this._sendText}
+                               timeCapsule={timeCapsule}
+                               tags={profile.tag.tags}
+                  />
+                  <div className="row">
+                    <div className="col-8">
+                      <ul className="nav">
+                        <li className="space-item"><a data-toggle="tab" onClick={e => this.setShowCapsule(e,"yours")} href="#menu1" className="space-toggle active show">Yours</a></li>
+                        <li className="space-item"><a data-toggle="tab" onClick={e => this.setShowCapsule(e,"joined")} href="#menu2" className="space-toggle">Joined</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+            }
+
+            <div className="add-data">
+              <input id="timeOverButton" style={{ display: "none" }} data-toggle="modal" data-target="#timeover"/>
+            </div>
+            <div className="modal fade" id="timeover" tabIndex="-1" role="dialog" aria-labelledby="timeover" aria-hidden="true">
               <div id="timeOverModal" className="modal-dialog modal-sm">
                 <div className="modal-content">
                   <div className="modal-body text-center">
@@ -213,10 +238,11 @@ class Profile extends React.Component {
                   </div>
                 </div>
               </div>
-          </div>
+            </div>
 
-          {fetchedUserCapsule ? this._renderTimeCapsule() : null}
-        </div>
+            {fetchedUserCapsule ? this._renderTimeCapsule() : null}
+          </div> : null
+        }
       </div>
     );
   }

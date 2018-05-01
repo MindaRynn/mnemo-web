@@ -1,0 +1,29 @@
+.search-container {
+  margin-right: 30px;
+}
+
+.search-container .react-autosuggest__container {
+  input {
+    width: 300px;
+    border-radius: 2rem;
+  }
+
+  ul {
+    padding: 0;
+  }
+}
+
+.search-container .react-autosuggest__suggestions-container {
+  position: absolute;
+  background-color: #fff;
+  width: 300px;
+
+  .suggestion {
+    color: #000;
+    padding: 10px 20px;
+
+    &:hover {
+      background-color: lightgray;
+    }
+  }
+}

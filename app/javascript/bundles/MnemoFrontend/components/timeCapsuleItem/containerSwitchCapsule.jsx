@@ -27,8 +27,7 @@ export default class ContainerSwitch extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     let {isWaiting} = this.state;
-    let {timeCapsule} = this.props
-    let {currentUser} = this.context;
+    let {timeCapsule, currentUser} = this.props
 
     if(!isWaiting && prevState.isWaiting) {
       firebase.database().ref().child('notification').child(currentUser.notification_key).push({
@@ -59,7 +58,7 @@ export default class ContainerSwitch extends React.Component {
   }
 
   render() {
-    let {avatar,name,timeCapsule, actions, currentUser} = this.props
+    let {avatar,name,timeCapsule, actions} = this.props
 
     return (
       <div>

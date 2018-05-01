@@ -56,8 +56,12 @@ a:hover {
 }
 
 .dropdown-container {
-  width: 17.5rem;
+  @include flexbox();
+  @include justify-content(space-between);
+  @include align-items(center);
+
   text-align: right;
+
   .avatar-container {
     span {
       vertical-align: middle;
