@@ -10,7 +10,7 @@ class TimeCapsule < ApplicationRecord
   has_many :memory_boxes, dependent: :destroy
 
   def ready?
-    Date.current <= open_date_format
+    Date.current >= open_date_format
   end
 
   def open_date_format
