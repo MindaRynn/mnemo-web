@@ -21,7 +21,7 @@ class TimeCapsuleDetail extends React.Component {
         <div className="capsule-detail-container">
           <div className="header-container">
             <div>
-              <h3>{currentUser.name}</h3>
+              <h3>{timeCapsule.user.name}</h3>
               <div>{created_at}</div>
             </div>
             <div>
